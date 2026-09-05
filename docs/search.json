@@ -1,0 +1,62 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Haiyu Zhu",
+    "section": "",
+    "text": "I am a student double-majoring in Biochemistry and Applied Mathematics at Colgate University.",
+    "crumbs": [
+      "About"
+    ]
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "Haiyu Zhu",
+    "section": "",
+    "text": "I am a student double-majoring in Biochemistry and Applied Mathematics at Colgate University.",
+    "crumbs": [
+      "About"
+    ]
+  },
+  {
+    "objectID": "about.html#technical-skills",
+    "href": "about.html#technical-skills",
+    "title": "Haiyu Zhu",
+    "section": "Technical Skills",
+    "text": "Technical Skills\n\nProgramming Languages: R, MATLAB\nTools: Positron, Quarto, Git/GitHub, LaTeX",
+    "crumbs": [
+      "About"
+    ]
+  },
+  {
+    "objectID": "about.html#declaration-of-ai-use",
+    "href": "about.html#declaration-of-ai-use",
+    "title": "Haiyu Zhu",
+    "section": "Declaration of AI Use",
+    "text": "Declaration of AI Use\nIn creating this website, I used generative AI primarily as a learning and troubleshooting tool. AI was used to help me understand unfamiliar concepts related to Positron, Quarto, and GitHub; identify and troubleshoot errors in coding; and provide step-by-step explanations when I encountered technical problems.",
+    "crumbs": [
+      "About"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Academic Portfolio",
+    "section": "",
+    "text": "Welcome to my portfolio website! Here you will find write-ups and analysis projects completed across my courses:\n\nData Analysis I (MATH 354): Applied statistical inference, hypothesis testing, and modeling.\n\nUse the sidebar menu to navigate through my coursework.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#welcome",
+    "href": "index.html#welcome",
+    "title": "Academic Portfolio",
+    "section": "",
+    "text": "Welcome to my portfolio website! Here you will find write-ups and analysis projects completed across my courses:\n\nData Analysis I (MATH 354): Applied statistical inference, hypothesis testing, and modeling.\n\nUse the sidebar menu to navigate through my coursework.",
+    "crumbs": [
+      "Home"
+    ]
+  }
+]

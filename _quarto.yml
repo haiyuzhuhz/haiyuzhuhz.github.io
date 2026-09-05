@@ -1,13 +1,31 @@
 project:
   type: website
+  output-dir: docs
 
 website:
-  title: "website"
-  navbar:
-    left:
+  title: "Academic Portfolio"
+  favicon: images/ColgateC.png
+  sidebar:
+    logo: images/ColgateSeal.png
+    style: "docked"
+    collapse-level: 1
+    search: false
+    contents:
       - href: index.qmd
-        text: Home
-      - about.qmd
+        text: "Home"
+        icon: house
+      - href: about.qmd
+        text: "About"
+        icon: person
+      # MATH 354
+      - section: "Data Analysis I"
+        contents:
+          - text: "Homework 1: One Sample Inference"
+            href: 
+
+page-footer:
+  left: "© 2026 Colgate University Student Portfolio"
+  right: "[GitHub Source](https://github.com/haiyuzhuhz)"
 
 format:
   html:
@@ -17,5 +35,5 @@ format:
     css: styles.css
     toc: true
 
-
-
+execute:
+  freeze: auto

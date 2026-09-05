@@ -1,8 +1,13 @@
 ---
-title: "About Me"
+title: "Haiyu Zhu"
+
 about:
-  template: solana
+  template: trestles
+  image: images/me.jpg
   links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/haiyu-zhu
     - icon: github
       text: GitHub
       href: https://github.com/haiyuzhuhz
@@ -10,12 +15,14 @@ about:
       text: Email
       href: mailto:hzhu@colgate.edu
 ---
-
 ## Education
 
-I am a student at Colgate University studying Biochemistry and Applied Mathematics.
+I am a student double-majoring in Biochemistry and Applied Mathematics at Colgate University.
 
 ## Technical Skills
 
-* **Programming Languages:** R, Python, MATLAB
+* **Programming Languages:** R, MATLAB
 * **Tools:** Positron, Quarto, Git/GitHub, LaTeX
+
+## Declaration of AI Use
+In creating this website, I used generative AI primarily as a learning and troubleshooting tool. AI was used to help me understand unfamiliar concepts related to Positron, Quarto, and GitHub; identify and troubleshoot errors in coding; and provide step-by-step explanations when I encountered technical problems.
