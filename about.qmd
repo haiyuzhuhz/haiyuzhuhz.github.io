@@ -1,5 +1,21 @@
 ---
-title: "About"
+title: "About Me"
+about:
+  template: solana
+  links:
+    - icon: github
+      text: GitHub
+      href: https://github.com/haiyuzhuhz
+    - icon: envelope
+      text: Email
+      href: mailto:hzhu@colgate.edu
 ---
 
-About this site
+## Education
+
+I am a student at Colgate University studying Biochemistry and Applied Mathematics.
+
+## Technical Skills
+
+* **Programming Languages:** R, Python, MATLAB
+* **Tools:** Positron, Quarto, Git/GitHub, LaTeX
