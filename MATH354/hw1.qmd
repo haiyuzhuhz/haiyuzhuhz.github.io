@@ -213,6 +213,7 @@ We do not have statistically discernible support for the alternative hypothesis.
 The researchers evaluated two new-toy trials per dog across 𝑛 = 10 dogs. In the overheard condition, the dogs
 retrieved all the new toys correctly on the first try. That is, the proportion of times the dogs retrieved the new toys
 they had only learned through overhearing was 1.0.
+
 ## Part a
 The binomial model is a sum of Bernoulli trials. Thus, each $X_i$ must have a binary outcome, the number of trials $n$ must be fixed, the trials must be independent, and the probability of the event of interest $p$ must be the same in every trial. 
 

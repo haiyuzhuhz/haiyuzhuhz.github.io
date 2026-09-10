@@ -226,9 +226,10 @@ window.Quarto = {
   </ul></li>
   <li><a href="#question-2" id="toc-question-2" class="nav-link" data-scroll-target="#question-2"><span class="header-section-number">2</span> Question 2</a>
   <ul class="collapse">
-  <li><a href="#part-b-1" id="toc-part-b-1" class="nav-link" data-scroll-target="#part-b-1"><span class="header-section-number">2.1</span> Part b</a></li>
-  <li><a href="#part-c" id="toc-part-c" class="nav-link" data-scroll-target="#part-c"><span class="header-section-number">2.2</span> Part c</a></li>
-  <li><a href="#part-d" id="toc-part-d" class="nav-link" data-scroll-target="#part-d"><span class="header-section-number">2.3</span> Part d</a></li>
+  <li><a href="#part-a-1" id="toc-part-a-1" class="nav-link" data-scroll-target="#part-a-1"><span class="header-section-number">2.1</span> Part a</a></li>
+  <li><a href="#part-b-1" id="toc-part-b-1" class="nav-link" data-scroll-target="#part-b-1"><span class="header-section-number">2.2</span> Part b</a></li>
+  <li><a href="#part-c" id="toc-part-c" class="nav-link" data-scroll-target="#part-c"><span class="header-section-number">2.3</span> Part c</a></li>
+  <li><a href="#part-d" id="toc-part-d" class="nav-link" data-scroll-target="#part-d"><span class="header-section-number">2.4</span> Part d</a></li>
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">3</span> References</a></li>
   </ul>
@@ -550,10 +551,14 @@ Figure&nbsp;3: Null distribution of the mean paired difference, with the observe
 </section>
 <section id="question-2" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Question 2</h1>
-<p>The researchers evaluated two new-toy trials per dog across 𝑛 = 10 dogs. In the overheard condition, the dogs retrieved all the new toys correctly on the first try. That is, the proportion of times the dogs retrieved the new toys they had only learned through overhearing was 1.0. ## Part a The binomial model is a sum of Bernoulli trials. Thus, each <span class="math inline">\(X_i\)</span> must have a binary outcome, the number of trials <span class="math inline">\(n\)</span> must be fixed, the trials must be independent, and the probability of the event of interest <span class="math inline">\(p\)</span> must be the same in every trial.</p>
+<p>The researchers evaluated two new-toy trials per dog across 𝑛 = 10 dogs. In the overheard condition, the dogs retrieved all the new toys correctly on the first try. That is, the proportion of times the dogs retrieved the new toys they had only learned through overhearing was 1.0.</p>
+<section id="part-a-1" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="part-a-1"><span class="header-section-number">2.1</span> Part a</h2>
+<p>The binomial model is a sum of Bernoulli trials. Thus, each <span class="math inline">\(X_i\)</span> must have a binary outcome, the number of trials <span class="math inline">\(n\)</span> must be fixed, the trials must be independent, and the probability of the event of interest <span class="math inline">\(p\)</span> must be the same in every trial.</p>
 <p>First, retrieval is binary: the dog either brings the requested toy or it does not. Second, the design fixed <span class="math inline">\(n = 10\)</span> dogs with two trials each, so <span class="math inline">\(n\)</span> was fixed. Third, I think the trails are not independent. A dog that learned the label should succeed on both trials, and a dog that did not should tend to fail on both. So the two outsomes seems to be linked in someways rahter than fully independent. Finally, I doubt the probability stays the same in every trial. Once the first toy has been retrieved, the total number of toy decrease by one. So next time, the dog is selecting among 10 toys. The probability will change.</p>
-<section id="part-b-1" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="part-b-1"><span class="header-section-number">2.1</span> Part b</h2>
+</section>
+<section id="part-b-1" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="part-b-1"><span class="header-section-number">2.2</span> Part b</h2>
 <p>Under author assumption that a single retrieval succeeds by chance with probability <span class="math inline">\(0.5\)</span>, and two retrievals are independent, <span class="math display">\[P(X_i = 1) = 0.5 \times 0.5 = 0.25.\]</span> <span class="math display">\[B = \sum_{i=1}^{10} X_i \sim \text{Binomial}(n = 10,\ p = 0.25),\]</span></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">10</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -562,8 +567,8 @@ Figure&nbsp;3: Null distribution of the mean paired difference, with the observe
 </div>
 </div>
 </section>
-<section id="part-c" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="part-c"><span class="header-section-number">2.2</span> Part c</h2>
+<section id="part-c" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="part-c"><span class="header-section-number">2.3</span> Part c</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.25</span></span>
@@ -582,8 +587,8 @@ Figure&nbsp;3: Null distribution of the mean paired difference, with the observe
 </div>
 <p>The approximation is <span class="math inline">\(1.567 \times 10^{-7}\)</span>, and the exact value from Part b is <span class="math inline">\(9.537 \times 10^{-7}\)</span>. For abs error, they differ by about <span class="math inline">\(8 \times 10^{-7}\)</span>, which is pretty small. While for rel error, the approximation is poor. The approximation understates the true value by roughly 84%.</p>
 </section>
-<section id="part-d" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="part-d"><span class="header-section-number">2.3</span> Part d</h2>
+<section id="part-d" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="part-d"><span class="header-section-number">2.4</span> Part d</h2>
 <p>When all trials are successes, <span class="math inline">\(\hat{p} = 1\)</span> and the standard error <span class="math inline">\(\sqrt{\hat{p}(1-\hat{p})/n}\)</span> becomes zero, so the <span class="math inline">\(z\)</span> interval collapses to the single point <span class="math inline">\([1, 1]\)</span>. The sample size condition fails too, since <span class="math inline">\(n(1-\hat{p}) = 0\)</span>. When these conditions are not met we can use the exact Binomial distribution.<br>
 <span class="math display">\[H_0: p = 0.25 \qquad H_a: p &gt; 0.25\]</span></p>
 <div class="cell">
