@@ -1,11 +1,27 @@
 ---
 title: "Homework 1: One Sample Inference"
 format:
-  html:
+  html:                        # Specify HTML formatting options
     toc: true
     toc-depth: 3
-    number-sections: true
+    number-sections: true      # Number Sections
+    code-fold: true            # Button to show code
+    code-line-numbers: true    # Line numbers printed in code
+    cap-location: top          # Captions at the top of tables and figures
+  pdf:                         # Specify .pdf formatting options
+    documentclass: article     # Document Class
+    number-sections: true      # Number Sections
+    reference-section-title: "References"
+    code-line-numbers: true
+    cap-location: top
+    geometry:
+      - top=0.75in
+      - left=0.75in
+      - bottom=0.75in
+      - right=0.75in
+format-links: [pdf]            # Adds a pdf link in the margin
 ---
+
 ```{r setup}
 #| echo: false
 #| message: false

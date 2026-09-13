@@ -233,7 +233,7 @@ window.Quarto = {
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">3</span> References</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="hw1.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -269,28 +269,34 @@ On the twelfth day, out of the caretaker’s sight, the two new toys were placed
 <p>The researchers are asking two questions: (1) whether performance in the overhearing condition is above 50% chance, and (2) whether the difference between the direct and overhearing conditions differs from zero.</p>
 <p>Before choosing a test we summarize each data set.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>overhear <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.0000</span>, <span class="fl">1.0000</span>, <span class="fl">0.7500</span>, <span class="fl">1.0000</span>, <span class="fl">0.4167</span>,</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>              <span class="fl">0.8333</span>, <span class="fl">0.7500</span>, <span class="fl">0.8333</span>, <span class="fl">0.8333</span>, <span class="fl">1.0000</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>pdiff <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.0833</span>, <span class="fl">0.0000</span>, <span class="sc">-</span><span class="fl">0.0833</span>, <span class="sc">-</span><span class="fl">0.0833</span>, <span class="fl">0.5833</span>,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>            <span class="fl">0.0833</span>, <span class="sc">-</span><span class="fl">0.2500</span>,  <span class="fl">0.1667</span>, <span class="fl">0.0000</span>, <span class="sc">-</span><span class="fl">0.4167</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>summarize.data <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">n                 =</span> <span class="fu">length</span>(x),</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean              =</span> <span class="fu">mean</span>(x),</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD                =</span> <span class="fu">sd</span>(x),</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Median            =</span> <span class="fu">median</span>(x),</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">IQR               =</span> <span class="fu">IQR</span>(x),</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">Skewness          =</span> e1071<span class="sc">::</span><span class="fu">skewness</span>(x),</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Excess Kurtosis</span><span class="st">`</span> <span class="ot">=</span> e1071<span class="sc">::</span><span class="fu">kurtosis</span>(x),</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">Min               =</span> <span class="fu">min</span>(x),</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">Max               =</span> <span class="fu">max</span>(x)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a>overhear <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.0000</span>, <span class="fl">1.0000</span>, <span class="fl">0.7500</span>, <span class="fl">1.0000</span>, <span class="fl">0.4167</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-label="2"></a>              <span class="fl">0.8333</span>, <span class="fl">0.7500</span>, <span class="fl">0.8333</span>, <span class="fl">0.8333</span>, <span class="fl">1.0000</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-label="3"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-label="4"></a>pdiff <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.0833</span>, <span class="fl">0.0000</span>, <span class="sc">-</span><span class="fl">0.0833</span>, <span class="sc">-</span><span class="fl">0.0833</span>, <span class="fl">0.5833</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-label="5"></a>            <span class="fl">0.0833</span>, <span class="sc">-</span><span class="fl">0.2500</span>,  <span class="fl">0.1667</span>, <span class="fl">0.0000</span>, <span class="sc">-</span><span class="fl">0.4167</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-label="6"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-label="7"></a>summarize.data <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb1-8"><a href="#cb1-8" aria-label="8"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb1-9"><a href="#cb1-9" aria-label="9"></a>    <span class="at">n                 =</span> <span class="fu">length</span>(x),</span>
+<span id="cb1-10"><a href="#cb1-10" aria-label="10"></a>    <span class="at">Mean              =</span> <span class="fu">mean</span>(x),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-label="11"></a>    <span class="at">SD                =</span> <span class="fu">sd</span>(x),</span>
+<span id="cb1-12"><a href="#cb1-12" aria-label="12"></a>    <span class="at">Median            =</span> <span class="fu">median</span>(x),</span>
+<span id="cb1-13"><a href="#cb1-13" aria-label="13"></a>    <span class="at">IQR               =</span> <span class="fu">IQR</span>(x),</span>
+<span id="cb1-14"><a href="#cb1-14" aria-label="14"></a>    <span class="at">Skewness          =</span> e1071<span class="sc">::</span><span class="fu">skewness</span>(x),</span>
+<span id="cb1-15"><a href="#cb1-15" aria-label="15"></a>    <span class="st">`</span><span class="at">Excess Kurtosis</span><span class="st">`</span> <span class="ot">=</span> e1071<span class="sc">::</span><span class="fu">kurtosis</span>(x),</span>
+<span id="cb1-16"><a href="#cb1-16" aria-label="16"></a>    <span class="at">Min               =</span> <span class="fu">min</span>(x),</span>
+<span id="cb1-17"><a href="#cb1-17" aria-label="17"></a>    <span class="at">Max               =</span> <span class="fu">max</span>(x)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-label="18"></a>  )</span>
+<span id="cb1-19"><a href="#cb1-19" aria-label="19"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize.data</span>(overhear) <span class="sc">|&gt;</span> knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a><span class="fu">summarize.data</span>(overhear) <span class="sc">|&gt;</span> knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div id="tbl-overhear" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-overhear-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -332,29 +338,35 @@ Table&nbsp;1: Descriptive statistics for the overhearing condition
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">tibble</span>(overhear), <span class="fu">aes</span>(<span class="at">x =</span> overhear)) <span class="sc">+</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)),</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>),</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Proportion of Correct Retrievals Out of 12 Trials"</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Density"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">tibble</span>(overhear), <span class="fu">aes</span>(<span class="at">x =</span> overhear)) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-label="2"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-label="3"></a>                 <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-label="4"></a>                 <span class="at">color =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-label="5"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-label="6"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-label="7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Proportion of Correct Retrievals Out of 12 Trials"</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-label="8"></a>       <span class="at">y =</span> <span class="st">"Density"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div id="fig-overhear" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-overhear-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Proportion of correct retrievals in the overhearing condition
+</figcaption>
 <div aria-describedby="fig-overhear-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="hw1_files/figure-html/fig-overhear-1.png" class="img-fluid figure-img" width="672">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-overhear-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Proportion of correct retrievals in the overhearing condition
-</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize.data</span>(pdiff) <span class="sc">|&gt;</span> knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a><span class="fu">summarize.data</span>(pdiff) <span class="sc">|&gt;</span> knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div id="tbl-pdiff" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-pdiff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -396,23 +408,26 @@ Table&nbsp;2: Descriptive statistics for the paired differences
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">tibble</span>(pdiff), <span class="fu">aes</span>(<span class="at">x =</span> pdiff)) <span class="sc">+</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)),</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">0.5</span>, <span class="fl">0.7</span>, <span class="fl">0.1</span>),</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Difference in Proportion (Direct − Overhearing)"</span>,</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Density"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-label="1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">tibble</span>(pdiff), <span class="fu">aes</span>(<span class="at">x =</span> pdiff)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-label="2"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)),</span>
+<span id="cb5-3"><a href="#cb5-3" aria-label="3"></a>                 <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">0.5</span>, <span class="fl">0.7</span>, <span class="fl">0.1</span>),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-label="4"></a>                 <span class="at">color =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-label="5"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-label="6"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-label="7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Difference in Proportion (Direct − Overhearing)"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-label="8"></a>       <span class="at">y =</span> <span class="st">"Density"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div id="fig-pdiff" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-pdiff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Paired differences (direct − overhearing)
+</figcaption>
 <div aria-describedby="fig-pdiff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="hw1_files/figure-html/fig-pdiff-1.png" class="img-fluid figure-img" width="672">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pdiff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Paired differences (direct − overhearing)
-</figcaption>
 </figure>
 </div>
 </div>
@@ -446,25 +461,34 @@ Figure&nbsp;2: Paired differences (direct − overhearing)
 </li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>overhear.bernoulli <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(overhear <span class="sc">&gt;</span> <span class="fl">0.50</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>rq1.result <span class="ot">&lt;-</span> <span class="fu">binom.test</span>(<span class="at">x =</span> <span class="fu">sum</span>(overhear.bernoulli),</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">n =</span> <span class="fu">length</span>(overhear.bernoulli),</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">p =</span> <span class="fl">0.50</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                         <span class="at">alternative =</span> <span class="st">"two.sided"</span>,</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>rq1.result<span class="sc">$</span>p.value</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-label="1"></a>overhear.bernoulli <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(overhear <span class="sc">&gt;</span> <span class="fl">0.50</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-label="2"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-label="3"></a>rq1.result <span class="ot">&lt;-</span> <span class="fu">binom.test</span>(<span class="at">x =</span> <span class="fu">sum</span>(overhear.bernoulli),</span>
+<span id="cb6-4"><a href="#cb6-4" aria-label="4"></a>                         <span class="at">n =</span> <span class="fu">length</span>(overhear.bernoulli),</span>
+<span id="cb6-5"><a href="#cb6-5" aria-label="5"></a>                         <span class="at">p =</span> <span class="fl">0.50</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-label="6"></a>                         <span class="at">alternative =</span> <span class="st">"two.sided"</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-label="7"></a>                         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-label="8"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-label="9"></a>rq1.result<span class="sc">$</span>p.value</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.02148438</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>rq1.result<span class="sc">$</span>conf.int</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-label="1"></a>rq1.result<span class="sc">$</span>conf.int</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.5549839 0.9974714
 attr(,"conf.level")
 [1] 0.95</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>(cohens.h <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">asin</span>(<span class="fu">sqrt</span>(<span class="fl">0.9</span>)) <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">asin</span>(<span class="fu">sqrt</span>(<span class="fl">0.5</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-label="1"></a>(cohens.h <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">asin</span>(<span class="fu">sqrt</span>(<span class="fl">0.9</span>)) <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">asin</span>(<span class="fu">sqrt</span>(<span class="fl">0.5</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9272952</code></pre>
 </div>
@@ -483,61 +507,76 @@ attr(,"conf.level")
 </li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">7272</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>null.dist <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, R)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>R){</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  signs <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="at">size =</span> <span class="fu">length</span>(pdiff), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  null.dist[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(signs <span class="sc">*</span> pdiff)</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>(observed <span class="ot">&lt;-</span> <span class="fu">mean</span>(pdiff))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-label="1"></a><span class="fu">set.seed</span>(<span class="dv">7272</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-label="2"></a>R <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-label="3"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-label="4"></a>null.dist <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, R)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-label="5"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>R){</span>
+<span id="cb12-6"><a href="#cb12-6" aria-label="6"></a>  signs <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="at">size =</span> <span class="fu">length</span>(pdiff), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-label="7"></a>  null.dist[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(signs <span class="sc">*</span> pdiff)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-label="8"></a>}</span>
+<span id="cb12-9"><a href="#cb12-9" aria-label="9"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-label="10"></a>(observed <span class="ot">&lt;-</span> <span class="fu">mean</span>(pdiff))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.00833</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>(rq2.pvalue <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>(null.dist) <span class="sc">&gt;=</span> <span class="fu">abs</span>(observed)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-label="1"></a>(rq2.pvalue <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>(null.dist) <span class="sc">&gt;=</span> <span class="fu">abs</span>(observed)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9847</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">tibble</span>(null.dist), <span class="fu">aes</span>(<span class="at">x =</span> null.dist)) <span class="sc">+</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)),</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">bins =</span> <span class="dv">30</span>, <span class="at">color =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> observed, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Mean Paired Difference Under the Null"</span>,</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Density"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-label="1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">tibble</span>(null.dist), <span class="fu">aes</span>(<span class="at">x =</span> null.dist)) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-label="2"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)),</span>
+<span id="cb16-3"><a href="#cb16-3" aria-label="3"></a>                 <span class="at">bins =</span> <span class="dv">30</span>, <span class="at">color =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-label="4"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> observed, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-label="5"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-label="6"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-label="7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Mean Paired Difference Under the Null"</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-label="8"></a>       <span class="at">y =</span> <span class="st">"Density"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div id="fig-null" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-null-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Null distribution of the mean paired difference, with the observed value marked
+</figcaption>
 <div aria-describedby="fig-null-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="hw1_files/figure-html/fig-null-1.png" class="img-fluid figure-img" width="672">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-null-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Null distribution of the mean paired difference, with the observed value marked
-</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>A confidence interval for the mean difference is obtained by bootstrapping.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">7272</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>boot.means <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, R)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>R){</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  curr.sample <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> pdiff, <span class="at">size =</span> <span class="fu">length</span>(pdiff), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  boot.means[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(curr.sample)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>(rq2.ci <span class="ot">&lt;-</span> <span class="fu">quantile</span>(boot.means, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-label="1"></a><span class="fu">set.seed</span>(<span class="dv">7272</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-label="2"></a>boot.means <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, R)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-label="3"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>R){</span>
+<span id="cb17-4"><a href="#cb17-4" aria-label="4"></a>  curr.sample <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> pdiff, <span class="at">size =</span> <span class="fu">length</span>(pdiff), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-label="5"></a>  boot.means[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(curr.sample)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-label="6"></a>}</span>
+<span id="cb17-7"><a href="#cb17-7" aria-label="7"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-label="8"></a>(rq2.ci <span class="ot">&lt;-</span> <span class="fu">quantile</span>(boot.means, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>    2.5%    97.5% 
 -0.15001  0.15833 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>(hedges.g <span class="ot">&lt;-</span> effectsize<span class="sc">::</span><span class="fu">hedges_g</span>(<span class="at">x =</span> pdiff, <span class="at">mu =</span> <span class="dv">0</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-label="1"></a>(hedges.g <span class="ot">&lt;-</span> effectsize<span class="sc">::</span><span class="fu">hedges_g</span>(<span class="at">x =</span> pdiff, <span class="at">mu =</span> <span class="dv">0</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Hedges' g |        95% CI
 -------------------------
@@ -561,7 +600,10 @@ Figure&nbsp;3: Null distribution of the mean paired difference, with the observe
 <h2 data-number="2.2" class="anchored" data-anchor-id="part-b-1"><span class="header-section-number">2.2</span> Part b</h2>
 <p>Under author assumption that a single retrieval succeeds by chance with probability <span class="math inline">\(0.5\)</span>, and two retrievals are independent, <span class="math display">\[P(X_i = 1) = 0.5 \times 0.5 = 0.25.\]</span> <span class="math display">\[B = \sum_{i=1}^{10} X_i \sim \text{Binomial}(n = 10,\ p = 0.25),\]</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">10</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-label="1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">10</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 9.536743e-07</code></pre>
 </div>
@@ -570,16 +612,19 @@ Figure&nbsp;3: Null distribution of the mean paired difference, with the observe
 <section id="part-c" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="part-c"><span class="header-section-number">2.3</span> Part c</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.25</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> n <span class="sc">*</span> p</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(n <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p))</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>approx <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="fl">10.5</span>, <span class="at">mean =</span> mu, <span class="at">sd =</span> sigma) <span class="sc">-</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>          <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="fl">9.5</span>,  <span class="at">mean =</span> mu, <span class="at">sd =</span> sigma)</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>exact  <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">10</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.25</span>)</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">exact =</span> exact, <span class="at">approx =</span> approx, <span class="at">ratio =</span> exact <span class="sc">/</span> approx)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-label="1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-label="2"></a>p <span class="ot">&lt;-</span> <span class="fl">0.25</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-label="3"></a>mu <span class="ot">&lt;-</span> n <span class="sc">*</span> p</span>
+<span id="cb23-4"><a href="#cb23-4" aria-label="4"></a>sigma <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(n <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p))</span>
+<span id="cb23-5"><a href="#cb23-5" aria-label="5"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-label="6"></a>approx <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="fl">10.5</span>, <span class="at">mean =</span> mu, <span class="at">sd =</span> sigma) <span class="sc">-</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-label="7"></a>          <span class="fu">pnorm</span>(<span class="at">q =</span> <span class="fl">9.5</span>,  <span class="at">mean =</span> mu, <span class="at">sd =</span> sigma)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-label="8"></a>exact  <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">10</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.25</span>)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-label="9"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-label="10"></a><span class="fu">c</span>(<span class="at">exact =</span> exact, <span class="at">approx =</span> approx, <span class="at">ratio =</span> exact <span class="sc">/</span> approx)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>       exact       approx        ratio 
 9.536743e-07 1.567447e-07 6.084254e+00 </code></pre>
@@ -592,16 +637,22 @@ Figure&nbsp;3: Null distribution of the mean paired difference, with the observe
 <p>When all trials are successes, <span class="math inline">\(\hat{p} = 1\)</span> and the standard error <span class="math inline">\(\sqrt{\hat{p}(1-\hat{p})/n}\)</span> becomes zero, so the <span class="math inline">\(z\)</span> interval collapses to the single point <span class="math inline">\([1, 1]\)</span>. The sample size condition fails too, since <span class="math inline">\(n(1-\hat{p}) = 0\)</span>. When these conditions are not met we can use the exact Binomial distribution.<br>
 <span class="math display">\[H_0: p = 0.25 \qquad H_a: p &gt; 0.25\]</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>test.result <span class="ot">=</span> <span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">10</span>,  </span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">n =</span> <span class="dv">10</span>,  </span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">p =</span> <span class="fl">0.25</span>, </span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">alternative =</span> <span class="st">"greater"</span>,</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>test.result<span class="sc">$</span>p.value</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-label="1"></a>test.result <span class="ot">=</span> <span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">10</span>,  </span>
+<span id="cb25-2"><a href="#cb25-2" aria-label="2"></a>                         <span class="at">n =</span> <span class="dv">10</span>,  </span>
+<span id="cb25-3"><a href="#cb25-3" aria-label="3"></a>                         <span class="at">p =</span> <span class="fl">0.25</span>, </span>
+<span id="cb25-4"><a href="#cb25-4" aria-label="4"></a>                         <span class="at">alternative =</span> <span class="st">"greater"</span>,</span>
+<span id="cb25-5"><a href="#cb25-5" aria-label="5"></a>                         <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-label="6"></a>test.result<span class="sc">$</span>p.value</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 9.536743e-07</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>test.result<span class="sc">$</span>conf.int</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-label="1"></a>test.result<span class="sc">$</span>conf.int</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.7411344 1.0000000
 attr(,"conf.level")
