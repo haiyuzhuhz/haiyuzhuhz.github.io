@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Homework 2 – k Sample Inference – Academic Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/ColgateC.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1bdbca75b362e6c5a8c09207907ff998.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Homework 2 – k Sample Inference</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/ColgateSeal.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/ColgateSeal.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><i class="bi bi-house" role="img">
+</i> 
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link"><i class="bi bi-person" role="img">
+</i> 
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Data Analysis I</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../MATH354/hw1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 1: One Sample Inference</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#question-1-why-do-we-correct-for-multiple-comparisons" id="toc-question-1-why-do-we-correct-for-multiple-comparisons" class="nav-link active" data-scroll-target="#question-1-why-do-we-correct-for-multiple-comparisons"><span class="header-section-number">1</span> Question 1: Why do we Correct for Multiple Comparisons?</a>
+  <ul class="collapse">
+  <li><a href="#part-a" id="toc-part-a" class="nav-link" data-scroll-target="#part-a"><span class="header-section-number">1.1</span> Part a</a></li>
+  <li><a href="#part-b" id="toc-part-b" class="nav-link" data-scroll-target="#part-b"><span class="header-section-number">1.2</span> Part b</a></li>
+  </ul></li>
+  <li><a href="#question-2-power-analyses" id="toc-question-2-power-analyses" class="nav-link" data-scroll-target="#question-2-power-analyses"><span class="header-section-number">2</span> Question 2: Power Analyses</a>
+  <ul class="collapse">
+  <li><a href="#part-a-1" id="toc-part-a-1" class="nav-link" data-scroll-target="#part-a-1"><span class="header-section-number">2.1</span> Part a</a></li>
+  <li><a href="#part-b-1" id="toc-part-b-1" class="nav-link" data-scroll-target="#part-b-1"><span class="header-section-number">2.2</span> Part b</a></li>
+  <li><a href="#part-c" id="toc-part-c" class="nav-link" data-scroll-target="#part-c"><span class="header-section-number">2.3</span> Part c</a></li>
+  <li><a href="#part-d" id="toc-part-d" class="nav-link" data-scroll-target="#part-d"><span class="header-section-number">2.4</span> Part d</a></li>
+  </ul></li>
+  <li><a href="#question-3-an-application" id="toc-question-3-an-application" class="nav-link" data-scroll-target="#question-3-an-application"><span class="header-section-number">3</span> Question 3: An Application</a>
+  <ul class="collapse">
+  <li><a href="#part-a-2" id="toc-part-a-2" class="nav-link" data-scroll-target="#part-a-2"><span class="header-section-number">3.1</span> Part a</a></li>
+  <li><a href="#part-b-2" id="toc-part-b-2" class="nav-link" data-scroll-target="#part-b-2"><span class="header-section-number">3.2</span> Part b</a></li>
+  <li><a href="#part-c-1" id="toc-part-c-1" class="nav-link" data-scroll-target="#part-c-1"><span class="header-section-number">3.3</span> Part c</a></li>
+  <li><a href="#part-d-1" id="toc-part-d-1" class="nav-link" data-scroll-target="#part-d-1"><span class="header-section-number">3.4</span> Part d</a></li>
+  <li><a href="#part-e" id="toc-part-e" class="nav-link" data-scroll-target="#part-e"><span class="header-section-number">3.5</span> Part e</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="HW2.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Homework 2 – k Sample Inference</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p></p>
+<p></p>
+<section id="question-1-why-do-we-correct-for-multiple-comparisons" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Question 1: Why do we Correct for Multiple Comparisons?</h1>
+<p>A student asked me what the point of correcting for multiple comparisons was. They made a two interesting points:</p>
+<ol type="1">
+<li>They are different outcomes, so, unlike the coin flip example (where the coin is the same) it doesn’t makes sense to combine them.</li>
+<li>If a manuscript presented three studies with <span class="math inline">\(t\)</span>-tests, they don’t correct for multiple comparisons across <em>those</em> tests.</li>
+</ol>
+<p>When we conduct all pairwise comparisons after an omnibus test like ANOVA, we are testing a single family of hypotheses to answer one overarching question (“Which of these groups are different?”). Every additional test provides another opportunity to commit a Type I error from random noise. Similar to the coin, the probability of making at least one false error across <span class="math inline">\(J\)</span> independent tests grows exponentially: <span class="math inline">\(1 - (1 - \alpha)^J\)</span>. Note that our pairwise comparisons are not independent, so it’s slightly different.</p>
+<p>We don’t correct for inferences across separate studies because they typically test distinct hypotheses using independent samples. Our attempt to address the multiple comparisons problem is specifically confined to the issue of increased Type I error within a single decision-making context. If we don’t, we can find ourselves in a <span class="math inline">\(p\)</span>-hacking-like situation, where an investigator might search through many tests to find one <span class="math inline">\(p &lt; 0.05\)</span> (a potential false discovery), rather than making decisions to best position themselves for finding a true discovery.</p>
+<p>Here, we will quickly demonstrate why we correct for the multiple comparisons problem when conducting several tests to answer the same question.</p>
+<section id="part-a" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="part-a"><span class="header-section-number">1.1</span> Part a</h2>
+<p>Complete the following steps in <span class="math inline">\(R=1000\)</span> simulations.</p>
+<ol type="1">
+<li>Simulate data for <span class="math inline">\(k=5\)</span> samples <span class="math inline">\(n=30\)</span> drawn from a standard Gaussian distribution.</li>
+<li>Use <code>pairwise.t.test(..., p.adjust.method="none")</code> to compute unadjusted pairwise <span class="math inline">\(t\)</span>-tests and record if any comparison yields statistically discernible support for a non-zero mean.</li>
+<li>Use <code>rstatix::tukey_hsd(...)</code> to compute the Tukey’s HSD adjusted pairwise tests and record if any comparison yields statistically discernible support for a non-zero mean.</li>
+</ol>
+<p>In the end, describe the Type I error rates.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="fu">set.seed</span>(<span class="dv">354</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-label="2"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-label="3"></a>R <span class="ot">&lt;-</span> <span class="dv">1000</span>           </span>
+<span id="cb1-4"><a href="#cb1-4" aria-label="4"></a>k <span class="ot">&lt;-</span> <span class="dv">5</span>              </span>
+<span id="cb1-5"><a href="#cb1-5" aria-label="5"></a>n <span class="ot">&lt;-</span> <span class="dv">30</span>             </span>
+<span id="cb1-6"><a href="#cb1-6" aria-label="6"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-label="7"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-label="8"></a>reject.none  <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, R)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-label="9"></a>reject.tukey <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, R)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-label="10"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-label="11"></a><span class="cf">for</span>(r <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>R){</span>
+<span id="cb1-12"><a href="#cb1-12" aria-label="12"></a>  dat <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Group    =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">paste</span>(<span class="st">"Group"</span>, <span class="dv">1</span><span class="sc">:</span>k), <span class="at">each =</span> n)),</span>
+<span id="cb1-13"><a href="#cb1-13" aria-label="13"></a>                <span class="at">Response =</span> <span class="fu">rnorm</span>(k <span class="sc">*</span> n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>))</span>
+<span id="cb1-14"><a href="#cb1-14" aria-label="14"></a>  </span>
+<span id="cb1-15"><a href="#cb1-15" aria-label="15"></a>  pairwise.result <span class="ot">&lt;-</span> <span class="fu">pairwise.t.test</span>(dat<span class="sc">$</span>Response, dat<span class="sc">$</span>Group, </span>
+<span id="cb1-16"><a href="#cb1-16" aria-label="16"></a>                                     <span class="at">p.adjust.method =</span> <span class="st">"none"</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-label="17"></a>  reject.none[r] <span class="ot">&lt;-</span> <span class="fu">any</span>(pairwise.result<span class="sc">$</span>p.value <span class="sc">&lt;</span> alpha, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-label="18"></a>  </span>
+<span id="cb1-19"><a href="#cb1-19" aria-label="19"></a>  test.result    <span class="ot">&lt;-</span> <span class="fu">aov</span>(Response <span class="sc">~</span> Group, <span class="at">data=</span>dat)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-label="20"></a>  posthoc.result <span class="ot">&lt;-</span> <span class="fu">tukey_hsd</span>(test.result)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-label="21"></a>  reject.tukey[r] <span class="ot">&lt;-</span> <span class="fu">any</span>(posthoc.result<span class="sc">$</span>p.adj <span class="sc">&lt;</span> alpha)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-label="22"></a>}</span>
+<span id="cb1-23"><a href="#cb1-23" aria-label="23"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-label="24"></a>(results <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Method =</span> <span class="fu">c</span>(<span class="st">"Unadjusted t-tests"</span>, <span class="st">"Tukey's HSD"</span>),</span>
+<span id="cb1-25"><a href="#cb1-25" aria-label="25"></a>                   <span class="at">FWER   =</span> <span class="fu">c</span>(<span class="fu">mean</span>(reject.none), <span class="fu">mean</span>(reject.tukey))))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  Method              FWER
+  &lt;chr&gt;              &lt;dbl&gt;
+1 Unadjusted t-tests 0.294
+2 Tukey's HSD        0.053</code></pre>
+</div>
+</div>
+<p></p>
+<p>Without adjustment, the Type I error rate across the ten pairwise comparisons was 0.294, way larger than <span class="math inline">\(\alpha = 0.05\)</span>. With Tukey’s HSD, it was 0.053, very close to <span class="math inline">\(\alpha = 0.05\)</span>. Tukey’s HSD keeps the family-wise Type I error rate at <span class="math inline">\(\alpha\)</span>; unadjusted <span class="math inline">\(t\)</span>-tests do not.</p>
+</section>
+<section id="part-b" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="part-b"><span class="header-section-number">1.2</span> Part b</h2>
+<p>Redo the simulation, changing to adjust according to the false discovery rate <code>p.adjust.method="BH"</code> and comment on the differences.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a><span class="fu">set.seed</span>(<span class="dv">354</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-label="2"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-label="3"></a>reject.BH      <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, R)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-label="4"></a>reject.tukey.b <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, R)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-label="5"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-label="6"></a><span class="cf">for</span>(r <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>R){</span>
+<span id="cb3-7"><a href="#cb3-7" aria-label="7"></a>  dat <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Group    =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">paste</span>(<span class="st">"Group"</span>, <span class="dv">1</span><span class="sc">:</span>k), <span class="at">each =</span> n)),</span>
+<span id="cb3-8"><a href="#cb3-8" aria-label="8"></a>                <span class="at">Response =</span> <span class="fu">rnorm</span>(k <span class="sc">*</span> n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>))</span>
+<span id="cb3-9"><a href="#cb3-9" aria-label="9"></a>  </span>
+<span id="cb3-10"><a href="#cb3-10" aria-label="10"></a>  pairwise.result <span class="ot">&lt;-</span> <span class="fu">pairwise.t.test</span>(dat<span class="sc">$</span>Response, dat<span class="sc">$</span>Group, </span>
+<span id="cb3-11"><a href="#cb3-11" aria-label="11"></a>                                     <span class="at">p.adjust.method =</span> <span class="st">"BH"</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-label="12"></a>  reject.BH[r] <span class="ot">&lt;-</span> <span class="fu">any</span>(pairwise.result<span class="sc">$</span>p.value <span class="sc">&lt;</span> alpha, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-label="13"></a>  </span>
+<span id="cb3-14"><a href="#cb3-14" aria-label="14"></a>  test.result    <span class="ot">&lt;-</span> <span class="fu">aov</span>(Response <span class="sc">~</span> Group, <span class="at">data=</span>dat)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-label="15"></a>  posthoc.result <span class="ot">&lt;-</span> <span class="fu">tukey_hsd</span>(test.result)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-label="16"></a>  reject.tukey.b[r] <span class="ot">&lt;-</span> <span class="fu">any</span>(posthoc.result<span class="sc">$</span>p.adj <span class="sc">&lt;</span> alpha)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-label="17"></a>}</span>
+<span id="cb3-18"><a href="#cb3-18" aria-label="18"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-label="19"></a>(results.b <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Method =</span> <span class="fu">c</span>(<span class="st">"Unadjusted t-tests"</span>, <span class="st">"BH (FDR)"</span>, <span class="st">"Tukey's HSD"</span>),</span>
+<span id="cb3-20"><a href="#cb3-20" aria-label="20"></a>                     <span class="at">FWER   =</span> <span class="fu">c</span>(<span class="fu">mean</span>(reject.none), <span class="fu">mean</span>(reject.BH), </span>
+<span id="cb3-21"><a href="#cb3-21" aria-label="21"></a>                                <span class="fu">mean</span>(reject.tukey.b))))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  Method              FWER
+  &lt;chr&gt;              &lt;dbl&gt;
+1 Unadjusted t-tests 0.294
+2 BH (FDR)           0.047
+3 Tukey's HSD        0.053</code></pre>
+</div>
+</div>
+<p></p>
+<p>With the Benjamini-Hochberg adjustment, the Type I error rate was 0.047, close to <span class="math inline">\(\alpha = 0.05\)</span> and similar to Tukey’s HSD (0.053). This is because every null hypothesis is true in this simulation, so any rejection is a false discovery and the false discovery rate equals the family-wise error rate.</p>
+</section>
+</section>
+<section id="question-2-power-analyses" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Question 2: Power Analyses</h1>
+<p>Revisit the MFAP4 study from class.</p>
+<section id="part-a-1" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="part-a-1"><span class="header-section-number">2.1</span> Part a</h2>
+<p>Assume the researchers were targeting a moderate effect size of Cohen’s <span class="math inline">\(f = 0.25\)</span>, setting significance level <span class="math inline">\(\alpha = 0.05\)</span> and desired power <span class="math inline">\(1 - \beta = 0.80\)</span>. Were they adequately powered?</p>
+<p><strong>Note</strong>: The actual effect size is <span class="math inline">\(f=0.55\)</span>, but researchers usually do not know that ahead of time and defaulted to moderate, instead of specifying a large effect.</p>
+<p>What is the required sample size per group (<span class="math inline">\(n\)</span>) and the overall total sample size (<span class="math inline">\(N\)</span>)? Write the <code>R</code> code using the <code>pwr</code> package to calculate this sample size. This package assumes all samples are of the same size so <span class="math inline">\(N=nk\)</span>, where <span class="math inline">\(k\)</span> is the number of samples. Note that the best answers will have a corresponding graphical display.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-label="1"></a>k<span class="fl">.2</span>   <span class="ot">&lt;-</span> <span class="dv">5</span>        </span>
+<span id="cb5-2"><a href="#cb5-2" aria-label="2"></a>f<span class="fl">.2</span>   <span class="ot">&lt;-</span> <span class="fl">0.25</span>    </span>
+<span id="cb5-3"><a href="#cb5-3" aria-label="3"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-label="4"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-label="5"></a>(n.a <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(<span class="fu">pwr.anova.test</span>(<span class="at">k =</span> k<span class="fl">.2</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-label="6"></a>                               <span class="at">f =</span> f<span class="fl">.2</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-label="7"></a>                               <span class="at">sig.level =</span> alpha,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-label="8"></a>                               <span class="at">power =</span> <span class="fl">0.80</span>)<span class="sc">$</span>n))  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 40</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-label="1"></a>(N.a <span class="ot">&lt;-</span> n.a <span class="sc">*</span> k<span class="fl">.2</span>)                                  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 200</code></pre>
+</div>
+</div>
+<p></p>
+<p>To detect a moderate effect (<span class="math inline">\(f = 0.25\)</span>) with <span class="math inline">\(\alpha = 0.05\)</span> and 80% power across <span class="math inline">\(k = 5\)</span> groups, the researchers need <span class="math inline">\(n = 40\)</span> patients per group, or <span class="math inline">\(N = 200\)</span> in total. The study was adequately powered: every fibrosis stage had more than 40 patients and the total sample of <span class="math inline">\(N = 542\)</span> is well above 200.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-label="1"></a>df1    <span class="ot">&lt;-</span> k<span class="fl">.2</span> <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-label="2"></a>df2    <span class="ot">&lt;-</span> N.a <span class="sc">-</span> k<span class="fl">.2</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-label="3"></a>lambda <span class="ot">&lt;-</span> k<span class="fl">.2</span> <span class="sc">*</span> n.a <span class="sc">*</span> f<span class="fl">.2</span><span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-label="4"></a>F.crit <span class="ot">&lt;-</span> <span class="fu">qf</span>(<span class="dv">1</span> <span class="sc">-</span> alpha, df1, df2)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-label="5"></a>power.a <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pf</span>(F.crit, df1, df2, <span class="at">ncp =</span> lambda)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-label="6"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-label="7"></a>plot.dat <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">15</span>, <span class="at">length.out =</span> <span class="dv">1000</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-label="8"></a>  <span class="fu">mutate</span>(<span class="at">null =</span> <span class="fu">df</span>(x, df1, df2),</span>
+<span id="cb9-9"><a href="#cb9-9" aria-label="9"></a>         <span class="at">alt  =</span> <span class="fu">df</span>(x, df1, df2, <span class="at">ncp =</span> lambda))</span>
+<span id="cb9-10"><a href="#cb9-10" aria-label="10"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-label="11"></a><span class="fu">ggplot</span>(plot.dat, <span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-label="12"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> <span class="fu">filter</span>(plot.dat, x <span class="sc">&gt;=</span> F.crit), </span>
+<span id="cb9-13"><a href="#cb9-13" aria-label="13"></a>            <span class="fu">aes</span>(<span class="at">y =</span> alt, <span class="at">fill =</span> <span class="st">"Power"</span>), <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-label="14"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> <span class="fu">filter</span>(plot.dat, x <span class="sc">&lt;=</span> F.crit), </span>
+<span id="cb9-15"><a href="#cb9-15" aria-label="15"></a>            <span class="fu">aes</span>(<span class="at">y =</span> alt, <span class="at">fill =</span> <span class="st">"Type II Error"</span>), <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-label="16"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> <span class="fu">filter</span>(plot.dat, x <span class="sc">&gt;=</span> F.crit), </span>
+<span id="cb9-17"><a href="#cb9-17" aria-label="17"></a>            <span class="fu">aes</span>(<span class="at">y =</span> null, <span class="at">fill =</span> <span class="st">"Type I Error"</span>), <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-label="18"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> null, <span class="at">color =</span> <span class="st">"Null Distribution"</span>)) <span class="sc">+</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-label="19"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> alt,  <span class="at">color =</span> <span class="st">"Alternative Distribution"</span>)) <span class="sc">+</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-label="20"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-label="21"></a>  <span class="fu">scale_fill_manual</span>(<span class="st">""</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Power"</span> <span class="ot">=</span> <span class="st">"goldenrod"</span>, </span>
+<span id="cb9-22"><a href="#cb9-22" aria-label="22"></a>                                   <span class="st">"Type I Error"</span> <span class="ot">=</span> <span class="st">"darkred"</span>, </span>
+<span id="cb9-23"><a href="#cb9-23" aria-label="23"></a>                                   <span class="st">"Type II Error"</span> <span class="ot">=</span> <span class="st">"grey70"</span>)) <span class="sc">+</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-label="24"></a>  <span class="fu">scale_color_manual</span>(<span class="st">""</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Alternative Distribution"</span> <span class="ot">=</span> <span class="st">"black"</span>,</span>
+<span id="cb9-25"><a href="#cb9-25" aria-label="25"></a>                                    <span class="st">"Null Distribution"</span> <span class="ot">=</span> <span class="st">"darkred"</span>)) <span class="sc">+</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-label="26"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-label="27"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"F"</span>, <span class="at">y =</span> <span class="st">"Density"</span>,</span>
+<span id="cb9-28"><a href="#cb9-28" aria-label="28"></a>       <span class="at">title =</span> <span class="fu">paste0</span>(<span class="st">"f = 0.25, k = 5, n = "</span>, n.a, <span class="st">" per group (N = "</span>, N.a, <span class="st">")"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="HW2_files/figure-html/q2a-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p>
+</section>
+<section id="part-b-1" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="part-b-1"><span class="header-section-number">2.2</span> Part b</h2>
+<p>The project was funded by several agencies. Suppose that a funding agency suggested funding limiting the researchers to <span class="math inline">\(N=150\)</span>. Evaluate this suggestion in the context of the ANOVA. Would that be large enough to be adequately powered?</p>
+<p>Compute the non-centrality parameter <span class="math display">\[\lambda = k \cdot n \cdot f^2\]</span> and use the non-central <span class="math inline">\(F\)</span> distribution to compute the power under <span class="math inline">\(H_a\)</span> for Cohen’s <span class="math inline">\(f = 0.25\)</span>. Calculate the statistical power achieved under this budget constraint. Note that the best answers will have a corresponding graphical display.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-label="1"></a>N.b <span class="ot">&lt;-</span> <span class="dv">150</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-label="2"></a>n.b <span class="ot">&lt;-</span> N.b <span class="sc">/</span> k<span class="fl">.2</span>                        </span>
+<span id="cb10-3"><a href="#cb10-3" aria-label="3"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-label="4"></a>df1.b    <span class="ot">&lt;-</span> k<span class="fl">.2</span> <span class="sc">-</span> <span class="dv">1</span>                     </span>
+<span id="cb10-5"><a href="#cb10-5" aria-label="5"></a>df2.b    <span class="ot">&lt;-</span> N.b <span class="sc">-</span> k<span class="fl">.2</span>                   </span>
+<span id="cb10-6"><a href="#cb10-6" aria-label="6"></a>lambda.b <span class="ot">&lt;-</span> k<span class="fl">.2</span> <span class="sc">*</span> n.b <span class="sc">*</span> f<span class="fl">.2</span><span class="sc">^</span><span class="dv">2</span>           </span>
+<span id="cb10-7"><a href="#cb10-7" aria-label="7"></a>F.crit.b <span class="ot">&lt;-</span> <span class="fu">qf</span>(<span class="dv">1</span> <span class="sc">-</span> alpha, df1.b, df2.b) </span>
+<span id="cb10-8"><a href="#cb10-8" aria-label="8"></a>power.b  <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pf</span>(F.crit.b, df1.b, df2.b, <span class="at">ncp =</span> lambda.b)  </span>
+<span id="cb10-9"><a href="#cb10-9" aria-label="9"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-label="10"></a>lambda.b</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9.375</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-label="1"></a>power.b</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6675964</code></pre>
+</div>
+</div>
+<p></p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-label="1"></a>plot.dat.b <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">15</span>, <span class="at">length.out =</span> <span class="dv">1000</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-label="2"></a>  <span class="fu">mutate</span>(<span class="at">null =</span> <span class="fu">df</span>(x, df1.b, df2.b),</span>
+<span id="cb14-3"><a href="#cb14-3" aria-label="3"></a>         <span class="at">alt  =</span> <span class="fu">df</span>(x, df1.b, df2.b, <span class="at">ncp =</span> lambda.b))</span>
+<span id="cb14-4"><a href="#cb14-4" aria-label="4"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-label="5"></a><span class="fu">ggplot</span>(plot.dat.b, <span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-label="6"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> <span class="fu">filter</span>(plot.dat.b, x <span class="sc">&gt;=</span> F.crit.b), </span>
+<span id="cb14-7"><a href="#cb14-7" aria-label="7"></a>            <span class="fu">aes</span>(<span class="at">y =</span> alt, <span class="at">fill =</span> <span class="st">"Power"</span>), <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-label="8"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> <span class="fu">filter</span>(plot.dat.b, x <span class="sc">&lt;=</span> F.crit.b), </span>
+<span id="cb14-9"><a href="#cb14-9" aria-label="9"></a>            <span class="fu">aes</span>(<span class="at">y =</span> alt, <span class="at">fill =</span> <span class="st">"Type II Error"</span>), <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-label="10"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> <span class="fu">filter</span>(plot.dat.b, x <span class="sc">&gt;=</span> F.crit.b), </span>
+<span id="cb14-11"><a href="#cb14-11" aria-label="11"></a>            <span class="fu">aes</span>(<span class="at">y =</span> null, <span class="at">fill =</span> <span class="st">"Type I Error"</span>), <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-label="12"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> null, <span class="at">color =</span> <span class="st">"Null Distribution"</span>)) <span class="sc">+</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-label="13"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> alt,  <span class="at">color =</span> <span class="st">"Alternative Distribution"</span>)) <span class="sc">+</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-label="14"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-label="15"></a>  <span class="fu">scale_fill_manual</span>(<span class="st">""</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Power"</span> <span class="ot">=</span> <span class="st">"goldenrod"</span>, </span>
+<span id="cb14-16"><a href="#cb14-16" aria-label="16"></a>                                   <span class="st">"Type I Error"</span> <span class="ot">=</span> <span class="st">"darkred"</span>, </span>
+<span id="cb14-17"><a href="#cb14-17" aria-label="17"></a>                                   <span class="st">"Type II Error"</span> <span class="ot">=</span> <span class="st">"grey70"</span>)) <span class="sc">+</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-label="18"></a>  <span class="fu">scale_color_manual</span>(<span class="st">""</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Alternative Distribution"</span> <span class="ot">=</span> <span class="st">"black"</span>,</span>
+<span id="cb14-19"><a href="#cb14-19" aria-label="19"></a>                                    <span class="st">"Null Distribution"</span> <span class="ot">=</span> <span class="st">"darkred"</span>)) <span class="sc">+</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-label="20"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-label="21"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"F"</span>, <span class="at">y =</span> <span class="st">"Density"</span>,</span>
+<span id="cb14-22"><a href="#cb14-22" aria-label="22"></a>       <span class="at">title =</span> <span class="fu">paste0</span>(<span class="st">"f = 0.25, k = 5, n = "</span>, n.b, <span class="st">" per group (N = "</span>, N.b, <span class="st">")"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="HW2_files/figure-html/q2b-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p>
+<p>With <span class="math inline">\(N = 150\)</span>, each group has <span class="math inline">\(n = 30\)</span> patients, which is below the <span class="math inline">\(n = 40\)</span> required in Part a. The non-centrality parameter is 9.375, and the power is 0.668. The study is underpowered to detect a moderate effect.</p>
+</section>
+<section id="part-c" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="part-c"><span class="header-section-number">2.3</span> Part c</h2>
+<p>In the article the researchers state:</p>
+<blockquote class="blockquote">
+<p><em>However, the statistical power was not sufficient to allow an accurate discrimination of no to moderate stages of hepatic fibrosis (F0–F2) from severe fibrosis and cirrhosis (F3 and F4).</em></p>
+</blockquote>
+<p>The European Association for the Study of the Liver (EASL) provides treatment recommendations based on these stages.</p>
+<ul>
+<li>Stages 0-1: Treatment is deferred with regularly assessment</li>
+<li>Stage 2: Treatment is justified for those in stage 2</li>
+<li>Stage 3-4: Treatment is a priority for those in stages</li>
+</ul>
+<p>Suppose the researcher wanted to perform a follow-up test where they want to ensure adequate power not just for the overall ANOVA <span class="math inline">\(F\)</span>-test, but specifically to detect a pairwise differences between stages 1 and 2. Explain why the sample size computed in Part a may not be enough and use <code>PMCMRplus::power.tukey.test()</code> to compute a sample size that attains adequate power.</p>
+<p><strong>Note</strong>: The researchers would have had to do this <em>a priori</em>. Because we aren’t medical experts, you can use sample estimates using the original data. <span class="math display">\[\begin{align*}
+  n &amp; = \text{answer from part a}\\
+  \mu_{\Delta} &amp; = 0.25 \\
+  \sigma^2_{\text{pooled}} &amp; = \frac{(176-1)0.85^2 + (135-1)0.84^2}{176+135-2} = 0.7152\\
+  \sigma_{\text{within}}= 0.77
+\end{align*}\]</span></p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-label="1"></a>delta.c <span class="ot">&lt;-</span> <span class="fl">0.25</span>    </span>
+<span id="cb15-2"><a href="#cb15-2" aria-label="2"></a>var.c   <span class="ot">&lt;-</span> <span class="fl">0.77</span>     </span>
+<span id="cb15-3"><a href="#cb15-3" aria-label="3"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-label="4"></a>power.c.a <span class="ot">&lt;-</span> PMCMRplus<span class="sc">::</span><span class="fu">power.tukey.test</span>(<span class="at">n =</span> n.a, <span class="at">groups =</span> k<span class="fl">.2</span>, </span>
+<span id="cb15-5"><a href="#cb15-5" aria-label="5"></a>                                         <span class="at">delta =</span> delta.c, </span>
+<span id="cb15-6"><a href="#cb15-6" aria-label="6"></a>                                         <span class="at">within.var =</span> var.c)<span class="sc">$</span>power</span>
+<span id="cb15-7"><a href="#cb15-7" aria-label="7"></a>power.c.a</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.07194129</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-label="1"></a>n.grid     <span class="ot">&lt;-</span> n.a<span class="sc">:</span><span class="dv">600</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-label="2"></a>power.grid <span class="ot">&lt;-</span> <span class="fu">sapply</span>(n.grid, <span class="cf">function</span>(n)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-label="3"></a>  PMCMRplus<span class="sc">::</span><span class="fu">power.tukey.test</span>(<span class="at">n =</span> n, <span class="at">groups =</span> k<span class="fl">.2</span>, </span>
+<span id="cb17-4"><a href="#cb17-4" aria-label="4"></a>                              <span class="at">delta =</span> delta.c, </span>
+<span id="cb17-5"><a href="#cb17-5" aria-label="5"></a>                              <span class="at">within.var =</span> var.c)<span class="sc">$</span>power)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-label="6"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-label="7"></a>(n.c <span class="ot">&lt;-</span> n.grid[<span class="fu">which</span>(power.grid <span class="sc">&gt;=</span> <span class="fl">0.80</span>)[<span class="dv">1</span>]])   </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 315</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-label="1"></a>(N.c <span class="ot">&lt;-</span> n.c <span class="sc">*</span> k<span class="fl">.2</span>)                               </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1575</code></pre>
+</div>
+</div>
+<p></p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-label="1"></a><span class="fu">tibble</span>(<span class="at">n =</span> n.grid, <span class="at">power =</span> power.grid) <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-label="2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y =</span> power)) <span class="sc">+</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-label="3"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-label="4"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.80</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-label="5"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-label="6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Sample Size per Group (n)"</span>, <span class="at">y =</span> <span class="st">"Power"</span>,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-label="7"></a>       <span class="at">title =</span> <span class="st">"Tukey Power for Stage 1 vs. Stage 2"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="HW2_files/figure-html/q2c-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p>
+<p>Detecting the specific difference between Stages 1 and 2 is harder for three reasons: the difference (<span class="math inline">\(\mu_\Delta = 0.25\)</span>) is small relative to the within-group variability (about 0.28 standard deviations), a pairwise comparison uses information from only two groups, and Tukey’s adjustment raises the critical value to control the family-wise error rate across all ten comparisons. With <span class="math inline">\(n = 40\)</span> per group, the power to detect the Stage 1 vs.&nbsp;Stage 2 difference is only 0.072. Achieving 80% power requires <span class="math inline">\(n = 315\)</span> per group (<span class="math inline">\(N = 1575\)</span>).</p>
+</section>
+<section id="part-d" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="part-d"><span class="header-section-number">2.4</span> Part d</h2>
+<p>How does the answer to Part c change if they wanted to have adequate power for <em>all</em> pairwise comparisons? Use <code>Superpower::ANOVA_design()</code> to set up the ANOVA set up.</p>
+<p><strong>Note</strong>: Use design “5b” and the following. <span class="math display">\[\begin{align*}
+  \boldsymbol{\mu} &amp;= \{2.92, 3.11, 3.36, 4.04, 4.35\}\\
+  \sigma^2 &amp;= \frac{(97-1)0.87^2 + (176-1)0.85^2 + (135-1)0.84^2 + (67-1)1.00^2 + (67-1)0.90^2}{97+176+135+67+67-5} = 0.80
+\end{align*}\]</span></p>
+<p>Compute the power of the researcher’s design (part a) using <code>Superpower::ANOVA_power()</code>. If the researchers were able to oversample by double, a common approach to addressing this issue, would their power be at least 80% for all pariwise comparisons?</p>
+<p><strong>Note</strong>: This code can take a minute. You may want to set <code>cache: true</code> in your <code>R</code> chunk yaml header. You will also see more power because the actual effect size was 0.55.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-label="1"></a>mu.d  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.92</span>, <span class="fl">3.11</span>, <span class="fl">3.36</span>, <span class="fl">4.04</span>, <span class="fl">4.35</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-label="2"></a>var.d <span class="ot">&lt;-</span> <span class="fl">0.80</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-label="3"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-label="4"></a>design.a <span class="ot">&lt;-</span> Superpower<span class="sc">::</span><span class="fu">ANOVA_design</span>(<span class="at">design =</span> <span class="st">"5b"</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-label="5"></a>                                     <span class="at">n =</span> n.a,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-label="6"></a>                                     <span class="at">mu =</span> mu.d,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-label="7"></a>                                     <span class="at">sd =</span> <span class="fu">sqrt</span>(var.d),</span>
+<span id="cb22-8"><a href="#cb22-8" aria-label="8"></a>                                     <span class="at">labelnames =</span> <span class="fu">c</span>(<span class="st">"Stage"</span>, <span class="st">"S0"</span>, <span class="st">"S1"</span>, </span>
+<span id="cb22-9"><a href="#cb22-9" aria-label="9"></a>                                                    <span class="st">"S2"</span>, <span class="st">"S3"</span>, <span class="st">"S4"</span>),</span>
+<span id="cb22-10"><a href="#cb22-10" aria-label="10"></a>                                     <span class="at">plot =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="HW2_files/figure-html/q2d-design-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-label="1"></a><span class="co"># Part a design: n = 40 per group</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-label="2"></a>power.d.a <span class="ot">&lt;-</span> Superpower<span class="sc">::</span><span class="fu">ANOVA_power</span>(design.a, <span class="at">nsims =</span> <span class="dv">1000</span>, </span>
+<span id="cb23-3"><a href="#cb23-3" aria-label="3"></a>                                     <span class="at">seed =</span> <span class="dv">354</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-label="4"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-label="5"></a><span class="co"># Doubled: n = 80 per group</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-label="6"></a>design<span class="fl">.2</span>a <span class="ot">&lt;-</span> Superpower<span class="sc">::</span><span class="fu">ANOVA_design</span>(<span class="at">design =</span> <span class="st">"5b"</span>,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-label="7"></a>                                      <span class="at">n =</span> <span class="dv">2</span> <span class="sc">*</span> n.a,</span>
+<span id="cb23-8"><a href="#cb23-8" aria-label="8"></a>                                      <span class="at">mu =</span> mu.d,</span>
+<span id="cb23-9"><a href="#cb23-9" aria-label="9"></a>                                      <span class="at">sd =</span> <span class="fu">sqrt</span>(var.d),</span>
+<span id="cb23-10"><a href="#cb23-10" aria-label="10"></a>                                      <span class="at">labelnames =</span> <span class="fu">c</span>(<span class="st">"Stage"</span>, <span class="st">"S0"</span>, <span class="st">"S1"</span>, </span>
+<span id="cb23-11"><a href="#cb23-11" aria-label="11"></a>                                                     <span class="st">"S2"</span>, <span class="st">"S3"</span>, <span class="st">"S4"</span>),</span>
+<span id="cb23-12"><a href="#cb23-12" aria-label="12"></a>                                      <span class="at">plot =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-label="13"></a>power.d<span class="fl">.2</span>a <span class="ot">&lt;-</span> Superpower<span class="sc">::</span><span class="fu">ANOVA_power</span>(design<span class="fl">.2</span>a, <span class="at">nsims =</span> <span class="dv">1000</span>, </span>
+<span id="cb23-14"><a href="#cb23-14" aria-label="14"></a>                                      <span class="at">seed =</span> <span class="dv">354</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p></p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-label="1"></a>(power.d.table <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Comparison =</span> <span class="fu">rownames</span>(power.d.a<span class="sc">$</span>pc_results),</span>
+<span id="cb24-2"><a href="#cb24-2" aria-label="2"></a>                         <span class="st">`</span><span class="at">n = 40</span><span class="st">`</span>   <span class="ot">=</span> power.d.a<span class="sc">$</span>pc_results<span class="sc">$</span>power,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-label="3"></a>                         <span class="st">`</span><span class="at">n = 80</span><span class="st">`</span>   <span class="ot">=</span> power.d<span class="fl">.2</span>a<span class="sc">$</span>pc_results<span class="sc">$</span>power))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 3
+   Comparison          `n = 40` `n = 80`
+   &lt;chr&gt;                  &lt;dbl&gt;    &lt;dbl&gt;
+ 1 p_Stage_S0_Stage_S1     13.9     28.8
+ 2 p_Stage_S0_Stage_S2     57.5     88.8
+ 3 p_Stage_S0_Stage_S3    100      100  
+ 4 p_Stage_S0_Stage_S4    100      100  
+ 5 p_Stage_S1_Stage_S2     24       41.7
+ 6 p_Stage_S1_Stage_S3     99.3    100  
+ 7 p_Stage_S1_Stage_S4    100      100  
+ 8 p_Stage_S2_Stage_S3     91.7     99.9
+ 9 p_Stage_S2_Stage_S4     99.8    100  
+10 p_Stage_S3_Stage_S4     35       59.1</code></pre>
+</div>
+</div>
+<p></p>
+<p>Using the Part a design (<span class="math inline">\(n = 40\)</span> per group), the power for each pairwise comparison ranges from 13.9% to 100%. The comparisons between widely separated stages (e.g., Stage 0 vs.&nbsp;Stage 4) have near-100% power, but four comparisons fall below 80%: Stage 0 vs.&nbsp;1 (13.9%), Stage 0 vs.&nbsp;2 (57.5%), Stage 1 vs.&nbsp;2 (24.0%), and Stage 3 vs.&nbsp;4 (35.0%). Doubling the sample size to <span class="math inline">\(n = 80\)</span> per group raises Stage 0 vs.&nbsp;2 to 88.8%, but three comparisons remain underpowered: Stage 0 vs.&nbsp;1 (28.8%), Stage 1 vs.&nbsp;2 (41.7%), and Stage 3 vs.&nbsp;4 (59.1%). So doubling the sample size would not give at least 80% power for all pairwise comparisons.</p>
+</section>
+</section>
+<section id="question-3-an-application" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Question 3: An Application</h1>
+<p><span class="citation" data-cites="Yang23"><span class="nocase">Yang et al.</span> (<a href="#ref-Yang23" role="doc-biblioref">2023</a>)</span> investigate whether low-dose nicotine can counteract age-related metabolic decline. The proposed mechanism is through <span class="math inline">\(\text{NAD}^+\)</span>, which is a chemical compound essential for metabolic energy production. The idea is that low-dose nicotine could help improve and/or maintain the recycling of <span class="math inline">\(\text{NAD}^+\)</span> by activating the salvage enzyme NAMPT via SIRT1. This could, in turn, restore <span class="math inline">\(\text{NAD}^+\)</span> homeostasis, which is the biological balance maintained within a cell between the production, recycling, and degradation of nicotinamide adenine dinucleotide (<span class="math inline">\(\text{NAD}^+\)</span>).</p>
+<p><strong>Note:</strong> It is low-dose nicotine. Cigarette smoking delivers massive doses of nicotine along with other harmful chemicals. This is not an endorsement for smoking.</p>
+<p>Male mice across distinct life stages – 2, 6, and 16 months – were categorized to evaluate natural, age-dependent metabolic and enzymatic shifts in two conditions.</p>
+<ul>
+<li>Treatment: low-dose nicotine (administered in drinking water)</li>
+<li>Control: no-dose placebo (administered in drinking water)</li>
+</ul>
+<p>The researchers then aimed to compare treatment against control in the following samples:</p>
+<ul>
+<li>2 months old, control</li>
+<li>6 months old, control</li>
+<li>16 months old, control</li>
+<li>16 months old, treatment</li>
+</ul>
+<p>Using PET imaging, the researchers measured age-induced inflammatory glucose hypermetabolism (<span class="math inline">\(\text{SUV}_{\text{max}}\)</span>). They want to show that this quantity increases with age and those in the nicotine group saw levels comparable to younger mice.</p>
+<div id="tbl-SUV" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-SUV-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: <span class="math inline">\(\text{SUV}_{\text{max}}\)</span> measurements in the heart across age and treatment groups
+</figcaption>
+<div aria-describedby="tbl-SUV-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Replicate</th>
+<th style="text-align: center;">2M</th>
+<th style="text-align: center;">6M</th>
+<th style="text-align: center;">16M</th>
+<th style="text-align: center;">16M, Treatment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: center;">1.48969</td>
+<td style="text-align: center;">4.36000</td>
+<td style="text-align: center;">7.30182</td>
+<td style="text-align: center;">4.69304</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: center;">1.30168</td>
+<td style="text-align: center;">4.28807</td>
+<td style="text-align: center;">7.12416</td>
+<td style="text-align: center;">2.51326</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: center;">1.30620</td>
+<td style="text-align: center;">3.64184</td>
+<td style="text-align: center;">8.28764</td>
+<td style="text-align: center;">2.38019</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<section id="part-a-2" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="part-a-2"><span class="header-section-number">3.1</span> Part a</h2>
+<p>State the null (<span class="math inline">\(H_0\)</span>) and alternative (<span class="math inline">\(H_a\)</span>) hypotheses for the omnibus test.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-label="1"></a>dat.q3 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb26-2"><a href="#cb26-2" aria-label="2"></a>  <span class="at">Group =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"2M"</span>, <span class="st">"6M"</span>, <span class="st">"16M"</span>, <span class="st">"16M, Treatment"</span>), <span class="at">each =</span> <span class="dv">3</span>),</span>
+<span id="cb26-3"><a href="#cb26-3" aria-label="3"></a>                 <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"2M"</span>, <span class="st">"6M"</span>, <span class="st">"16M"</span>, <span class="st">"16M, Treatment"</span>)),</span>
+<span id="cb26-4"><a href="#cb26-4" aria-label="4"></a>  <span class="at">SUV   =</span> <span class="fu">c</span>(<span class="fl">1.48969</span>, <span class="fl">1.30168</span>, <span class="fl">1.30620</span>,    </span>
+<span id="cb26-5"><a href="#cb26-5" aria-label="5"></a>            <span class="fl">4.36000</span>, <span class="fl">4.28807</span>, <span class="fl">3.64184</span>,    </span>
+<span id="cb26-6"><a href="#cb26-6" aria-label="6"></a>            <span class="fl">7.30182</span>, <span class="fl">7.12416</span>, <span class="fl">8.28764</span>,    </span>
+<span id="cb26-7"><a href="#cb26-7" aria-label="7"></a>            <span class="fl">4.69304</span>, <span class="fl">2.51326</span>, <span class="fl">2.38019</span>))   </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p></p>
+<p>Let <span class="math inline">\(\mu_{2M}\)</span>, <span class="math inline">\(\mu_{6M}\)</span>, <span class="math inline">\(\mu_{16M}\)</span>, and <span class="math inline">\(\mu_{16M,T}\)</span> denote the population mean <span class="math inline">\(\text{SUV}_{\text{max}}\)</span> for each group.</p>
+<p><span class="math display">\[H_0: \mu_{2M} = \mu_{6M} = \mu_{16M} = \mu_{16M,T}\]</span> <span class="math display">\[H_a: \text{at least one population mean is different}\]</span></p>
+</section>
+<section id="part-b-2" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="part-b-2"><span class="header-section-number">3.2</span> Part b</h2>
+<p>Perform some exploratory data analysis to provide empirical information about the researchers question.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-label="1"></a>dat.q3 <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-label="2"></a>  <span class="fu">group_by</span>(Group) <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-label="3"></a>  <span class="fu">summarize</span>(<span class="at">n      =</span> <span class="fu">n</span>(),</span>
+<span id="cb27-4"><a href="#cb27-4" aria-label="4"></a>            <span class="at">Mean   =</span> <span class="fu">mean</span>(SUV),</span>
+<span id="cb27-5"><a href="#cb27-5" aria-label="5"></a>            <span class="at">Median =</span> <span class="fu">median</span>(SUV),</span>
+<span id="cb27-6"><a href="#cb27-6" aria-label="6"></a>            <span class="at">SD     =</span> <span class="fu">sd</span>(SUV),</span>
+<span id="cb27-7"><a href="#cb27-7" aria-label="7"></a>            <span class="at">IQR    =</span> <span class="fu">IQR</span>(SUV))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 6
+  Group              n  Mean Median    SD    IQR
+  &lt;fct&gt;          &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+1 2M                 3  1.37   1.31 0.107 0.0940
+2 6M                 3  4.10   4.29 0.396 0.359 
+3 16M                3  7.57   7.30 0.627 0.582 
+4 16M, Treatment     3  3.20   2.51 1.30  1.16  </code></pre>
+</div>
+</div>
+<p></p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-label="1"></a><span class="fu">ggplot</span>(dat.q3, <span class="fu">aes</span>(<span class="at">x =</span> Group, <span class="at">y =</span> SUV)) <span class="sc">+</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-label="2"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-label="3"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">"crossbar"</span>, <span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-label="4"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-label="5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Group"</span>, <span class="at">y =</span> <span class="fu">expression</span>(SUV[max]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="HW2_files/figure-html/q3-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p>
+<p>The control groups show a clear increase in <span class="math inline">\(\text{SUV}_{\text{max}}\)</span> with age, from a mean of about 1.37 at 2 months to 4.10 at 6 months and 7.57 at 16 months. The 16-month nicotine-treated mice had a mean of about 3.20, much lower than 16-month controls and between the 2- and 6-month controls, which is consistent with the researchers’ hypothesis. However, the variability differs substantially across groups indicating we should be using Welch’s ANOVA.</p>
+</section>
+<section id="part-c-1" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="part-c-1"><span class="header-section-number">3.3</span> Part c</h2>
+<p>Perform and report the results of the omnibus test. Make sure to evaluate the conditions for using the method you choose.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-label="1"></a>(test.result.q3 <span class="ot">&lt;-</span> <span class="fu">oneway.test</span>(SUV <span class="sc">~</span> Group, <span class="at">data =</span> dat.q3))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One-way analysis of means (not assuming equal variances)
+
+data:  SUV and Group
+F = 98.464, num df = 3.0000, denom df = 3.5496, p-value = 0.0006851</code></pre>
+</div>
+</div>
+<p></p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-label="1"></a><span class="fu">omega_squared</span>(test.result.q3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># Effect Size for ANOVA
+
+Omega2 |       95% CI
+---------------------
+0.97   | [0.83, 1.00]
+
+- One-sided CIs: upper bound fixed at [1.00].</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-label="1"></a>(omega.q3 <span class="ot">&lt;-</span> <span class="fu">omega_squared</span>(test.result.q3))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># Effect Size for ANOVA
+
+Omega2 |       95% CI
+---------------------
+0.97   | [0.83, 1.00]
+
+- One-sided CIs: upper bound fixed at [1.00].</code></pre>
+</div>
+</div>
+<p></p>
+<p>Welch’s ANOVA gives <span class="math inline">\(F = 98.46\)</span> with <span class="math inline">\(3\)</span> and <span class="math inline">\(3.55\)</span> degrees of freedom (<span class="math inline">\(p = 6.85\times 10^{-4}\)</span>). Since <span class="math inline">\(p &lt; \alpha = 0.05\)</span>, the data provide statistically discernible support that the mean <span class="math inline">\(\text{SUV}_{\text{max}}\)</span> differs for at least one group. The effect size is very large (<span class="math inline">\(\omega^2 = 0.97\)</span>, 95% CI: [0.83, 1.00]), indicating that about 97% of the variability in <span class="math inline">\(\text{SUV}_{\text{max}}\)</span> is explained by differences between groups.</p>
+</section>
+<section id="part-d-1" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="part-d-1"><span class="header-section-number">3.4</span> Part d</h2>
+<p>Conduct post-hoc pairwise comparisons to determine if age-induced inflammatory glucose hypermetabolism increase with age and whether low-dose nicotine reduces age-induced inflammatory glucose hypermetabolism.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-label="1"></a>(posthoc.result.q3 <span class="ot">&lt;-</span> <span class="fu">games_howell_test</span>(SUV <span class="sc">~</span> Group, <span class="at">data =</span> dat.q3) <span class="sc">|&gt;</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-label="2"></a>  <span class="fu">mutate</span>(<span class="at">Comparison =</span> <span class="fu">paste</span>(group2, <span class="st">"-"</span>, group1)) <span class="sc">|&gt;</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-label="3"></a>  <span class="fu">select</span>(Comparison, estimate, conf.low, conf.high, p.adj))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+  Comparison           estimate conf.low conf.high   p.adj
+  &lt;chr&gt;                   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+1 6M - 2M                 2.73      1.31     4.15  0.0119 
+2 16M - 2M                6.21      3.81     8.60  0.00720
+3 16M, Treatment - 2M     1.83     -3.30     6.96  0.308  
+4 16M - 6M                3.47      1.56     5.39  0.00801
+5 16M, Treatment - 6M    -0.901    -5.47     3.67  0.698  
+6 16M, Treatment - 16M   -4.38     -8.51    -0.244 0.0431 </code></pre>
+</div>
+</div>
+<p></p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-label="1"></a><span class="fu">ggplot</span>(posthoc.result.q3, <span class="fu">aes</span>(<span class="at">x =</span> estimate, <span class="at">y =</span> Comparison)) <span class="sc">+</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-label="2"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-label="3"></a>  <span class="fu">geom_errorbarh</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> conf.low, <span class="at">xmax =</span> conf.high), <span class="at">height =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-label="4"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-label="5"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-label="6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Estimated Difference in Mean SUVmax"</span>, <span class="at">y =</span> <span class="st">""</span>,</span>
+<span id="cb38-7"><a href="#cb38-7" aria-label="7"></a>       <span class="at">title =</span> <span class="st">"Games-Howell Pairwise Comparisons"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="HW2_files/figure-html/q3-posthoc-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p>
+</section>
+<section id="part-e" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="part-e"><span class="header-section-number">3.5</span> Part e</h2>
+<p>Write a short paragraph directly addressing the researcher’s hypothesis using your work in (a)-(d).</p>
+<p>The data support the researchers’ first claim and partially support the second. Welch’s ANOVA provided statistically discernible support that mean <span class="math inline">\(\text{SUV}_{\text{max}}\)</span> differs across groups (<span class="math inline">\(F = 98.46\)</span>, <span class="math inline">\(p = 6.85\times 10^{-4}\)</span>), with a very large effect size (<span class="math inline">\(\omega^2 = 0.97\)</span>). Games-Howell comparisons showed that <span class="math inline">\(\text{SUV}_{\text{max}}\)</span> increased significantly with age among control mice, from 2 to 6 months and from 6 to 16 months, so age-induced inflammatory glucose hypermetabolism does appear to increase with age. The 16-month nicotine-treated mice had lower <span class="math inline">\(\text{SUV}_{\text{max}}\)</span> than 16-month controls (<span class="math inline">\(p = 0.043\)</span>), which suggests that low-dose nicotine reduces this age-related increase, although the evidence is borderline and the confidence interval is wide. However, the researchers only have three mice per group. Larger studies should be done to confirm the nicotine effect.</p>
+
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-Yang23" class="csl-entry" role="listitem">
+<span class="nocase">Yang, Liang, Junfeng Shen, Chunhua Liu, et al.</span> 2023. <span>“Nicotine Rebalances NAD+ Homeostasis and Improves Aging-Related Symptoms in Male Mice by Enhancing NAMPT Activity.”</span> <em>Nature Communications</em> 14 (1): 900.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
