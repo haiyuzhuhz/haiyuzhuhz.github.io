@@ -1,10 +1,6 @@
 ---
 title: Homework 1 -- One Sample Inference # Title of the document
 
-# Bibliography Details
-bibliography: HW1References.bib  # Name of bib file in the same folder 
-bibliographystyle: apa            # Bibliography style
-
 execute:               # Default settings for code blocks
   warning: false       # Do not print warnings
   message: false       # Do not print messages
