@@ -841,20 +841,7 @@ F = 98.464, num df = 3.0000, denom df = 3.5496, p-value = 0.0006851</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-label="1"></a><span class="fu">omega_squared</span>(test.result.q3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code># Effect Size for ANOVA
-
-Omega2 |       95% CI
----------------------
-0.97   | [0.83, 1.00]
-
-- One-sided CIs: upper bound fixed at [1.00].</code></pre>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-label="1"></a>(omega.q3 <span class="ot">&lt;-</span> <span class="fu">omega_squared</span>(test.result.q3))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-label="1"></a>(omega.q3 <span class="ot">&lt;-</span> <span class="fu">omega_squared</span>(test.result.q3))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># Effect Size for ANOVA
@@ -867,6 +854,7 @@ Omega2 |       95% CI
 </div>
 </div>
 <p></p>
+<p>The response (<span class="math inline">\(\text{SUV}_{\text{max}}\)</span>) is quantitative, and each mouse contributes one measurement to one group, so the observations and samples are independent. The sample standard deviations range from 0.107 (2M) to 1.30 (16M, Treatment), a ratio of about 12, so equal variances are not reasonable and Welch’s ANOVA is appropriate. With only three mice per group, we cannot meaningfully assess whether <span class="math inline">\(\text{SUV}_{\text{max}}\)</span> is Gaussian within each group, so the results rely on that assumption. The mice are laboratory animals, so the results generalize only to comparable mice.</p>
 <p>Welch’s ANOVA gives <span class="math inline">\(F = 98.46\)</span> with <span class="math inline">\(3\)</span> and <span class="math inline">\(3.55\)</span> degrees of freedom (<span class="math inline">\(p = 6.85\times 10^{-4}\)</span>). Since <span class="math inline">\(p &lt; \alpha = 0.05\)</span>, the data provide statistically discernible support that the mean <span class="math inline">\(\text{SUV}_{\text{max}}\)</span> differs for at least one group. The effect size is very large (<span class="math inline">\(\omega^2 = 0.97\)</span>, 95% CI: [0.83, 1.00]), indicating that about 97% of the variability in <span class="math inline">\(\text{SUV}_{\text{max}}\)</span> is explained by differences between groups.</p>
 </section>
 <section id="part-d-1" class="level2" data-number="3.4">
@@ -876,9 +864,9 @@ Omega2 |       95% CI
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-label="1"></a>(posthoc.result.q3 <span class="ot">&lt;-</span> <span class="fu">games_howell_test</span>(SUV <span class="sc">~</span> Group, <span class="at">data =</span> dat.q3) <span class="sc">|&gt;</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-label="2"></a>  <span class="fu">mutate</span>(<span class="at">Comparison =</span> <span class="fu">paste</span>(group2, <span class="st">"-"</span>, group1)) <span class="sc">|&gt;</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-label="3"></a>  <span class="fu">select</span>(Comparison, estimate, conf.low, conf.high, p.adj))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-label="1"></a>(posthoc.result.q3 <span class="ot">&lt;-</span> <span class="fu">games_howell_test</span>(SUV <span class="sc">~</span> Group, <span class="at">data =</span> dat.q3) <span class="sc">|&gt;</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-label="2"></a>  <span class="fu">mutate</span>(<span class="at">Comparison =</span> <span class="fu">paste</span>(group2, <span class="st">"-"</span>, group1)) <span class="sc">|&gt;</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-label="3"></a>  <span class="fu">select</span>(Comparison, estimate, conf.low, conf.high, p.adj))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 5
@@ -897,13 +885,13 @@ Omega2 |       95% CI
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-label="1"></a><span class="fu">ggplot</span>(posthoc.result.q3, <span class="fu">aes</span>(<span class="at">x =</span> estimate, <span class="at">y =</span> Comparison)) <span class="sc">+</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-label="2"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-label="3"></a>  <span class="fu">geom_errorbarh</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> conf.low, <span class="at">xmax =</span> conf.high), <span class="at">height =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-label="4"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-label="5"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb38-6"><a href="#cb38-6" aria-label="6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Estimated Difference in Mean SUVmax"</span>, <span class="at">y =</span> <span class="st">""</span>,</span>
-<span id="cb38-7"><a href="#cb38-7" aria-label="7"></a>       <span class="at">title =</span> <span class="st">"Games-Howell Pairwise Comparisons"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-label="1"></a><span class="fu">ggplot</span>(posthoc.result.q3, <span class="fu">aes</span>(<span class="at">x =</span> estimate, <span class="at">y =</span> Comparison)) <span class="sc">+</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-label="2"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-label="3"></a>  <span class="fu">geom_errorbarh</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> conf.low, <span class="at">xmax =</span> conf.high), <span class="at">height =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-label="4"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-label="5"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-label="6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Estimated Difference in Mean SUVmax"</span>, <span class="at">y =</span> <span class="st">""</span>,</span>
+<span id="cb36-7"><a href="#cb36-7" aria-label="7"></a>       <span class="at">title =</span> <span class="st">"Games-Howell Pairwise Comparisons"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>

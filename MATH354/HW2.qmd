@@ -441,9 +441,10 @@ Perform and report the results of the omnibus test. Make sure to evaluate the co
 
 ```{r}
 #| label: q3-effect
-omega_squared(test.result.q3)
 (omega.q3 <- omega_squared(test.result.q3))
 ```
+
+The response ($\text{SUV}_{\text{max}}$) is quantitative, and each mouse contributes one measurement to one group, so the observations and samples are independent. The sample standard deviations range from 0.107 (2M) to 1.30 (16M, Treatment), a ratio of about 12, so equal variances are not reasonable and Welch's ANOVA is appropriate. With only three mice per group, we cannot meaningfully assess whether $\text{SUV}_{\text{max}}$ is Gaussian within each group, so the results rely on that assumption. The mice are laboratory animals, so the results generalize only to comparable mice.
 
 Welch's ANOVA gives $F = `r round(test.result.q3$statistic, 2)`$ with $`r round(test.result.q3$parameter[1], 0)`$ and $`r round(test.result.q3$parameter[2], 2)`$ degrees of freedom ($p = `r signif(test.result.q3$p.value, 3)`$). Since $p < \alpha = 0.05$, the data provide statistically discernible support that the mean $\text{SUV}_{\text{max}}$ differs for at least one group. The effect size is very large ($\omega^2 = `r round(omega.q3$Omega2, 2)`$, 95% CI: [`r round(omega.q3$CI_low, 2)`, 1.00]), indicating that about `r round(100*omega.q3$Omega2)`% of the variability in $\text{SUV}_{\text{max}}$ is explained by differences between groups.
 
