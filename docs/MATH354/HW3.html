@@ -171,7 +171,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Homework 3 – Regression</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../MATH354/hw1.html">Data Analysis I</a></li><li class="breadcrumb-item"><a href="../MATH354/HW3.html">Homework 3: Regression</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -205,13 +205,13 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Data Analysis I</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../MATH354/hw1.html" class="sidebar-item-text sidebar-link">
@@ -222,6 +222,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="../MATH354/HW2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework 2: k Sample Inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../MATH354/HW3.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Homework 3: Regression</span></a>
   </div>
 </li>
       </ul>
@@ -273,7 +279,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../MATH354/hw1.html">Data Analysis I</a></li><li class="breadcrumb-item"><a href="../MATH354/HW3.html">Homework 3: Regression</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Homework 3 – Regression</h1>
 </div>
@@ -1395,10 +1401,57 @@ Fibrosis.StageStage 3 Fibrosis.StageStage 4                   Age
 </div>
 </div>
 <p></p>
+<p>The estimated model is <span class="math display">\[\begin{align*}
+\widehat{\log(\text{MFAP4})} =\ &amp; 1.52 + 0.13\, I(\text{Stage 1}) + 0.21\, I(\text{Stage 2}) + 0.60\, I(\text{Stage 3}) \\
+&amp; + 0.83\, I(\text{Stage 4}) + 0.013\, \text{Age} - 0.14\, I(\text{Male}).
+\end{align*}\]</span></p>
+<p>Exponentiating the coefficients, holding the other predictors constant:</p>
+<ul>
+<li><span class="math inline">\(e^{\widehat{\beta}_0} = 4.57\)</span>: The median MFAP4 for a female Stage 0 patient of age 0. This is not meaningful, since no patients are near age 0.</li>
+<li><span class="math inline">\(e^{\widehat{\beta}_1} = 1.14\)</span>, <span class="math inline">\(e^{\widehat{\beta}_2} = 1.24\)</span>, <span class="math inline">\(e^{\widehat{\beta}_3} = 1.82\)</span>, <span class="math inline">\(e^{\widehat{\beta}_4} = 2.29\)</span>: Compared to Stage 0 patients of the same age and gender, the median MFAP4 is 14%, 24%, 82%, and 129% higher for Stages 1, 2, 3, and 4, respectively.</li>
+<li><span class="math inline">\(e^{\widehat{\beta}_5} = 1.013\)</span>: Each additional year of age is associated with a 1.3% higher median MFAP4.</li>
+<li><span class="math inline">\(e^{\widehat{\beta}_6} = 0.87\)</span>: Males have a median MFAP4 about 13% lower than females.</li>
+</ul>
+<p>Compared to part c, the stage effects are smaller after adjusting for age (e.g., Stage 4 drops from 2.69 to 2.29 times Stage 0). This suggests part of the stage effect in part c was due to patients with more advanced fibrosis tending to be older.</p>
 </section>
 </section>
 <section id="question-4" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Question 4</h1>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-label="1"></a><span class="co"># Simulate R regressions, storing the coefficient estimates</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-label="2"></a>sim.coefs <span class="ot">&lt;-</span> <span class="cf">function</span>(error.fun, <span class="at">R =</span> <span class="dv">1000</span>, <span class="at">n =</span> <span class="dv">30</span>) {</span>
+<span id="cb41-3"><a href="#cb41-3" aria-label="3"></a>  results <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">b0 =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, R), <span class="at">b1 =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, R))</span>
+<span id="cb41-4"><a href="#cb41-4" aria-label="4"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>R) {</span>
+<span id="cb41-5"><a href="#cb41-5" aria-label="5"></a>    x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">10</span>)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-label="6"></a>    e <span class="ot">&lt;-</span> <span class="fu">error.fun</span>(n)</span>
+<span id="cb41-7"><a href="#cb41-7" aria-label="7"></a>    y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> x <span class="sc">+</span> e</span>
+<span id="cb41-8"><a href="#cb41-8" aria-label="8"></a>    mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
+<span id="cb41-9"><a href="#cb41-9" aria-label="9"></a>    results<span class="sc">$</span>b0[i] <span class="ot">&lt;-</span> <span class="fu">coef</span>(mod)[<span class="dv">1</span>]</span>
+<span id="cb41-10"><a href="#cb41-10" aria-label="10"></a>    results<span class="sc">$</span>b1[i] <span class="ot">&lt;-</span> <span class="fu">coef</span>(mod)[<span class="dv">2</span>]</span>
+<span id="cb41-11"><a href="#cb41-11" aria-label="11"></a>  }</span>
+<span id="cb41-12"><a href="#cb41-12" aria-label="12"></a>  results</span>
+<span id="cb41-13"><a href="#cb41-13" aria-label="13"></a>}</span>
+<span id="cb41-14"><a href="#cb41-14" aria-label="14"></a></span>
+<span id="cb41-15"><a href="#cb41-15" aria-label="15"></a><span class="co"># Plot the sampling distributions with the true values marked</span></span>
+<span id="cb41-16"><a href="#cb41-16" aria-label="16"></a>plot.coefs <span class="ot">&lt;-</span> <span class="cf">function</span>(results) {</span>
+<span id="cb41-17"><a href="#cb41-17" aria-label="17"></a>  p0 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(results, <span class="fu">aes</span>(<span class="at">x =</span> b0)) <span class="sc">+</span></span>
+<span id="cb41-18"><a href="#cb41-18" aria-label="18"></a>    <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)), <span class="at">bins =</span> <span class="dv">30</span>,</span>
+<span id="cb41-19"><a href="#cb41-19" aria-label="19"></a>                   <span class="at">fill =</span> <span class="st">"lightgrey"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb41-20"><a href="#cb41-20" aria-label="20"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb41-21"><a href="#cb41-21" aria-label="21"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">xlab</span>(<span class="fu">bquote</span>(<span class="fu">hat</span>(beta)[<span class="dv">0</span>]))</span>
+<span id="cb41-22"><a href="#cb41-22" aria-label="22"></a>  p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(results, <span class="fu">aes</span>(<span class="at">x =</span> b1)) <span class="sc">+</span></span>
+<span id="cb41-23"><a href="#cb41-23" aria-label="23"></a>    <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)), <span class="at">bins =</span> <span class="dv">30</span>,</span>
+<span id="cb41-24"><a href="#cb41-24" aria-label="24"></a>                   <span class="at">fill =</span> <span class="st">"lightgrey"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb41-25"><a href="#cb41-25" aria-label="25"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">1.5</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb41-26"><a href="#cb41-26" aria-label="26"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">xlab</span>(<span class="fu">bquote</span>(<span class="fu">hat</span>(beta)[<span class="dv">1</span>]))</span>
+<span id="cb41-27"><a href="#cb41-27" aria-label="27"></a>  p0 <span class="sc">|</span> p1</span>
+<span id="cb41-28"><a href="#cb41-28" aria-label="28"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p></p>
 <section id="part-a-3" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="part-a-3"><span class="header-section-number">4.1</span> Part a</h2>
 <p>Simulate data to match regression assumptions in a loop that runs <span class="math inline">\(R=1000\)</span> times. <span class="math display">\[\begin{align*}
@@ -1407,6 +1460,39 @@ Fibrosis.StageStage 3 Fibrosis.StageStage 4                   Age
     y_i &amp;= 2 + 1.5 x_i + \epsilon_i\\
     n &amp;= 30
 \end{align*}\]</span> In each iteration, fit a regression line to the data and store the coefficient estimates. Plot the resulting estimates. What do you notice?</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-label="1"></a><span class="fu">set.seed</span>(<span class="dv">354</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-label="2"></a>res.a <span class="ot">&lt;-</span> <span class="fu">sim.coefs</span>(<span class="cf">function</span>(n) <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>))</span>
+<span id="cb42-3"><a href="#cb42-3" aria-label="3"></a><span class="fu">plot.coefs</span>(res.a)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-label="4"></a><span class="fu">summary</span>(res.a)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>       b0               b1       
+ Min.   :0.8418   Min.   :1.297  
+ 1st Qu.:1.7508   1st Qu.:1.457  
+ Median :1.9986   Median :1.502  
+ Mean   :1.9992   Mean   :1.500  
+ 3rd Qu.:2.2443   3rd Qu.:1.544  
+ Max.   :3.1626   Max.   :1.735  </code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-q4a" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-q4a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: Sampling distributions of the coefficient estimates with Gaussian errors. Red lines mark the true values.
+</figcaption>
+<div aria-describedby="fig-q4a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="HW3_files/figure-html/fig-q4a-1.png" class="img-fluid figure-img" width="672">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p></p>
+<p>Both sampling distributions are bell-shaped and centered at the true values: the mean of <span class="math inline">\(\widehat{\beta}_0\)</span> is 1.999 (true value 2) and the mean of <span class="math inline">\(\widehat{\beta}_1\)</span> is 1.500 (true value 1.5). When the regression conditions are met, the OLS estimators are unbiased and approximately Gaussian.</p>
 </section>
 <section id="part-b-3" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="part-b-3"><span class="header-section-number">4.2</span> Part b</h2>
@@ -1417,6 +1503,39 @@ Fibrosis.StageStage 3 Fibrosis.StageStage 4                   Age
     n &amp;= 30
 \end{align*}\]</span> In each iteration, fit a regression line to the data and store the coefficient estimates. Plot the resulting estimates. What do you notice?</p>
 <p><strong>Hint:</strong> Use the <code>tolerance::r2exp()</code> function with <code>rate=1</code> and <code>shift=-1</code>.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-label="1"></a><span class="fu">set.seed</span>(<span class="dv">354</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-label="2"></a>res.b <span class="ot">&lt;-</span> <span class="fu">sim.coefs</span>(<span class="cf">function</span>(n) tolerance<span class="sc">::</span><span class="fu">r2exp</span>(n, <span class="at">rate =</span> <span class="dv">1</span>, <span class="at">shift =</span> <span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb44-3"><a href="#cb44-3" aria-label="3"></a><span class="fu">plot.coefs</span>(res.b)</span>
+<span id="cb44-4"><a href="#cb44-4" aria-label="4"></a><span class="fu">summary</span>(res.b)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>       b0               b1       
+ Min.   :0.9936   Min.   :1.296  
+ 1st Qu.:1.7279   1st Qu.:1.457  
+ Median :1.9847   Median :1.501  
+ Mean   :2.0081   Mean   :1.500  
+ 3rd Qu.:2.2414   3rd Qu.:1.543  
+ Max.   :3.3185   Max.   :1.679  </code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-q4b" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-q4b-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: Sampling distributions of the coefficient estimates with shifted exponential errors. Red lines mark the true values.
+</figcaption>
+<div aria-describedby="fig-q4b-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="HW3_files/figure-html/fig-q4b-1.png" class="img-fluid figure-img" width="672">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p></p>
+<p>Even though the errors are skewed, both sampling distributions are still centered at the true values. The distribution of <span class="math inline">\(\widehat{\beta}_1\)</span> is approximately Gaussian, while <span class="math inline">\(\widehat{\beta}_0\)</span> shows slight right skew. So OLS remains unbiased without Gaussian errors, and since the estimators are weighted averages of the data, the Central Limit Theorem makes their sampling distributions close to Gaussian even with <span class="math inline">\(n=30\)</span>.</p>
 </section>
 <section id="part-c-3" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="part-c-3"><span class="header-section-number">4.3</span> Part c</h2>
@@ -1426,6 +1545,39 @@ Fibrosis.StageStage 3 Fibrosis.StageStage 4                   Age
     y_i &amp;= 2 + 1.5 x_i + \epsilon_i\\
     n &amp;= 30
 \end{align*}\]</span> In each iteration, fit a regression line to the data and store the coefficient estimates. Plot the resulting estimates. What do you notice?</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-label="1"></a><span class="fu">set.seed</span>(<span class="dv">354</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-label="2"></a>res.c <span class="ot">&lt;-</span> <span class="fu">sim.coefs</span>(<span class="cf">function</span>(n) <span class="fu">rcauchy</span>(n, <span class="at">location =</span> <span class="dv">0</span>, <span class="at">scale =</span> <span class="dv">1</span>))</span>
+<span id="cb46-3"><a href="#cb46-3" aria-label="3"></a><span class="fu">plot.coefs</span>(res.c)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-label="4"></a><span class="fu">summary</span>(res.c)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>       b0                   b1         
+ Min.   :-1237.4315   Min.   :-69.527  
+ 1st Qu.:    0.5564   1st Qu.:  1.177  
+ Median :    2.1740   Median :  1.490  
+ Mean   :    0.4713   Mean   :  1.624  
+ 3rd Qu.:    3.9374   3rd Qu.:  1.761  
+ Max.   :  247.2638   Max.   :150.129  </code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-q4c" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-q4c-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12: Sampling distributions of the coefficient estimates with Cauchy errors. Red lines mark the true values.
+</figcaption>
+<div aria-describedby="fig-q4c-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="HW3_files/figure-html/fig-q4c-1.png" class="img-fluid figure-img" width="672">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p></p>
+<p>With Cauchy errors, the sampling distributions have extremely heavy tails: <span class="math inline">\(\widehat{\beta}_0\)</span> ranges from <span class="math inline">\(-1237\)</span> to <span class="math inline">\(247\)</span> and <span class="math inline">\(\widehat{\beta}_1\)</span> from <span class="math inline">\(-69.5\)</span> to <span class="math inline">\(150.1\)</span>. While the medians are near the true values (2.17 and 1.49), the means are not (0.47 and 1.62), and a few extreme estimates dominate the histograms. Since the Cauchy distribution has no mean or variance, the Central Limit Theorem does not apply, and OLS estimates can be wildly wrong. Regression requires errors with finite variance.</p>
 
 
 

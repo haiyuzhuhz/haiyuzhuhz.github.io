@@ -1,5 +1,351 @@
 [
   {
+    "objectID": "MATH354/HW3.html#part-a",
+    "href": "MATH354/HW3.html#part-a",
+    "title": "Homework 3 – Regression",
+    "section": "1.1 Part a",
+    "text": "1.1 Part a\nFit the regression model.\n\\[\\begin{align*}\n  Y_i =& \\beta_0  +\n       \\beta_1 x_{1i} + \\beta_2 I(x_{2i}=\\text{B})+ \\beta_3 I(x_{3i}=\\text{Treat}) + \\beta_4 I(x_{4i}=\\text{High}) +\\\\\n       & \\beta_5 x_{5i} + \\beta_6 I( x_{6i}=\\text{Group2}) + \\beta_7 x_{7i} + \\beta_8 x_{8i}+\\\\\n       & \\beta_9 (I(x_{3i}=\\text{Treat}) ~\\times~ I(x_{4i}=\\text{High})) + \\tag{Categorical $\\times$ Categorical}\\\\\n        & \\beta_{10} (x_{5i} ~\\times~ I(x_{6i}=\\text{Group2})) +\\tag{Continuous $\\times$ Categorical}\\\\\n        & \\beta_{11} (x_{7i} ~\\times~ x_{8i}) +\n         \\epsilon_i \\tag{Continuous $\\times$ Continuous}\n\\end{align*}\\]\nSolution: First, we fit the regression model using lm().\n\n\n\nCode\nmod.q1 &lt;- lm(y ~ x1 + x2 + x3*x4 + x5*x6 + x7*x8, data=dat.q1)",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 3: Regression"
+    ]
+  },
+  {
+    "objectID": "MATH354/HW3.html#part-b",
+    "href": "MATH354/HW3.html#part-b",
+    "title": "Homework 3 – Regression",
+    "section": "1.2 Part b",
+    "text": "1.2 Part b\nConduct a residual and outlier analysis.\n\n\n\nCode\nplotResiduals(mod.q1)\n\n\n\n\n\nFigure 1: Residual analysis for the model in Question 1.\n\n\n\n\n\n\n\n\n In Figure 1, the residuals fall close to the line in the QQ plot and the histogram is approximately Gaussian. The fitted vs. residual plot shows an even band around zero with no pattern. Thus, the residuals appear Gaussian with mean zero and common variance.\n\n\n\nCode\nplotInfluence(mod.q1)\n\n\n\n\n\nFigure 2: Outlier and influence analysis for the model in Question 1.\n\n\n\n\n\n\n\n\n In Figure 2, a few observations have high leverage and a few have large studentized residuals. However, no observation has both, and all Cook’s distances are far below the cutoffs. Thus, no observation has undue influence on the fit, and we do not remove any data.",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 3: Regression"
+    ]
+  },
+  {
+    "objectID": "MATH354/HW3.html#part-c",
+    "href": "MATH354/HW3.html#part-c",
+    "title": "Homework 3 – Regression",
+    "section": "1.3 Part c",
+    "text": "1.3 Part c\nInterpret the intercept, the coefficients on \\(x_1\\) and \\(x_2\\).\n\nIntercept (\\(\\widehat{\\beta}_0 = 8.90\\)): The expected value of \\(Y\\) when \\(x_1=x_5=x_7=x_8=0\\) and the categorical predictors are at their baseline levels (\\(x_2=\\text{A}\\), \\(x_3=\\text{Control}\\), \\(x_4=\\text{Low}\\), \\(x_6=\\text{Group1}\\)). This is not meaningful, since \\(x_1\\), \\(x_7\\), and \\(x_8\\) are never near zero in the data; large standard error (26.94).\n\\(x_1\\) (\\(\\widehat{\\beta}_1 = 2.14\\)): Holding all other predictors constant, a one-unit increase in \\(x_1\\) is associated with a 2.14 increase in the expected value of \\(Y\\).\n\\(x_2\\) (\\(\\widehat{\\beta}_2 = 10.03\\)): Holding all other predictors constant, the expected value of \\(Y\\) is 10.03 higher when \\(x_2=\\text{B}\\) than when \\(x_2=\\text{A}\\).",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 3: Regression"
+    ]
+  },
+  {
+    "objectID": "MATH354/HW3.html#part-d",
+    "href": "MATH354/HW3.html#part-d",
+    "title": "Homework 3 – Regression",
+    "section": "1.4 Part d",
+    "text": "1.4 Part d\nUntangle and interpret the \\(x_3*x_4\\) interaction using algebra. Use Table 1 and Figure 3 for context.\n\n\n\nCode\nlibrary(emmeans)\nemm.q1d &lt;- emmeans(mod.q1, ~x3*x4) |&gt; # Don't average across levels: use |x2*x6\n            data.frame() |&gt;\n            rename(\"Mean\"  = \"emmean\",\n                   \"Lower\" = \"lower.CL\",\n                   \"Upper\" = \"upper.CL\")\n\n\n\n\n\n\n\n\nTable 1: Estimated marginal means for the model in Question 1.\n\n\n\n\n\n\nx3\nx4\nMean\nSE\ndf\nLower\nUpper\n\n\n\n\nControl\nLow\n212.9676\n1.7871\n238\n209.4470\n216.4882\n\n\nTreat\nLow\n219.4792\n1.9123\n238\n215.7120\n223.2464\n\n\nControl\nHigh\n216.4894\n1.7916\n238\n212.9601\n220.0188\n\n\nTreat\nHigh\n238.1930\n1.7631\n238\n234.7198\n241.6662\n\n\n\n\n\n\n\n\n\n\n\n\nCode\nemm.q1d &lt;- emm.q1d |&gt;\n  mutate(Observation = paste(\"(x3=\", x3, \", \", \"x4=\", x4, \")\", sep=\"\"))\nggplot(emm.q1d) + \n  geom_point(aes(x=Mean, y=Observation))+\n  geom_errorbar(aes(y=Observation,\n                    xmin=Lower, xmax=Upper),\n                width = 0.25)+\n  # facet_wrap(~x2*x6)+\n  theme_bw()+\n  xlab(\"Estimated Mean of Y\")\n\n\n\n\n\nFigure 3: Estimated marginal means for the model in Question 1.\n\n\n\n\n\n\n\n\n\nHolding the other predictors fixed, let \\(C\\) denote the contribution of all other terms. Then\n\\[\\begin{align*}\nE(Y \\mid \\text{Control, Low}) &= C\\\\\nE(Y \\mid \\text{Treat, Low}) &= C + \\beta_3\\\\\nE(Y \\mid \\text{Control, High}) &= C + \\beta_4\\\\\nE(Y \\mid \\text{Treat, High}) &= C + \\beta_3 + \\beta_4 + \\beta_9\n\\end{align*}\\]\nSo the effect of Treat (vs. Control) is \\(\\beta_3\\) when \\(x_4=\\text{Low}\\) and \\(\\beta_3+\\beta_9\\) when \\(x_4=\\text{High}\\). That is, \\(\\beta_9\\) is the difference in the treatment effect between the High and Low groups.\n\n\\(\\widehat{\\beta}_3 = 6.51\\): When \\(x_4=\\text{Low}\\), Treat is associated with a 6.51 higher expected \\(Y\\) than Control.\n\\(\\widehat{\\beta}_4 = 3.52\\): When \\(x_3=\\text{Control}\\), High is associated with a 3.52 higher expected \\(Y\\) than Low.\n\\(\\widehat{\\beta}_9 = 15.19\\): The treatment effect is 15.19 larger when \\(x_4=\\text{High}\\) (\\(6.51+15.19=21.70\\)) than when \\(x_4=\\text{Low}\\) (\\(6.51\\)).\n\nThese match Table 1: \\(219.48-212.97=6.51\\), \\(216.49-212.97=3.52\\), and \\(238.19-216.49=21.70\\). In Figure 3, the (Treat, High) group sits well above the other three, with a confidence interval that does not overlap theirs, while the other three groups are similar. This reflects the interaction: the treatment effect is much larger when \\(x_4=\\text{High}\\).",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 3: Regression"
+    ]
+  },
+  {
+    "objectID": "MATH354/HW3.html#part-e",
+    "href": "MATH354/HW3.html#part-e",
+    "title": "Homework 3 – Regression",
+    "section": "1.5 Part e",
+    "text": "1.5 Part e\nUntangle and interpret the \\(x_5*x_6\\) interaction using algebra. Use Table 2 and Figure 4 for context.\n\n\n\nCode\nemm.q1e &lt;- emtrends(mod.q1, var=\"x5\", ~x5|x6) |&gt; \n            data.frame() |&gt;\n            rename(\"Slope\"  = \"x5.trend\",\n                   \"Lower\" = \"lower.CL\",\n                   \"Upper\" = \"upper.CL\") |&gt;\n            dplyr::select(x6, Slope, SE, df, Lower, Upper)\n\n\n\n\n\n\n\n\nTable 2: Estimated marginal trends for the model in Question 1.\n\n\n\n\n\n\nx6\nSlope\nSE\ndf\nLower\nUpper\n\n\n\n\nGroup1\n2.4835\n1.2942\n238\n-0.0660\n5.0330\n\n\nGroup2\n9.4309\n1.3367\n238\n6.7977\n12.0642\n\n\n\n\n\n\n\n\n In Figure 4, the slopes are the same and just the intercepts vary depending on \\(x_2\\), \\(x_3\\), and \\(x_4\\).\n\n\n\nCode\nemm.q1e &lt;- emmeans(mod.q1, ~x5*x6,\n                    at = list(x5 = seq(-3, 3, length.out=500))) |&gt; # Don't average across levels: use |x2*x3*x4\n  data.frame() |&gt;\n            rename(\"Mean\"  = \"emmean\",\n                   \"Lower\" = \"lower.CL\",\n                   \"Upper\" = \"upper.CL\")\n\nggplot(emm.q1e) + \n  geom_line(aes(x=x5, y=Mean, color=x6))+\n  geom_ribbon(aes(x=x5, ymin=Lower, ymax=Upper, fill=x6), alpha=0.25)+\n  # facet_wrap(~x2*x3*x4)+\n  theme_bw()\n\n\n\n\n\nFigure 4: Estimated marginal trends for the model in Question 1.\n\n\n\n\n\n\n\n\n\nHolding the other predictors fixed, let \\(C\\) denote the contribution of all other terms. Then\n\\[\\begin{align*}\nE(Y \\mid x_5, \\text{Group1}) &= C + \\beta_5 x_5\\\\\nE(Y \\mid x_5, \\text{Group2}) &= (C + \\beta_6) + (\\beta_5 + \\beta_{10}) x_5\n\\end{align*}\\]\nSo the slope of \\(x_5\\) is \\(\\beta_5\\) in Group1 and \\(\\beta_5+\\beta_{10}\\) in Group2. That is, \\(\\beta_{10}\\) is the difference in the slope of \\(x_5\\) between the two groups.\n\n\\(\\widehat{\\beta}_5 = 2.48\\): In Group1, a one-unit increase in \\(x_5\\) is associated with a 2.48 increase in expected \\(Y\\).\n\\(\\widehat{\\beta}_6 = 4.98\\): When \\(x_5=0\\) (its mean), Group2 has a 4.98 higher expected \\(Y\\) than Group1.\n\\(\\widehat{\\beta}_{10} = 6.95\\): The slope of \\(x_5\\) is 6.95 larger in Group2 (\\(2.48+6.95=9.43\\)) than in Group1 (\\(2.48\\)).\n\nThese match Table 2. Note the 95% confidence interval for the Group1 slope, \\((-0.07, 5.03)\\), includes zero, while the interval for the Group2 slope, \\((6.80, 12.06)\\), does not. In Figure 4, the Group2 line is much steeper, and the lines cross near \\(x_5 = -4.98/6.95 \\approx -0.72\\). So the difference between groups depends on \\(x_5\\).",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 3: Regression"
+    ]
+  },
+  {
+    "objectID": "MATH354/HW3.html#part-f",
+    "href": "MATH354/HW3.html#part-f",
+    "title": "Homework 3 – Regression",
+    "section": "1.6 Part f",
+    "text": "1.6 Part f\nUntangle and interpret the \\(x_7*x_8\\) interaction using algebra. Use Table 3 and Table 4 for context.\n\n\n\nCode\nemm.q1f.x7 &lt;- emtrends(mod.q1, var=\"x7\", ~x7|x8, \n                    at = list(x8 = mean(dat.q1$x8) + c(-1, 0 ,1)*sd(dat.q1$x8))) |&gt; \n            data.frame() |&gt;\n            rename(\"Slope\"  = \"x7.trend\",\n                   \"Lower\" = \"lower.CL\",\n                   \"Upper\" = \"upper.CL\") |&gt;\n            dplyr::select(x8, Slope, SE, df, Lower, Upper)\n\n\n\n\n\n\n\n\nTable 3: Estimated marginal trends for the model in Question 1.\n\n\n\n\n\n\nx8\nSlope\nSE\ndf\nLower\nUpper\n\n\n\n\n8.1309\n7.9230\n0.6751\n238\n6.5932\n9.2529\n\n\n10.0582\n9.7129\n0.5015\n238\n8.7250\n10.7008\n\n\n11.9854\n11.5027\n0.7396\n238\n10.0458\n12.9597\n\n\n\n\n\n\n\n\n\n\n\n\nCode\nemm.q1f.x8 &lt;- emtrends(mod.q1, var=\"x8\", ~x8|x7, \n                    at = list(x7 = mean(dat.q1$x7) + c(-1, 0 ,1)*sd(dat.q1$x7))) |&gt; \n            data.frame() |&gt;\n            rename(\"Slope\"  = \"x8.trend\",\n                   \"Lower\" = \"lower.CL\",\n                   \"Upper\" = \"upper.CL\") |&gt;\n            dplyr::select(x7, Slope, SE, df, Lower, Upper)\n\n\n\n\n\n\n\n\nTable 4: Estimated marginal trends for the model in Question 1.\n\n\n\n\n\n\nx7\nSlope\nSE\ndf\nLower\nUpper\n\n\n\n\n8.3824\n6.8569\n0.6069\n238\n5.6613\n8.0525\n\n\n10.2208\n8.5643\n0.4744\n238\n7.6297\n9.4989\n\n\n12.0592\n10.2716\n0.7325\n238\n8.8286\n11.7146\n\n\n\n\n\n\n\n\n\nA Johnson Neyman analysis using the interactions package for R (Long 2024), shows that the slope of \\(x_7\\) is statistically discernible for all observed values of \\(x_8\\) (Figure 5), and vice versa (Figure 6).\n\n\n\nCode\nlibrary(interactions)\njohnson_neyman(mod.q1, pred = x7, modx = x8, control.fdr = T)\n\n\nJOHNSON-NEYMAN INTERVAL\n\nWhen x8 is OUTSIDE the interval [-13.08, 3.35], the slope of x7 is p &lt; .05.\n\nNote: The range of observed values of x8 is [4.69, 15.07]\n\nInterval calculated using false discovery rate adjusted t = 1.97 \n\n\n\n\n\nFigure 5: Johnson Neyman interval for the model in Question 1.\n\n\n\n\n\n\n\n\n\n\n\n\nCode\njohnson_neyman(mod.q1, pred = x8, modx = x7, control.fdr = T)\n\n\nJOHNSON-NEYMAN INTERVAL\n\nWhen x7 is OUTSIDE the interval [-9.96, 4.25], the slope of x8 is p &lt; .05.\n\nNote: The range of observed values of x7 is [4.89, 14.60]\n\nInterval calculated using false discovery rate adjusted t = 1.97 \n\n\n\n\n\nFigure 6: Johnson Neyman interval for the model in Question 1.\n\n\n\n\n\n\n\n\n\n\\[\\begin{align*}\n\\frac{\\partial E(Y)}{\\partial x_7} &= \\beta_7 + \\beta_{11} x_8\\\\\n\\frac{\\partial E(Y)}{\\partial x_8} &= \\beta_8 + \\beta_{11} x_7\n\\end{align*}\\]\nSo the slope of \\(x_7\\) depends on \\(x_8\\), and vice versa. The estimated slopes are \\(0.37 + 0.93x_8\\) for \\(x_7\\) and \\(-0.93 + 0.93x_7\\) for \\(x_8\\).\n\n\\(\\widehat{\\beta}_7 = 0.37\\) and \\(\\widehat{\\beta}_8 = -0.93\\) are the slopes when the other variable equals zero. These are not meaningful, since \\(x_7\\) and \\(x_8\\) are never near zero in the data.\n\\(\\widehat{\\beta}_{11} = 0.93\\): For each one-unit increase in \\(x_8\\), the slope of \\(x_7\\) increases by 0.93 (and vice versa).\n\nTable 3 shows the slope of \\(x_7\\) increases from 7.92 to 9.71 to 11.50 as \\(x_8\\) goes from one SD below its mean, to its mean, to one SD above. Similarly, Table 4 shows the slope of \\(x_8\\) increases from 6.86 to 8.56 to 10.27. All of these confidence intervals exclude zero.",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 3: Regression"
+    ]
+  },
+  {
+    "objectID": "MATH354/HW3.html#part-g",
+    "href": "MATH354/HW3.html#part-g",
+    "title": "Homework 3 – Regression",
+    "section": "1.7 Part g",
+    "text": "1.7 Part g\nStandardize the continuous data and refit the regression model. Redo part f. What do you notice about the coefficient estimates and why does this make the untangling process easier?\nSolution: First, we fit the regression model using lm().\n\n\n\nCode\n# Standardize Data\ndat.z &lt;- dat.q1 |&gt;\n  mutate(across(c(x1, x5, x7, x8), ~ as.vector(scale(.))))\n# Refit Model\nmod.q1z &lt;- lm(y ~ x1 + x2 + x3*x4 + x5*x6 + x7*x8, data=dat.z)\n\n\n\n\n\n\nCode\nemm.q1g.z7 &lt;- emtrends(mod.q1z, var=\"x7\", ~x7|x8,\n                    at = list(x8 = c(-1, 0 ,1))) |&gt;\n          data.frame() |&gt;\n          rename(\"Slope\"  = \"x7.trend\",\n                 \"Lower\" = \"lower.CL\",\n                 \"Upper\" = \"upper.CL\") |&gt;\n          dplyr::select(x8, Slope, SE, df, Lower, Upper)\n\n\n\n\n\n\n\n\nTable 5: Estimated marginal trends for the model in Question 1 when quantitative variables are standardized.\n\n\n\n\n\n\nx8\nSlope\nSE\ndf\nLower\nUpper\n\n\n\n\n-1\n14.57\n1.24\n238\n12.12\n17.01\n\n\n0\n17.86\n0.92\n238\n16.04\n19.67\n\n\n1\n21.15\n1.36\n238\n18.47\n23.83\n\n\n\n\n\n\n\n\n\n\n\n\nCode\nemm.q1g.z8 &lt;- emtrends(mod.q1z, var=\"x8\", ~x8|x7,\n                      at = list(x7 = c(-1, 0 ,1)))|&gt;\n              data.frame() |&gt;\n              rename(\"Slope\"  = \"x8.trend\",\n                    \"Lower\" = \"lower.CL\",\n                    \"Upper\" = \"upper.CL\") |&gt;\n              dplyr::select(x7, Slope, SE, df, Lower, Upper)\n\n\n\n\n\n\n\n\nTable 6: Estimated marginal trends for the model in Question 1 when quantitative variables are standardized.\n\n\n\n\n\n\nx7\nSlope\nSE\ndf\nLower\nUpper\n\n\n\n\n-1\n13.22\n1.17\n238\n10.91\n15.52\n\n\n0\n16.51\n0.91\n238\n14.70\n18.31\n\n\n1\n19.80\n1.41\n238\n17.01\n22.58\n\n\n\n\n\n\n\n\n\nAfter standardizing, the slopes are\n\\[\\begin{align*}\n\\frac{\\partial E(Y)}{\\partial z_7} &= \\beta_7 + \\beta_{11} z_8\\\\\n\\frac{\\partial E(Y)}{\\partial z_8} &= \\beta_8 + \\beta_{11} z_7\n\\end{align*}\\]\nwhere a one-unit change is now a one-SD change. Since \\(z_8=0\\) corresponds to the mean of \\(x_8\\), \\(\\widehat{\\beta}_7 = 17.86\\) is the slope of \\(x_7\\) (per SD) when \\(x_8\\) is at its mean, and \\(\\widehat{\\beta}_8 = 16.51\\) is the slope of \\(x_8\\) (per SD) when \\(x_7\\) is at its mean. The interaction \\(\\widehat{\\beta}_{11} = 3.29\\) is how much each slope changes for a one-SD increase in the other variable (e.g., \\(17.86 \\pm 3.29\\) gives 14.57 and 21.15 in Table 5).\nCompared to part f, the main effects for \\(x_7\\) and \\(x_8\\) are now large, precisely estimated, and statistically discernible. This is because the original \\(\\widehat{\\beta}_7\\) and \\(\\widehat{\\beta}_8\\) described slopes at \\(x_8=0\\) and \\(x_7=0\\), which are far outside the data. Standardizing does not change the model fit; it moves the reference point to the mean, so the coefficients can be interpreted directly without plugging in values of the other variable.",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 3: Regression"
+    ]
+  },
+  {
+    "objectID": "MATH354/HW3.html#part-a-1",
+    "href": "MATH354/HW3.html#part-a-1",
+    "title": "Homework 3 – Regression",
+    "section": "2.1 Part a",
+    "text": "2.1 Part a\nCompute the estimates we derived using calculus in lecture 16: \\[\\begin{align*}\n\\widehat{\\beta}_0 &= \\bar{y} - \\widehat{\\beta}_1 \\bar{x}_1 \\\\\n\\widehat{\\beta}_1 &= \\frac{\\sum_{i=1}^n (x_{1i} - \\bar{x}_1)(y_i-\\bar{y})}{\\sum_{i=1}^n (x_{1i}-\\bar{x}_1)^2}.\n\\end{align*}\\]\nSolution:\n\n\n\nCode\nb1.calc &lt;- sum((x - mean(x)) * (y - mean(y))) / sum((x - mean(x))^2)\nb0.calc &lt;- mean(y) - b1.calc * mean(x)\nc(b0.calc, b1.calc)\n\n\n[1] 80.7550  0.3654\n\n\n Using the formulas, \\(\\widehat{\\beta}_0 = 80.755\\) and \\(\\widehat{\\beta}_1 = 0.3654\\).",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 3: Regression"
+    ]
+  },
+  {
+    "objectID": "MATH354/HW3.html#part-b-1",
+    "href": "MATH354/HW3.html#part-b-1",
+    "title": "Homework 3 – Regression",
+    "section": "2.2 Part b",
+    "text": "2.2 Part b\nCompute the estimates we derived using linear algebra in lecture 16: \\[\\widehat{\\boldsymbol{\\beta}} = \\left(\\mathbf{X}'\\mathbf{X}\\right)^{-1} \\mathbf{X}'\\mathbf{Y}.\\] Hint: Run ?matrix() in R for a quick reminder about how to create a matrix.\nSolution:\n\n\n\nCode\nX &lt;- matrix(c(rep(1, n), x), ncol = 2)   # design matrix: column of 1s and x\nY &lt;- matrix(y, ncol = 1)\nbeta.mat &lt;- solve(t(X) %*% X) %*% t(X) %*% Y\nbeta.mat\n\n\n        [,1]\n[1,] 80.7550\n[2,]  0.3654\n\n\n Using linear algebra, \\(\\widehat{\\boldsymbol{\\beta}} = (80.755, 0.3654)'\\), matching part a.",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 3: Regression"
+    ]
+  },
+  {
+    "objectID": "MATH354/HW3.html#part-c-1",
+    "href": "MATH354/HW3.html#part-c-1",
+    "title": "Homework 3 – Regression",
+    "section": "2.3 Part c",
+    "text": "2.3 Part c\nCompute the maximum likelihood estimates using optim() in R as described in lecture 16: \\[\\max_{\\beta_0, \\beta_1, \\sigma} \\mathcal{L}(\\boldsymbol{\\theta}=\\{\\beta_0, \\beta_1, \\sigma\\}).\\] Solution:\n\n\n\nCode\nneg.llik &lt;- function(par, x, y) {\n  b0    &lt;- par[1]\n  b1    &lt;- par[2]\n  sigma &lt;- exp(par[3])                    # optimize log(sigma) so sigma &gt; 0\n  -sum(dnorm(y, mean = b0 + b1 * x, sd = sigma, log = TRUE))\n}\n\nmle &lt;- optim(par = c(mean(y), 0, log(sd(y))),  # starting values\n             fn = neg.llik, x = x, y = y)\n\nc(b0 = mle$par[1], b1 = mle$par[2], sigma = exp(mle$par[3]))\n\n\n        b0         b1      sigma \n80.7533227  0.3653883  6.4900984 \n\n\n The MLEs are \\(\\widehat{\\beta}_0 \\approx 80.753\\), \\(\\widehat{\\beta}_1 \\approx 0.3654\\), and \\(\\widehat{\\sigma} \\approx 6.49\\).",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 3: Regression"
+    ]
+  },
+  {
+    "objectID": "MATH354/HW3.html#part-d-1",
+    "href": "MATH354/HW3.html#part-d-1",
+    "title": "Homework 3 – Regression",
+    "section": "2.4 Part d",
+    "text": "2.4 Part d\nFit the model using lm() and plot the resulting model. Compare to the results from parts (a) through (c).\nSolution:\n\n\n\nCode\nmod.q2 &lt;- lm(strength ~ temp, data = dat.q2)\nsummary(mod.q2)\n\n\n\nCall:\nlm(formula = strength ~ temp, data = dat.q2)\n\nResiduals:\n    1     2     3     4     5 \n-7.96  5.01  9.88 -2.95 -3.98 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) 80.75500    5.46239  14.784 0.000671 ***\ntemp         0.36540    0.05299   6.895 0.006250 ** \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 8.379 on 3 degrees of freedom\nMultiple R-squared:  0.9406,    Adjusted R-squared:  0.9209 \nF-statistic: 47.54 on 1 and 3 DF,  p-value: 0.00625\n\n\n\n\n\n\nCode\nggplot(dat.q2, aes(x = temp, y = strength)) +\n  geom_point() +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  theme_bw() +\n  xlab(\"Temperature (°C)\") +\n  ylab(\"Mean Tensile Strength (MPa)\")\n\n\n\n\n\nFigure 7: Mean tensile strength versus temperature with the fitted regression line.\n\n\n\n\n\n\n\n\n\nAll four approaches give really similar estimates: \\(\\widehat{\\beta}_0 = 80.755\\) and \\(\\widehat{\\beta}_1 = 0.3654\\). That is, at \\(0^\\circ\\)C the expected mean tensile strength is 80.76 MPa, and for each \\(1^\\circ\\)C increase in temperature, mean tensile strength is expected to increase by 0.37 MPa. The only difference is the estimate of \\(\\sigma\\): the MLE divides by \\(n\\) (\\(\\widehat{\\sigma} = 6.49\\)), while lm() divides by \\(n-p=3\\) to give the unbiased estimate (\\(s = 8.38\\)).",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 3: Regression"
+    ]
+  },
+  {
+    "objectID": "MATH354/HW3.html#part-a-2",
+    "href": "MATH354/HW3.html#part-a-2",
+    "title": "Homework 3 – Regression",
+    "section": "3.1 Part a",
+    "text": "3.1 Part a\nFit the model predicting MFAP4 using Fibrosis.Stage. Write out the resulting estimate model and interpret the coefficients.\n\n\n\nCode\nmod.q3a &lt;- lm(MFAP4 ~ Fibrosis.Stage, data = dat.mfap4)\nsummary(mod.q3a)\n\n\n\nCall:\nlm(formula = MFAP4 ~ Fibrosis.Stage, data = dat.mfap4)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-20.318  -5.518  -2.651   2.070  81.816 \n\nCoefficients:\n                      Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)              9.230      1.102   8.378 4.73e-16 ***\nFibrosis.StageStage 1    1.301      1.372   0.948   0.3433    \nFibrosis.StageStage 2    3.154      1.444   2.184   0.0294 *  \nFibrosis.StageStage 3   11.742      1.724   6.812 2.59e-11 ***\nFibrosis.StageStage 4   15.388      1.724   8.928  &lt; 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 10.85 on 537 degrees of freedom\nMultiple R-squared:  0.1965,    Adjusted R-squared:  0.1905 \nF-statistic: 32.84 on 4 and 537 DF,  p-value: &lt; 2.2e-16\n\n\n\nThe estimated model is \\[\\begin{align*}\n\\widehat{\\text{MFAP4}} =\\ & 9.23 + 1.30\\, I(\\text{Stage 1}) + 3.15\\, I(\\text{Stage 2}) \\\\\n& + 11.74\\, I(\\text{Stage 3}) + 15.39\\, I(\\text{Stage 4}).\n\\end{align*}\\]\n\n\\(\\widehat{\\beta}_0 = 9.23\\): The expected MFAP4 level for patients with Stage 0 fibrosis.\n\\(\\widehat{\\beta}_1 = 1.30\\): Patients with Stage 1 fibrosis have an expected MFAP4 level 1.30 higher than Stage 0.\n\\(\\widehat{\\beta}_2 = 3.15\\): Stage 2 is 3.15 higher than Stage 0.\n\\(\\widehat{\\beta}_3 = 11.74\\): Stage 3 is 11.74 higher than Stage 0.\n\\(\\widehat{\\beta}_4 = 15.39\\): Stage 4 is 15.39 higher than Stage 0.\n\nSo expected MFAP4 increases with fibrosis stage, with a large jump from Stage 2 to Stage 3.",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 3: Regression"
+    ]
+  },
+  {
+    "objectID": "MATH354/HW3.html#part-b-2",
+    "href": "MATH354/HW3.html#part-b-2",
+    "title": "Homework 3 – Regression",
+    "section": "3.2 Part b",
+    "text": "3.2 Part b\nConduct a residual analysis on the model in part a to demonstrate how to identify when you need a log transformation.\n\n\n\nCode\nplotResiduals(mod.q3a)\n\n\n\n\n\nFigure 8: Residual analysis for the model in part a.\n\n\n\n\n\n\n\n\n\nIn Figure 8, the QQ plot curves upward in the right tail, and the histogram has a long right tail compared to the Gaussian curve. The fitted vs. residual plot also shows the spread of the residuals increasing with the fitted values.A log transformation of the response is needed.",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 3: Regression"
+    ]
+  },
+  {
+    "objectID": "MATH354/HW3.html#part-c-2",
+    "href": "MATH354/HW3.html#part-c-2",
+    "title": "Homework 3 – Regression",
+    "section": "3.3 Part c",
+    "text": "3.3 Part c\nFit the model predicting log(MFAP4) using Fibrosis.Stage. Use the natural log, and not the \\(\\log_2(\\cdot)\\) recorded in the data file. Write out the resulting estimate model and interpret the coefficients.\n\n\n\nCode\nmod.q3c &lt;- lm(log(MFAP4) ~ Fibrosis.Stage, data = dat.mfap4)\nsummary(mod.q3c)\n\n\n\nCall:\nlm(formula = log(MFAP4) ~ Fibrosis.Stage, data = dat.mfap4)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-1.55668 -0.41861 -0.04282  0.35845  2.21571 \n\nCoefficients:\n                      Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)            2.02572    0.06178  32.789  &lt; 2e-16 ***\nFibrosis.StageStage 1  0.13336    0.07694   1.733 0.083637 .  \nFibrosis.StageStage 2  0.30399    0.08099   3.753 0.000193 ***\nFibrosis.StageStage 3  0.77408    0.09666   8.009 7.24e-15 ***\nFibrosis.StageStage 4  0.98957    0.09666  10.238  &lt; 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.6085 on 537 degrees of freedom\nMultiple R-squared:  0.2312,    Adjusted R-squared:  0.2255 \nF-statistic: 40.38 on 4 and 537 DF,  p-value: &lt; 2.2e-16\n\n\nCode\nexp(coef(mod.q3c))\n\n\n          (Intercept) Fibrosis.StageStage 1 Fibrosis.StageStage 2 \n             7.581571              1.142659              1.355252 \nFibrosis.StageStage 3 Fibrosis.StageStage 4 \n             2.168599              2.690090 \n\n\n\nThe estimated model is \\[\\begin{align*}\n\\widehat{\\log(\\text{MFAP4})} =\\ & 2.03 + 0.13\\, I(\\text{Stage 1}) + 0.30\\, I(\\text{Stage 2}) \\\\\n& + 0.77\\, I(\\text{Stage 3}) + 0.99\\, I(\\text{Stage 4}).\n\\end{align*}\\]\n\n\\(e^{\\widehat{\\beta}_0} = e^{2.03} = 7.58\\): The median MFAP4 level for Stage 0 patients is 7.58.\n\\(e^{\\widehat{\\beta}_1} = 1.14\\): The median MFAP4 for Stage 1 is 1.14 times that of Stage 0 (14% higher).\n\\(e^{\\widehat{\\beta}_2} = 1.36\\): Stage 2 is 1.36 times Stage 0 (36% higher).\n\\(e^{\\widehat{\\beta}_3} = 2.17\\): Stage 3 is 2.17 times Stage 0 (117% higher).\n\\(e^{\\widehat{\\beta}_4} = 2.69\\): Stage 4 is 2.69 times Stage 0 (169% higher).",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 3: Regression"
+    ]
+  },
+  {
+    "objectID": "MATH354/HW3.html#part-d-2",
+    "href": "MATH354/HW3.html#part-d-2",
+    "title": "Homework 3 – Regression",
+    "section": "3.4 Part d",
+    "text": "3.4 Part d\nConduct a residual analysis on the model in part c to demonstrate that the conditions for using regression are met.\n\n\n\nCode\nplotResiduals(mod.q3c)\n\n\n\n\n\nFigure 9: Residual analysis for the model in part c.\n\n\n\n\n\n\n\n\n\nIn Figure 9, after the log transformation the residuals fall close to the line in the QQ plot, with only slight deviation in the right tail, and the histogram closely matches the Gaussian curve. The fitted vs. residual plot shows bands of similar width centered at zero across all stages. Thus, the conditions for regression appear to be met.",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 3: Regression"
+    ]
+  },
+  {
+    "objectID": "MATH354/HW3.html#part-e-1",
+    "href": "MATH354/HW3.html#part-e-1",
+    "title": "Homework 3 – Regression",
+    "section": "3.5 Part e",
+    "text": "3.5 Part e\nFit the model predicting log(MFAP4) using Fibrosis.Stage, Age, and Gender. Use the natural log, and not the \\(\\log_2(\\cdot)\\) recorded in the data file. Write out the resulting estimate model and interpret the coefficients.\n\n\n\nCode\nmod.q3e &lt;- lm(log(MFAP4) ~ Fibrosis.Stage + Age + Gender, data = dat.mfap4)\nsummary(mod.q3e)\n\n\n\nCall:\nlm(formula = log(MFAP4) ~ Fibrosis.Stage + Age + Gender, data = dat.mfap4)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-1.55799 -0.40010 -0.03682  0.35968  2.28903 \n\nCoefficients:\n                       Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)            1.518667   0.115808  13.114  &lt; 2e-16 ***\nFibrosis.StageStage 1  0.126858   0.073594   1.724  0.08533 .  \nFibrosis.StageStage 2  0.212539   0.079095   2.687  0.00743 ** \nFibrosis.StageStage 3  0.598866   0.096575   6.201 1.12e-09 ***\nFibrosis.StageStage 4  0.828547   0.097208   8.523  &lt; 2e-16 ***\nAge                    0.013110   0.002123   6.175 1.31e-09 ***\nGendermale            -0.143405   0.050807  -2.823  0.00494 ** \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.5812 on 535 degrees of freedom\nMultiple R-squared:  0.3012,    Adjusted R-squared:  0.2934 \nF-statistic: 38.44 on 6 and 535 DF,  p-value: &lt; 2.2e-16\n\n\nCode\nexp(coef(mod.q3e))\n\n\n          (Intercept) Fibrosis.StageStage 1 Fibrosis.StageStage 2 \n            4.5661359             1.1352559             1.2368149 \nFibrosis.StageStage 3 Fibrosis.StageStage 4                   Age \n            1.8200537             2.2899898             1.0131960 \n           Gendermale \n            0.8664034 \n\n\n\nThe estimated model is \\[\\begin{align*}\n\\widehat{\\log(\\text{MFAP4})} =\\ & 1.52 + 0.13\\, I(\\text{Stage 1}) + 0.21\\, I(\\text{Stage 2}) + 0.60\\, I(\\text{Stage 3}) \\\\\n& + 0.83\\, I(\\text{Stage 4}) + 0.013\\, \\text{Age} - 0.14\\, I(\\text{Male}).\n\\end{align*}\\]\nExponentiating the coefficients, holding the other predictors constant:\n\n\\(e^{\\widehat{\\beta}_0} = 4.57\\): The median MFAP4 for a female Stage 0 patient of age 0. This is not meaningful, since no patients are near age 0.\n\\(e^{\\widehat{\\beta}_1} = 1.14\\), \\(e^{\\widehat{\\beta}_2} = 1.24\\), \\(e^{\\widehat{\\beta}_3} = 1.82\\), \\(e^{\\widehat{\\beta}_4} = 2.29\\): Compared to Stage 0 patients of the same age and gender, the median MFAP4 is 14%, 24%, 82%, and 129% higher for Stages 1, 2, 3, and 4, respectively.\n\\(e^{\\widehat{\\beta}_5} = 1.013\\): Each additional year of age is associated with a 1.3% higher median MFAP4.\n\\(e^{\\widehat{\\beta}_6} = 0.87\\): Males have a median MFAP4 about 13% lower than females.\n\nCompared to part c, the stage effects are smaller after adjusting for age (e.g., Stage 4 drops from 2.69 to 2.29 times Stage 0). This suggests part of the stage effect in part c was due to patients with more advanced fibrosis tending to be older.",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 3: Regression"
+    ]
+  },
+  {
+    "objectID": "MATH354/HW3.html#part-a-3",
+    "href": "MATH354/HW3.html#part-a-3",
+    "title": "Homework 3 – Regression",
+    "section": "4.1 Part a",
+    "text": "4.1 Part a\nSimulate data to match regression assumptions in a loop that runs \\(R=1000\\) times. \\[\\begin{align*}\n    x_i &\\sim \\text{Uniform}(a=0,b=10)\\\\\n    \\epsilon_i &\\sim \\text{Gaussian}(\\mu=0, \\sigma=1)\\\\\n    y_i &= 2 + 1.5 x_i + \\epsilon_i\\\\\n    n &= 30\n\\end{align*}\\] In each iteration, fit a regression line to the data and store the coefficient estimates. Plot the resulting estimates. What do you notice?\n\n\n\nCode\nset.seed(354)\nres.a &lt;- sim.coefs(function(n) rnorm(n, mean = 0, sd = 1))\nplot.coefs(res.a)\nsummary(res.a)\n\n\n       b0               b1       \n Min.   :0.8418   Min.   :1.297  \n 1st Qu.:1.7508   1st Qu.:1.457  \n Median :1.9986   Median :1.502  \n Mean   :1.9992   Mean   :1.500  \n 3rd Qu.:2.2443   3rd Qu.:1.544  \n Max.   :3.1626   Max.   :1.735  \n\n\n\n\n\nFigure 10: Sampling distributions of the coefficient estimates with Gaussian errors. Red lines mark the true values.\n\n\n\n\n\n\n\n\n\nBoth sampling distributions are bell-shaped and centered at the true values: the mean of \\(\\widehat{\\beta}_0\\) is 1.999 (true value 2) and the mean of \\(\\widehat{\\beta}_1\\) is 1.500 (true value 1.5). When the regression conditions are met, the OLS estimators are unbiased and approximately Gaussian.",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 3: Regression"
+    ]
+  },
+  {
+    "objectID": "MATH354/HW3.html#part-b-3",
+    "href": "MATH354/HW3.html#part-b-3",
+    "title": "Homework 3 – Regression",
+    "section": "4.2 Part b",
+    "text": "4.2 Part b\nSimulate data to match regression assumptions in a loop that runs \\(R=1000\\) times. \\[\\begin{align*}\n    x_i &\\sim \\text{Uniform}(a=0,b=10)\\\\\n    \\epsilon_i &\\sim \\text{Shifted Exponential}(\\lambda=1, \\mu=0)\\\\\n    y_i &= 2 + 1.5 x_i + \\epsilon_i\\\\\n    n &= 30\n\\end{align*}\\] In each iteration, fit a regression line to the data and store the coefficient estimates. Plot the resulting estimates. What do you notice?\nHint: Use the tolerance::r2exp() function with rate=1 and shift=-1.\n\n\n\nCode\nset.seed(354)\nres.b &lt;- sim.coefs(function(n) tolerance::r2exp(n, rate = 1, shift = -1))\nplot.coefs(res.b)\nsummary(res.b)\n\n\n       b0               b1       \n Min.   :0.9936   Min.   :1.296  \n 1st Qu.:1.7279   1st Qu.:1.457  \n Median :1.9847   Median :1.501  \n Mean   :2.0081   Mean   :1.500  \n 3rd Qu.:2.2414   3rd Qu.:1.543  \n Max.   :3.3185   Max.   :1.679  \n\n\n\n\n\nFigure 11: Sampling distributions of the coefficient estimates with shifted exponential errors. Red lines mark the true values.\n\n\n\n\n\n\n\n\n\nEven though the errors are skewed, both sampling distributions are still centered at the true values. The distribution of \\(\\widehat{\\beta}_1\\) is approximately Gaussian, while \\(\\widehat{\\beta}_0\\) shows slight right skew. So OLS remains unbiased without Gaussian errors, and since the estimators are weighted averages of the data, the Central Limit Theorem makes their sampling distributions close to Gaussian even with \\(n=30\\).",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 3: Regression"
+    ]
+  },
+  {
+    "objectID": "MATH354/HW3.html#part-c-3",
+    "href": "MATH354/HW3.html#part-c-3",
+    "title": "Homework 3 – Regression",
+    "section": "4.3 Part c",
+    "text": "4.3 Part c\nSimulate data to match regression assumptions in a loop that runs \\(R=1000\\) times. \\[\\begin{align*}\n    x_i &\\sim \\text{Uniform}(a=0,b=10)\\\\\n    \\epsilon_i &\\sim \\text{Cauchy}(m=0, s=1)\\\\\n    y_i &= 2 + 1.5 x_i + \\epsilon_i\\\\\n    n &= 30\n\\end{align*}\\] In each iteration, fit a regression line to the data and store the coefficient estimates. Plot the resulting estimates. What do you notice?\n\n\n\nCode\nset.seed(354)\nres.c &lt;- sim.coefs(function(n) rcauchy(n, location = 0, scale = 1))\nplot.coefs(res.c)\nsummary(res.c)\n\n\n       b0                   b1         \n Min.   :-1237.4315   Min.   :-69.527  \n 1st Qu.:    0.5564   1st Qu.:  1.177  \n Median :    2.1740   Median :  1.490  \n Mean   :    0.4713   Mean   :  1.624  \n 3rd Qu.:    3.9374   3rd Qu.:  1.761  \n Max.   :  247.2638   Max.   :150.129  \n\n\n\n\n\nFigure 12: Sampling distributions of the coefficient estimates with Cauchy errors. Red lines mark the true values.\n\n\n\n\n\n\n\n\n\nWith Cauchy errors, the sampling distributions have extremely heavy tails: \\(\\widehat{\\beta}_0\\) ranges from \\(-1237\\) to \\(247\\) and \\(\\widehat{\\beta}_1\\) from \\(-69.5\\) to \\(150.1\\). While the medians are near the true values (2.17 and 1.49), the means are not (0.47 and 1.62), and a few extreme estimates dominate the histograms. Since the Cauchy distribution has no mean or variance, the Central Limit Theorem does not apply, and OLS estimates can be wildly wrong. Regression requires errors with finite variance.",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 3: Regression"
+    ]
+  },
+  {
+    "objectID": "MATH354/hw1.html",
+    "href": "MATH354/hw1.html",
+    "title": "Homework 1 – One Sample Inference",
+    "section": "",
+    "text": "Human toddlers, starting at around 18 months old, can learn novel object labels passively by overhearing third-party interactions without being directly addressed. For example, if one adult says “hand me an apple” and another does so, the child might learn to identify an apple and associate it with the word “apple”. This process is driven by developing sociocognitive capacities such as gaze following, conversation monitoring, intention understanding, and perspective-taking. Of course, this process is more efficient when adults use simplified sentences, emphasis, enthusiasm, and other non-verbal emphasis. Dogs share some human-like social and cognitive abilities they learn being immersed in our households. For example, many family dogs learn actions like “sit.” Dror et al. (2026) explored whether dogs could be capable of passive label learning, similar to toddlers. Specifically, they were interested in Gifted Word Learner (GWL) dogs that can learn the names of hundreds of objects and perform at a word-learning level comparable to 18 months olds. To learn whether GWL dogs learn object labels by passively overhearing interactions between humans the researchers performed an experiment where 𝑛 = 10 dogs were exposed to a condition where two family members sitting across from each other passing the toy back and forth. The caretaker addressed the second person using simple sentence frames and non-verbal cues, neither directly to the dog. This exposure occurred daily for eleven days with two new toys.\n• Toy A: Days 1-3; 9\n• Toy B: Days 5-7; 10\n• Rest: Day 4, 8, 11\nOn the twelfth day, out of the caretaker’s sight, the two new toys were placed alongside nine familiar toys. The caretaker requested the toys verbally twenty-four times – twelve times for the two new toys, and twelve times for the nine familiar toys.",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 1: One Sample Inference"
+    ]
+  },
+  {
+    "objectID": "MATH354/hw1.html#part-a",
+    "href": "MATH354/hw1.html#part-a",
+    "title": "Homework 1 – One Sample Inference",
+    "section": "1.1 Part a",
+    "text": "1.1 Part a\nThe researchers are asking two questions: (1) whether performance in the overhearing condition is above 50% chance, and (2) whether the difference between the direct and overhearing conditions differs from zero.\nBefore choosing a test we summarize each data set.\n\n\nCode\noverhear &lt;- c(1.0000, 1.0000, 0.7500, 1.0000, 0.4167,\n              0.8333, 0.7500, 0.8333, 0.8333, 1.0000)\n\npdiff &lt;- c(-0.0833, 0.0000, -0.0833, -0.0833, 0.5833,\n            0.0833, -0.2500,  0.1667, 0.0000, -0.4167)\n\nsummarize.data &lt;- function(x){\n  tibble(\n    n                 = length(x),\n    Mean              = mean(x),\n    SD                = sd(x),\n    Median            = median(x),\n    IQR               = IQR(x),\n    Skewness          = e1071::skewness(x),\n    `Excess Kurtosis` = e1071::kurtosis(x),\n    Min               = min(x),\n    Max               = max(x)\n  )\n}\n\n\n\n\nCode\nsummarize.data(overhear) |&gt; knitr::kable(digits = 2)\n\n\n\n\nTable 1: Descriptive statistics for the overhearing condition\n\n\n\n\n\n\nn\nMean\nSD\nMedian\nIQR\nSkewness\nExcess Kurtosis\nMin\nMax\n\n\n\n\n10\n0.84\n0.18\n0.83\n0.23\n-1.04\n0.22\n0.42\n1\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(data = tibble(overhear), aes(x = overhear)) +\n  geom_histogram(aes(y = after_stat(density)),\n                 breaks = seq(0, 1, 0.1),\n                 color = \"grey\") +\n  geom_hline(yintercept = 0) +\n  theme_bw() +\n  labs(x = \"Proportion of Correct Retrievals Out of 12 Trials\",\n       y = \"Density\")\n\n\n\n\n\nFigure 1: Proportion of correct retrievals in the overhearing condition\n\n\n\n\n\n\n\n\n\n\nCode\nsummarize.data(pdiff) |&gt; knitr::kable(digits = 2)\n\n\n\n\nTable 2: Descriptive statistics for the paired differences\n\n\n\n\n\n\nn\nMean\nSD\nMedian\nIQR\nSkewness\nExcess Kurtosis\nMin\nMax\n\n\n\n\n10\n-0.01\n0.26\n-0.04\n0.15\n0.7\n0.15\n-0.42\n0.58\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(data = tibble(pdiff), aes(x = pdiff)) +\n  geom_histogram(aes(y = after_stat(density)),\n                 breaks = seq(-0.5, 0.7, 0.1),\n                 color = \"grey\") +\n  geom_hline(yintercept = 0) +\n  theme_bw() +\n  labs(x = \"Difference in Proportion (Direct − Overhearing)\",\n       y = \"Density\")\n\n\n\n\n\nFigure 2: Paired differences (direct − overhearing)\n\n\n\n\n\n\n\n\n\n1.1.1 The overhearing data\nWe cannot use the \\(t\\)-test because the distribution is left skewed and bounded, and the sample size is too small to invoke the Central Limit Theorem.\nWe cannot use the exact Wilcoxon test because there are ties and the distribution is skewed. We also cannot use the approximate Wilcoxon test because the sample size is less than \\(50\\). So, the authors did not make a good choice in selecting Wilcoxon test and without specifying exact or approximate.\nWe cannot use the \\(z\\)-test because \\(np_0 = 10(0.50) = 5\\), below the required 15.\nI would use the exact Binomial test, which involves transforming the data into Bernoulli data (i.e., whether each dog retrieved the correct new toys in more than half of the 12 trials).\n\n\n1.1.2 The paired differences data\nWe cannot use the \\(t\\)-test because the distribution is skewed and the sample size is too small for the Central Limit Theorem.\nWe cannot use the Wilcoxon test because there are zeros and ties, and the overall distribution is not symmetric.\nWe cannot use the exact Binomial test here because we are interested in how large the difference between conditions is, and reducing the data to signs treats a difference of 0.0833 and a difference of 0.5833 the same, losing important information.\nI would use a randomization test. This uses the actual magnitudes rather than just the signs, and makes no assumption about the shape of the population distribution.",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 1: One Sample Inference"
+    ]
+  },
+  {
+    "objectID": "MATH354/hw1.html#part-b",
+    "href": "MATH354/hw1.html#part-b",
+    "title": "Homework 1 – One Sample Inference",
+    "section": "1.2 Part b",
+    "text": "1.2 Part b\nWe want to know whether the dogs retrieved the new toys above 50% chance, and whether there is a difference between the two conditions: direct address and overhearing.\n\n1.2.1 Research Question 1: Is performance above chance?\nTransform the data into Bernoulli form, recording whether each dog retrieved the new toys correctly on more than half of its twelve trials, and use the exact Binomial test.\nConditions. The variable is categorical after transformation. The dogs come from separate households, so observations are independent across dogs. The sample is a good representation of the Gifted Word Learner dogs. The exact Binomial test imposes no condition on sample size.\n\n\\(H_0\\): \\(p = 0.50\\)\n\n\\(H_a\\): \\(p \\neq 0.50\\)\n\n\n\n\nCode\noverhear.bernoulli &lt;- as.numeric(overhear &gt; 0.50)\n\nrq1.result &lt;- binom.test(x = sum(overhear.bernoulli),\n                         n = length(overhear.bernoulli),\n                         p = 0.50,\n                         alternative = \"two.sided\",\n                         conf.level = 0.95)\n\nrq1.result$p.value\n\n\n[1] 0.02148438\n\n\nCode\nrq1.result$conf.int\n\n\n[1] 0.5549839 0.9974714\nattr(,\"conf.level\")\n[1] 0.95\n\n\nCode\n(cohens.h &lt;- 2*asin(sqrt(0.9)) - 2*asin(sqrt(0.5)))\n\n\n[1] 0.9272952\n\n\nOf the ten dogs tested, nine performed above chance across their twelve trials. This proportion was statistically discernible from the chance level of \\(0.5\\), \\(p = .021\\), 95% CI \\([.555, .997]\\). The effect size was large, Cohen’s \\(h = 0.927\\).\nThere is statistically discernible support for the alternative hypothesis. The dogs retrieved the new toys above chance in the overhearing condition, which indicates that they can associate labels with objects from overheard speech alone. The interval, .555 to .997, is wide. The dogs clearly did better than chance, but with only ten of them we cannot tell whether they are a little better or almost perfect.\n\n\n1.2.2 Research Question 2: Do the two conditions differ?\nUse a randomization test, which uses the observed magnitudes and makes no assumption about the shape of the population distribution.\nConditions. The variable is quantitative. The dogs are independent of one another. Under the null hypothesis the two conditions are interchangeable within a dog, so we can flip the sign,\n\n\\(H_0\\): \\(\\mu_X = 0\\)\n\n\\(H_a\\): \\(\\mu_X \\neq 0\\)\n\n\n\n\nCode\nset.seed(7272)\nR &lt;- 10000\n\nnull.dist &lt;- rep(NA, R)\nfor(i in 1:R){\n  signs &lt;- sample(x = c(-1, 1), size = length(pdiff), replace = TRUE)\n  null.dist[i] &lt;- mean(signs * pdiff)\n}\n\n(observed &lt;- mean(pdiff))\n\n\n[1] -0.00833\n\n\nCode\n(rq2.pvalue &lt;- mean(abs(null.dist) &gt;= abs(observed)))\n\n\n[1] 0.9847\n\n\n\n\nCode\nggplot(data = tibble(null.dist), aes(x = null.dist)) +\n  geom_histogram(aes(y = after_stat(density)),\n                 bins = 30, color = \"grey\") +\n  geom_vline(xintercept = observed, linetype = \"dashed\") +\n  geom_hline(yintercept = 0) +\n  theme_bw() +\n  labs(x = \"Mean Paired Difference Under the Null\",\n       y = \"Density\")\n\n\n\n\n\nFigure 3: Null distribution of the mean paired difference, with the observed value marked\n\n\n\n\n\n\n\n\nA confidence interval for the mean difference is obtained by bootstrapping.\n\n\nCode\nset.seed(7272)\nboot.means &lt;- rep(NA, R)\nfor(i in 1:R){\n  curr.sample &lt;- sample(x = pdiff, size = length(pdiff), replace = TRUE)\n  boot.means[i] &lt;- mean(curr.sample)\n}\n\n(rq2.ci &lt;- quantile(boot.means, probs = c(0.025, 0.975)))\n\n\n    2.5%    97.5% \n-0.15001  0.15833 \n\n\nCode\n(hedges.g &lt;- effectsize::hedges_g(x = pdiff, mu = 0))\n\n\nHedges' g |        95% CI\n-------------------------\n-0.03     | [-0.59, 0.54]\n\n\nThe mean paired difference observed in our sample was not statistically discernible from zero, \\(M = -0.008\\), \\(SD = 0.265\\), \\(p = .99\\), 95% CI \\([-0.15, 0.16]\\). The effect size was negligible, Hedges’ \\(g = -0.03\\).\nWe do not have statistically discernible support for the alternative hypothesis. The dogs did about as well whether the caretaker spoke to them directly or they only overheard the labels.",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 1: One Sample Inference"
+    ]
+  },
+  {
+    "objectID": "MATH354/hw1.html#part-a-1",
+    "href": "MATH354/hw1.html#part-a-1",
+    "title": "Homework 1 – One Sample Inference",
+    "section": "2.1 Part a",
+    "text": "2.1 Part a\nThe binomial model is a sum of Bernoulli trials. Thus, each \\(X_i\\) must have a binary outcome, the number of trials \\(n\\) must be fixed, the trials must be independent, and the probability of the event of interest \\(p\\) must be the same in every trial.\nFirst, retrieval is binary: the dog either brings the requested toy or it does not. Second, the design fixed \\(n = 10\\) dogs with two trials each, so \\(n\\) was fixed. Third, I think the trails are not independent. A dog that learned the label should succeed on both trials, and a dog that did not should tend to fail on both. So the two outsomes seems to be linked in someways rahter than fully independent. Finally, I doubt the probability stays the same in every trial. Once the first toy has been retrieved, the total number of toy decrease by one. So next time, the dog is selecting among 10 toys. The probability will change.",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 1: One Sample Inference"
+    ]
+  },
+  {
+    "objectID": "MATH354/hw1.html#part-b-1",
+    "href": "MATH354/hw1.html#part-b-1",
+    "title": "Homework 1 – One Sample Inference",
+    "section": "2.2 Part b",
+    "text": "2.2 Part b\nUnder author assumption that a single retrieval succeeds by chance with probability \\(0.5\\), and two retrievals are independent, \\[P(X_i = 1) = 0.5 \\times 0.5 = 0.25.\\] \\[B = \\sum_{i=1}^{10} X_i \\sim \\text{Binomial}(n = 10,\\ p = 0.25),\\]\n\n\nCode\ndbinom(x = 10, size = 10, prob = 0.25)\n\n\n[1] 9.536743e-07",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 1: One Sample Inference"
+    ]
+  },
+  {
+    "objectID": "MATH354/hw1.html#part-c",
+    "href": "MATH354/hw1.html#part-c",
+    "title": "Homework 1 – One Sample Inference",
+    "section": "2.3 Part c",
+    "text": "2.3 Part c\n\n\nCode\nn &lt;- 10\np &lt;- 0.25\nmu &lt;- n * p\nsigma &lt;- sqrt(n * p * (1 - p))\n\napprox &lt;- pnorm(q = 10.5, mean = mu, sd = sigma) -\n          pnorm(q = 9.5,  mean = mu, sd = sigma)\nexact  &lt;- dbinom(x = 10, size = 10, prob = 0.25)\n\nc(exact = exact, approx = approx, ratio = exact / approx)\n\n\n       exact       approx        ratio \n9.536743e-07 1.567447e-07 6.084254e+00 \n\n\nThe approximation is \\(1.567 \\times 10^{-7}\\), and the exact value from Part b is \\(9.537 \\times 10^{-7}\\). For abs error, they differ by about \\(8 \\times 10^{-7}\\), which is pretty small. While for rel error, the approximation is poor. The approximation understates the true value by roughly 84%.",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 1: One Sample Inference"
+    ]
+  },
+  {
+    "objectID": "MATH354/hw1.html#part-d",
+    "href": "MATH354/hw1.html#part-d",
+    "title": "Homework 1 – One Sample Inference",
+    "section": "2.4 Part d",
+    "text": "2.4 Part d\nWhen all trials are successes, \\(\\hat{p} = 1\\) and the standard error \\(\\sqrt{\\hat{p}(1-\\hat{p})/n}\\) becomes zero, so the \\(z\\) interval collapses to the single point \\([1, 1]\\). The sample size condition fails too, since \\(n(1-\\hat{p}) = 0\\). When these conditions are not met we can use the exact Binomial distribution.\n\\[H_0: p = 0.25 \\qquad H_a: p &gt; 0.25\\]\n\n\nCode\ntest.result = binom.test(x = 10,  \n                         n = 10,  \n                         p = 0.25, \n                         alternative = \"greater\",\n                         conf.level = 0.95)\ntest.result$p.value\n\n\n[1] 9.536743e-07\n\n\nCode\ntest.result$conf.int\n\n\n[1] 0.7411344 1.0000000\nattr(,\"conf.level\")\n[1] 0.95\n\n\nThere is statistically discernible support for the alternative hypothesis: the dogs performed better than chance.",
+    "crumbs": [
+      "Data Analysis I",
+      "Homework 1: One Sample Inference"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Academic Portfolio",
+    "section": "",
+    "text": "Welcome to my portfolio website! Here you will find write-ups and analysis projects completed across my courses:\n\nData Analysis I (MATH 354): Applied statistical inference, hypothesis testing, and modeling.\n\nUse the sidebar menu to navigate through my coursework.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#welcome",
+    "href": "index.html#welcome",
+    "title": "Academic Portfolio",
+    "section": "",
+    "text": "Welcome to my portfolio website! Here you will find write-ups and analysis projects completed across my courses:\n\nData Analysis I (MATH 354): Applied statistical inference, hypothesis testing, and modeling.\n\nUse the sidebar menu to navigate through my coursework.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Haiyu Zhu",
+    "section": "",
+    "text": "I am a student double-majoring in Biochemistry and Applied Mathematics at Colgate University.",
+    "crumbs": [
+      "About"
+    ]
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "Haiyu Zhu",
+    "section": "",
+    "text": "I am a student double-majoring in Biochemistry and Applied Mathematics at Colgate University.",
+    "crumbs": [
+      "About"
+    ]
+  },
+  {
+    "objectID": "about.html#technical-skills",
+    "href": "about.html#technical-skills",
+    "title": "Haiyu Zhu",
+    "section": "Technical Skills",
+    "text": "Technical Skills\n\nProgramming Languages: R, MATLAB\nTools: Positron, Quarto, Git/GitHub, LaTeX",
+    "crumbs": [
+      "About"
+    ]
+  },
+  {
+    "objectID": "about.html#declaration-of-ai-use",
+    "href": "about.html#declaration-of-ai-use",
+    "title": "Haiyu Zhu",
+    "section": "Declaration of AI Use",
+    "text": "Declaration of AI Use\nIn creating this website, I used generative AI primarily as a learning and troubleshooting tool. AI was used to help me understand unfamiliar concepts related to Positron, Quarto, and GitHub; identify and troubleshoot errors in coding; and provide step-by-step explanations when I encountered technical problems.",
+    "crumbs": [
+      "About"
+    ]
+  },
+  {
     "objectID": "MATH354/HW2.html#part-a",
     "href": "MATH354/HW2.html#part-a",
     "title": "Homework 2 – k Sample Inference",
@@ -119,275 +465,5 @@
       "Data Analysis I",
       "Homework 2: k Sample Inference"
     ]
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "Haiyu Zhu",
-    "section": "",
-    "text": "I am a student double-majoring in Biochemistry and Applied Mathematics at Colgate University.",
-    "crumbs": [
-      "About"
-    ]
-  },
-  {
-    "objectID": "about.html#education",
-    "href": "about.html#education",
-    "title": "Haiyu Zhu",
-    "section": "",
-    "text": "I am a student double-majoring in Biochemistry and Applied Mathematics at Colgate University.",
-    "crumbs": [
-      "About"
-    ]
-  },
-  {
-    "objectID": "about.html#technical-skills",
-    "href": "about.html#technical-skills",
-    "title": "Haiyu Zhu",
-    "section": "Technical Skills",
-    "text": "Technical Skills\n\nProgramming Languages: R, MATLAB\nTools: Positron, Quarto, Git/GitHub, LaTeX",
-    "crumbs": [
-      "About"
-    ]
-  },
-  {
-    "objectID": "about.html#declaration-of-ai-use",
-    "href": "about.html#declaration-of-ai-use",
-    "title": "Haiyu Zhu",
-    "section": "Declaration of AI Use",
-    "text": "Declaration of AI Use\nIn creating this website, I used generative AI primarily as a learning and troubleshooting tool. AI was used to help me understand unfamiliar concepts related to Positron, Quarto, and GitHub; identify and troubleshoot errors in coding; and provide step-by-step explanations when I encountered technical problems.",
-    "crumbs": [
-      "About"
-    ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Academic Portfolio",
-    "section": "",
-    "text": "Welcome to my portfolio website! Here you will find write-ups and analysis projects completed across my courses:\n\nData Analysis I (MATH 354): Applied statistical inference, hypothesis testing, and modeling.\n\nUse the sidebar menu to navigate through my coursework.",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "index.html#welcome",
-    "href": "index.html#welcome",
-    "title": "Academic Portfolio",
-    "section": "",
-    "text": "Welcome to my portfolio website! Here you will find write-ups and analysis projects completed across my courses:\n\nData Analysis I (MATH 354): Applied statistical inference, hypothesis testing, and modeling.\n\nUse the sidebar menu to navigate through my coursework.",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "MATH354/hw1.html",
-    "href": "MATH354/hw1.html",
-    "title": "Homework 1 – One Sample Inference",
-    "section": "",
-    "text": "Human toddlers, starting at around 18 months old, can learn novel object labels passively by overhearing third-party interactions without being directly addressed. For example, if one adult says “hand me an apple” and another does so, the child might learn to identify an apple and associate it with the word “apple”. This process is driven by developing sociocognitive capacities such as gaze following, conversation monitoring, intention understanding, and perspective-taking. Of course, this process is more efficient when adults use simplified sentences, emphasis, enthusiasm, and other non-verbal emphasis. Dogs share some human-like social and cognitive abilities they learn being immersed in our households. For example, many family dogs learn actions like “sit.” Dror et al. (2026) explored whether dogs could be capable of passive label learning, similar to toddlers. Specifically, they were interested in Gifted Word Learner (GWL) dogs that can learn the names of hundreds of objects and perform at a word-learning level comparable to 18 months olds. To learn whether GWL dogs learn object labels by passively overhearing interactions between humans the researchers performed an experiment where 𝑛 = 10 dogs were exposed to a condition where two family members sitting across from each other passing the toy back and forth. The caretaker addressed the second person using simple sentence frames and non-verbal cues, neither directly to the dog. This exposure occurred daily for eleven days with two new toys.\n• Toy A: Days 1-3; 9\n• Toy B: Days 5-7; 10\n• Rest: Day 4, 8, 11\nOn the twelfth day, out of the caretaker’s sight, the two new toys were placed alongside nine familiar toys. The caretaker requested the toys verbally twenty-four times – twelve times for the two new toys, and twelve times for the nine familiar toys.",
-    "crumbs": [
-      "Data Analysis I",
-      "Homework 1: One Sample Inference"
-    ]
-  },
-  {
-    "objectID": "MATH354/hw1.html#part-a",
-    "href": "MATH354/hw1.html#part-a",
-    "title": "Homework 1 – One Sample Inference",
-    "section": "1.1 Part a",
-    "text": "1.1 Part a\nThe researchers are asking two questions: (1) whether performance in the overhearing condition is above 50% chance, and (2) whether the difference between the direct and overhearing conditions differs from zero.\nBefore choosing a test we summarize each data set.\n\n\nCode\noverhear &lt;- c(1.0000, 1.0000, 0.7500, 1.0000, 0.4167,\n              0.8333, 0.7500, 0.8333, 0.8333, 1.0000)\n\npdiff &lt;- c(-0.0833, 0.0000, -0.0833, -0.0833, 0.5833,\n            0.0833, -0.2500,  0.1667, 0.0000, -0.4167)\n\nsummarize.data &lt;- function(x){\n  tibble(\n    n                 = length(x),\n    Mean              = mean(x),\n    SD                = sd(x),\n    Median            = median(x),\n    IQR               = IQR(x),\n    Skewness          = e1071::skewness(x),\n    `Excess Kurtosis` = e1071::kurtosis(x),\n    Min               = min(x),\n    Max               = max(x)\n  )\n}\n\n\n\n\nCode\nsummarize.data(overhear) |&gt; knitr::kable(digits = 2)\n\n\n\n\nTable 1: Descriptive statistics for the overhearing condition\n\n\n\n\n\n\nn\nMean\nSD\nMedian\nIQR\nSkewness\nExcess Kurtosis\nMin\nMax\n\n\n\n\n10\n0.84\n0.18\n0.83\n0.23\n-1.04\n0.22\n0.42\n1\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(data = tibble(overhear), aes(x = overhear)) +\n  geom_histogram(aes(y = after_stat(density)),\n                 breaks = seq(0, 1, 0.1),\n                 color = \"grey\") +\n  geom_hline(yintercept = 0) +\n  theme_bw() +\n  labs(x = \"Proportion of Correct Retrievals Out of 12 Trials\",\n       y = \"Density\")\n\n\n\n\n\nFigure 1: Proportion of correct retrievals in the overhearing condition\n\n\n\n\n\n\n\n\n\n\nCode\nsummarize.data(pdiff) |&gt; knitr::kable(digits = 2)\n\n\n\n\nTable 2: Descriptive statistics for the paired differences\n\n\n\n\n\n\nn\nMean\nSD\nMedian\nIQR\nSkewness\nExcess Kurtosis\nMin\nMax\n\n\n\n\n10\n-0.01\n0.26\n-0.04\n0.15\n0.7\n0.15\n-0.42\n0.58\n\n\n\n\n\n\n\n\n\n\nCode\nggplot(data = tibble(pdiff), aes(x = pdiff)) +\n  geom_histogram(aes(y = after_stat(density)),\n                 breaks = seq(-0.5, 0.7, 0.1),\n                 color = \"grey\") +\n  geom_hline(yintercept = 0) +\n  theme_bw() +\n  labs(x = \"Difference in Proportion (Direct − Overhearing)\",\n       y = \"Density\")\n\n\n\n\n\nFigure 2: Paired differences (direct − overhearing)\n\n\n\n\n\n\n\n\n\n1.1.1 The overhearing data\nWe cannot use the \\(t\\)-test because the distribution is left skewed and bounded, and the sample size is too small to invoke the Central Limit Theorem.\nWe cannot use the exact Wilcoxon test because there are ties and the distribution is skewed. We also cannot use the approximate Wilcoxon test because the sample size is less than \\(50\\). So, the authors did not make a good choice in selecting Wilcoxon test and without specifying exact or approximate.\nWe cannot use the \\(z\\)-test because \\(np_0 = 10(0.50) = 5\\), below the required 15.\nI would use the exact Binomial test, which involves transforming the data into Bernoulli data (i.e., whether each dog retrieved the correct new toys in more than half of the 12 trials).\n\n\n1.1.2 The paired differences data\nWe cannot use the \\(t\\)-test because the distribution is skewed and the sample size is too small for the Central Limit Theorem.\nWe cannot use the Wilcoxon test because there are zeros and ties, and the overall distribution is not symmetric.\nWe cannot use the exact Binomial test here because we are interested in how large the difference between conditions is, and reducing the data to signs treats a difference of 0.0833 and a difference of 0.5833 the same, losing important information.\nI would use a randomization test. This uses the actual magnitudes rather than just the signs, and makes no assumption about the shape of the population distribution.",
-    "crumbs": [
-      "Data Analysis I",
-      "Homework 1: One Sample Inference"
-    ]
-  },
-  {
-    "objectID": "MATH354/hw1.html#part-b",
-    "href": "MATH354/hw1.html#part-b",
-    "title": "Homework 1 – One Sample Inference",
-    "section": "1.2 Part b",
-    "text": "1.2 Part b\nWe want to know whether the dogs retrieved the new toys above 50% chance, and whether there is a difference between the two conditions: direct address and overhearing.\n\n1.2.1 Research Question 1: Is performance above chance?\nTransform the data into Bernoulli form, recording whether each dog retrieved the new toys correctly on more than half of its twelve trials, and use the exact Binomial test.\nConditions. The variable is categorical after transformation. The dogs come from separate households, so observations are independent across dogs. The sample is a good representation of the Gifted Word Learner dogs. The exact Binomial test imposes no condition on sample size.\n\n\\(H_0\\): \\(p = 0.50\\)\n\n\\(H_a\\): \\(p \\neq 0.50\\)\n\n\n\n\nCode\noverhear.bernoulli &lt;- as.numeric(overhear &gt; 0.50)\n\nrq1.result &lt;- binom.test(x = sum(overhear.bernoulli),\n                         n = length(overhear.bernoulli),\n                         p = 0.50,\n                         alternative = \"two.sided\",\n                         conf.level = 0.95)\n\nrq1.result$p.value\n\n\n[1] 0.02148438\n\n\nCode\nrq1.result$conf.int\n\n\n[1] 0.5549839 0.9974714\nattr(,\"conf.level\")\n[1] 0.95\n\n\nCode\n(cohens.h &lt;- 2*asin(sqrt(0.9)) - 2*asin(sqrt(0.5)))\n\n\n[1] 0.9272952\n\n\nOf the ten dogs tested, nine performed above chance across their twelve trials. This proportion was statistically discernible from the chance level of \\(0.5\\), \\(p = .021\\), 95% CI \\([.555, .997]\\). The effect size was large, Cohen’s \\(h = 0.927\\).\nThere is statistically discernible support for the alternative hypothesis. The dogs retrieved the new toys above chance in the overhearing condition, which indicates that they can associate labels with objects from overheard speech alone. The interval, .555 to .997, is wide. The dogs clearly did better than chance, but with only ten of them we cannot tell whether they are a little better or almost perfect.\n\n\n1.2.2 Research Question 2: Do the two conditions differ?\nUse a randomization test, which uses the observed magnitudes and makes no assumption about the shape of the population distribution.\nConditions. The variable is quantitative. The dogs are independent of one another. Under the null hypothesis the two conditions are interchangeable within a dog, so we can flip the sign,\n\n\\(H_0\\): \\(\\mu_X = 0\\)\n\n\\(H_a\\): \\(\\mu_X \\neq 0\\)\n\n\n\n\nCode\nset.seed(7272)\nR &lt;- 10000\n\nnull.dist &lt;- rep(NA, R)\nfor(i in 1:R){\n  signs &lt;- sample(x = c(-1, 1), size = length(pdiff), replace = TRUE)\n  null.dist[i] &lt;- mean(signs * pdiff)\n}\n\n(observed &lt;- mean(pdiff))\n\n\n[1] -0.00833\n\n\nCode\n(rq2.pvalue &lt;- mean(abs(null.dist) &gt;= abs(observed)))\n\n\n[1] 0.9847\n\n\n\n\nCode\nggplot(data = tibble(null.dist), aes(x = null.dist)) +\n  geom_histogram(aes(y = after_stat(density)),\n                 bins = 30, color = \"grey\") +\n  geom_vline(xintercept = observed, linetype = \"dashed\") +\n  geom_hline(yintercept = 0) +\n  theme_bw() +\n  labs(x = \"Mean Paired Difference Under the Null\",\n       y = \"Density\")\n\n\n\n\n\nFigure 3: Null distribution of the mean paired difference, with the observed value marked\n\n\n\n\n\n\n\n\nA confidence interval for the mean difference is obtained by bootstrapping.\n\n\nCode\nset.seed(7272)\nboot.means &lt;- rep(NA, R)\nfor(i in 1:R){\n  curr.sample &lt;- sample(x = pdiff, size = length(pdiff), replace = TRUE)\n  boot.means[i] &lt;- mean(curr.sample)\n}\n\n(rq2.ci &lt;- quantile(boot.means, probs = c(0.025, 0.975)))\n\n\n    2.5%    97.5% \n-0.15001  0.15833 \n\n\nCode\n(hedges.g &lt;- effectsize::hedges_g(x = pdiff, mu = 0))\n\n\nHedges' g |        95% CI\n-------------------------\n-0.03     | [-0.59, 0.54]\n\n\nThe mean paired difference observed in our sample was not statistically discernible from zero, \\(M = -0.008\\), \\(SD = 0.265\\), \\(p = .99\\), 95% CI \\([-0.15, 0.16]\\). The effect size was negligible, Hedges’ \\(g = -0.03\\).\nWe do not have statistically discernible support for the alternative hypothesis. The dogs did about as well whether the caretaker spoke to them directly or they only overheard the labels.",
-    "crumbs": [
-      "Data Analysis I",
-      "Homework 1: One Sample Inference"
-    ]
-  },
-  {
-    "objectID": "MATH354/hw1.html#part-a-1",
-    "href": "MATH354/hw1.html#part-a-1",
-    "title": "Homework 1 – One Sample Inference",
-    "section": "2.1 Part a",
-    "text": "2.1 Part a\nThe binomial model is a sum of Bernoulli trials. Thus, each \\(X_i\\) must have a binary outcome, the number of trials \\(n\\) must be fixed, the trials must be independent, and the probability of the event of interest \\(p\\) must be the same in every trial.\nFirst, retrieval is binary: the dog either brings the requested toy or it does not. Second, the design fixed \\(n = 10\\) dogs with two trials each, so \\(n\\) was fixed. Third, I think the trails are not independent. A dog that learned the label should succeed on both trials, and a dog that did not should tend to fail on both. So the two outsomes seems to be linked in someways rahter than fully independent. Finally, I doubt the probability stays the same in every trial. Once the first toy has been retrieved, the total number of toy decrease by one. So next time, the dog is selecting among 10 toys. The probability will change.",
-    "crumbs": [
-      "Data Analysis I",
-      "Homework 1: One Sample Inference"
-    ]
-  },
-  {
-    "objectID": "MATH354/hw1.html#part-b-1",
-    "href": "MATH354/hw1.html#part-b-1",
-    "title": "Homework 1 – One Sample Inference",
-    "section": "2.2 Part b",
-    "text": "2.2 Part b\nUnder author assumption that a single retrieval succeeds by chance with probability \\(0.5\\), and two retrievals are independent, \\[P(X_i = 1) = 0.5 \\times 0.5 = 0.25.\\] \\[B = \\sum_{i=1}^{10} X_i \\sim \\text{Binomial}(n = 10,\\ p = 0.25),\\]\n\n\nCode\ndbinom(x = 10, size = 10, prob = 0.25)\n\n\n[1] 9.536743e-07",
-    "crumbs": [
-      "Data Analysis I",
-      "Homework 1: One Sample Inference"
-    ]
-  },
-  {
-    "objectID": "MATH354/hw1.html#part-c",
-    "href": "MATH354/hw1.html#part-c",
-    "title": "Homework 1 – One Sample Inference",
-    "section": "2.3 Part c",
-    "text": "2.3 Part c\n\n\nCode\nn &lt;- 10\np &lt;- 0.25\nmu &lt;- n * p\nsigma &lt;- sqrt(n * p * (1 - p))\n\napprox &lt;- pnorm(q = 10.5, mean = mu, sd = sigma) -\n          pnorm(q = 9.5,  mean = mu, sd = sigma)\nexact  &lt;- dbinom(x = 10, size = 10, prob = 0.25)\n\nc(exact = exact, approx = approx, ratio = exact / approx)\n\n\n       exact       approx        ratio \n9.536743e-07 1.567447e-07 6.084254e+00 \n\n\nThe approximation is \\(1.567 \\times 10^{-7}\\), and the exact value from Part b is \\(9.537 \\times 10^{-7}\\). For abs error, they differ by about \\(8 \\times 10^{-7}\\), which is pretty small. While for rel error, the approximation is poor. The approximation understates the true value by roughly 84%.",
-    "crumbs": [
-      "Data Analysis I",
-      "Homework 1: One Sample Inference"
-    ]
-  },
-  {
-    "objectID": "MATH354/hw1.html#part-d",
-    "href": "MATH354/hw1.html#part-d",
-    "title": "Homework 1 – One Sample Inference",
-    "section": "2.4 Part d",
-    "text": "2.4 Part d\nWhen all trials are successes, \\(\\hat{p} = 1\\) and the standard error \\(\\sqrt{\\hat{p}(1-\\hat{p})/n}\\) becomes zero, so the \\(z\\) interval collapses to the single point \\([1, 1]\\). The sample size condition fails too, since \\(n(1-\\hat{p}) = 0\\). When these conditions are not met we can use the exact Binomial distribution.\n\\[H_0: p = 0.25 \\qquad H_a: p &gt; 0.25\\]\n\n\nCode\ntest.result = binom.test(x = 10,  \n                         n = 10,  \n                         p = 0.25, \n                         alternative = \"greater\",\n                         conf.level = 0.95)\ntest.result$p.value\n\n\n[1] 9.536743e-07\n\n\nCode\ntest.result$conf.int\n\n\n[1] 0.7411344 1.0000000\nattr(,\"conf.level\")\n[1] 0.95\n\n\nThere is statistically discernible support for the alternative hypothesis: the dogs performed better than chance.",
-    "crumbs": [
-      "Data Analysis I",
-      "Homework 1: One Sample Inference"
-    ]
-  },
-  {
-    "objectID": "MATH354/HW3.html#part-a",
-    "href": "MATH354/HW3.html#part-a",
-    "title": "Homework 3 – Regression",
-    "section": "1.1 Part a",
-    "text": "1.1 Part a\nFit the regression model.\n\\[\\begin{align*}\n  Y_i =& \\beta_0  +\n       \\beta_1 x_{1i} + \\beta_2 I(x_{2i}=\\text{B})+ \\beta_3 I(x_{3i}=\\text{Treat}) + \\beta_4 I(x_{4i}=\\text{High}) +\\\\\n       & \\beta_5 x_{5i} + \\beta_6 I( x_{6i}=\\text{Group2}) + \\beta_7 x_{7i} + \\beta_8 x_{8i}+\\\\\n       & \\beta_9 (I(x_{3i}=\\text{Treat}) ~\\times~ I(x_{4i}=\\text{High})) + \\tag{Categorical $\\times$ Categorical}\\\\\n        & \\beta_{10} (x_{5i} ~\\times~ I(x_{6i}=\\text{Group2})) +\\tag{Continuous $\\times$ Categorical}\\\\\n        & \\beta_{11} (x_{7i} ~\\times~ x_{8i}) +\n         \\epsilon_i \\tag{Continuous $\\times$ Continuous}\n\\end{align*}\\]\nSolution: First, we fit the regression model using lm().\n\n\n\nCode\nmod.q1 &lt;- lm(y ~ x1 + x2 + x3*x4 + x5*x6 + x7*x8, data=dat.q1)"
-  },
-  {
-    "objectID": "MATH354/HW3.html#part-b",
-    "href": "MATH354/HW3.html#part-b",
-    "title": "Homework 3 – Regression",
-    "section": "1.2 Part b",
-    "text": "1.2 Part b\nConduct a residual and outlier analysis.\n\n\n\nCode\nplotResiduals(mod.q1)\n\n\n\n\n\nFigure 1: Residual analysis for the model in Question 1.\n\n\n\n\n\n\n\n\n In Figure 1, the residuals fall close to the line in the QQ plot and the histogram is approximately Gaussian. The fitted vs. residual plot shows an even band around zero with no pattern. Thus, the residuals appear Gaussian with mean zero and common variance.\n\n\n\nCode\nplotInfluence(mod.q1)\n\n\n\n\n\nFigure 2: Outlier and influence analysis for the model in Question 1.\n\n\n\n\n\n\n\n\n In Figure 2, a few observations have high leverage and a few have large studentized residuals. However, no observation has both, and all Cook’s distances are far below the cutoffs. Thus, no observation has undue influence on the fit, and we do not remove any data."
-  },
-  {
-    "objectID": "MATH354/HW3.html#part-c",
-    "href": "MATH354/HW3.html#part-c",
-    "title": "Homework 3 – Regression",
-    "section": "1.3 Part c",
-    "text": "1.3 Part c\nInterpret the intercept, the coefficients on \\(x_1\\) and \\(x_2\\).\n\nIntercept (\\(\\widehat{\\beta}_0 = 8.90\\)): The expected value of \\(Y\\) when \\(x_1=x_5=x_7=x_8=0\\) and the categorical predictors are at their baseline levels (\\(x_2=\\text{A}\\), \\(x_3=\\text{Control}\\), \\(x_4=\\text{Low}\\), \\(x_6=\\text{Group1}\\)). This is not meaningful, since \\(x_1\\), \\(x_7\\), and \\(x_8\\) are never near zero in the data; large standard error (26.94).\n\\(x_1\\) (\\(\\widehat{\\beta}_1 = 2.14\\)): Holding all other predictors constant, a one-unit increase in \\(x_1\\) is associated with a 2.14 increase in the expected value of \\(Y\\).\n\\(x_2\\) (\\(\\widehat{\\beta}_2 = 10.03\\)): Holding all other predictors constant, the expected value of \\(Y\\) is 10.03 higher when \\(x_2=\\text{B}\\) than when \\(x_2=\\text{A}\\)."
-  },
-  {
-    "objectID": "MATH354/HW3.html#part-d",
-    "href": "MATH354/HW3.html#part-d",
-    "title": "Homework 3 – Regression",
-    "section": "1.4 Part d",
-    "text": "1.4 Part d\nUntangle and interpret the \\(x_3*x_4\\) interaction using algebra. Use Table 1 and Figure 3 for context.\n\n\n\nCode\nlibrary(emmeans)\nemm.q1d &lt;- emmeans(mod.q1, ~x3*x4) |&gt; # Don't average across levels: use |x2*x6\n            data.frame() |&gt;\n            rename(\"Mean\"  = \"emmean\",\n                   \"Lower\" = \"lower.CL\",\n                   \"Upper\" = \"upper.CL\")\n\n\n\n\n\n\n\n\nTable 1: Estimated marginal means for the model in Question 1.\n\n\n\n\n\n\nx3\nx4\nMean\nSE\ndf\nLower\nUpper\n\n\n\n\nControl\nLow\n212.9676\n1.7871\n238\n209.4470\n216.4882\n\n\nTreat\nLow\n219.4792\n1.9123\n238\n215.7120\n223.2464\n\n\nControl\nHigh\n216.4894\n1.7916\n238\n212.9601\n220.0188\n\n\nTreat\nHigh\n238.1930\n1.7631\n238\n234.7198\n241.6662\n\n\n\n\n\n\n\n\n\n\n\n\nCode\nemm.q1d &lt;- emm.q1d |&gt;\n  mutate(Observation = paste(\"(x3=\", x3, \", \", \"x4=\", x4, \")\", sep=\"\"))\nggplot(emm.q1d) + \n  geom_point(aes(x=Mean, y=Observation))+\n  geom_errorbar(aes(y=Observation,\n                    xmin=Lower, xmax=Upper),\n                width = 0.25)+\n  # facet_wrap(~x2*x6)+\n  theme_bw()+\n  xlab(\"Estimated Mean of Y\")\n\n\n\n\n\nFigure 3: Estimated marginal means for the model in Question 1.\n\n\n\n\n\n\n\n\n\nHolding the other predictors fixed, let \\(C\\) denote the contribution of all other terms. Then\n\\[\\begin{align*}\nE(Y \\mid \\text{Control, Low}) &= C\\\\\nE(Y \\mid \\text{Treat, Low}) &= C + \\beta_3\\\\\nE(Y \\mid \\text{Control, High}) &= C + \\beta_4\\\\\nE(Y \\mid \\text{Treat, High}) &= C + \\beta_3 + \\beta_4 + \\beta_9\n\\end{align*}\\]\nSo the effect of Treat (vs. Control) is \\(\\beta_3\\) when \\(x_4=\\text{Low}\\) and \\(\\beta_3+\\beta_9\\) when \\(x_4=\\text{High}\\). That is, \\(\\beta_9\\) is the difference in the treatment effect between the High and Low groups.\n\n\\(\\widehat{\\beta}_3 = 6.51\\): When \\(x_4=\\text{Low}\\), Treat is associated with a 6.51 higher expected \\(Y\\) than Control.\n\\(\\widehat{\\beta}_4 = 3.52\\): When \\(x_3=\\text{Control}\\), High is associated with a 3.52 higher expected \\(Y\\) than Low.\n\\(\\widehat{\\beta}_9 = 15.19\\): The treatment effect is 15.19 larger when \\(x_4=\\text{High}\\) (\\(6.51+15.19=21.70\\)) than when \\(x_4=\\text{Low}\\) (\\(6.51\\)).\n\nThese match Table 1: \\(219.48-212.97=6.51\\), \\(216.49-212.97=3.52\\), and \\(238.19-216.49=21.70\\). In Figure 3, the (Treat, High) group sits well above the other three, with a confidence interval that does not overlap theirs, while the other three groups are similar. This reflects the interaction: the treatment effect is much larger when \\(x_4=\\text{High}\\)."
-  },
-  {
-    "objectID": "MATH354/HW3.html#part-e",
-    "href": "MATH354/HW3.html#part-e",
-    "title": "Homework 3 – Regression",
-    "section": "1.5 Part e",
-    "text": "1.5 Part e\nUntangle and interpret the \\(x_5*x_6\\) interaction using algebra. Use Table 2 and Figure 4 for context.\n\n\n\nCode\nemm.q1e &lt;- emtrends(mod.q1, var=\"x5\", ~x5|x6) |&gt; \n            data.frame() |&gt;\n            rename(\"Slope\"  = \"x5.trend\",\n                   \"Lower\" = \"lower.CL\",\n                   \"Upper\" = \"upper.CL\") |&gt;\n            dplyr::select(x6, Slope, SE, df, Lower, Upper)\n\n\n\n\n\n\n\n\nTable 2: Estimated marginal trends for the model in Question 1.\n\n\n\n\n\n\nx6\nSlope\nSE\ndf\nLower\nUpper\n\n\n\n\nGroup1\n2.4835\n1.2942\n238\n-0.0660\n5.0330\n\n\nGroup2\n9.4309\n1.3367\n238\n6.7977\n12.0642\n\n\n\n\n\n\n\n\n In Figure 4, the slopes are the same and just the intercepts vary depending on \\(x_2\\), \\(x_3\\), and \\(x_4\\).\n\n\n\nCode\nemm.q1e &lt;- emmeans(mod.q1, ~x5*x6,\n                    at = list(x5 = seq(-3, 3, length.out=500))) |&gt; # Don't average across levels: use |x2*x3*x4\n  data.frame() |&gt;\n            rename(\"Mean\"  = \"emmean\",\n                   \"Lower\" = \"lower.CL\",\n                   \"Upper\" = \"upper.CL\")\n\nggplot(emm.q1e) + \n  geom_line(aes(x=x5, y=Mean, color=x6))+\n  geom_ribbon(aes(x=x5, ymin=Lower, ymax=Upper, fill=x6), alpha=0.25)+\n  # facet_wrap(~x2*x3*x4)+\n  theme_bw()\n\n\n\n\n\nFigure 4: Estimated marginal trends for the model in Question 1.\n\n\n\n\n\n\n\n\n\nHolding the other predictors fixed, let \\(C\\) denote the contribution of all other terms. Then\n\\[\\begin{align*}\nE(Y \\mid x_5, \\text{Group1}) &= C + \\beta_5 x_5\\\\\nE(Y \\mid x_5, \\text{Group2}) &= (C + \\beta_6) + (\\beta_5 + \\beta_{10}) x_5\n\\end{align*}\\]\nSo the slope of \\(x_5\\) is \\(\\beta_5\\) in Group1 and \\(\\beta_5+\\beta_{10}\\) in Group2. That is, \\(\\beta_{10}\\) is the difference in the slope of \\(x_5\\) between the two groups.\n\n\\(\\widehat{\\beta}_5 = 2.48\\): In Group1, a one-unit increase in \\(x_5\\) is associated with a 2.48 increase in expected \\(Y\\).\n\\(\\widehat{\\beta}_6 = 4.98\\): When \\(x_5=0\\) (its mean), Group2 has a 4.98 higher expected \\(Y\\) than Group1.\n\\(\\widehat{\\beta}_{10} = 6.95\\): The slope of \\(x_5\\) is 6.95 larger in Group2 (\\(2.48+6.95=9.43\\)) than in Group1 (\\(2.48\\)).\n\nThese match Table 2. Note the 95% confidence interval for the Group1 slope, \\((-0.07, 5.03)\\), includes zero, while the interval for the Group2 slope, \\((6.80, 12.06)\\), does not. In Figure 4, the Group2 line is much steeper, and the lines cross near \\(x_5 = -4.98/6.95 \\approx -0.72\\). So the difference between groups depends on \\(x_5\\)."
-  },
-  {
-    "objectID": "MATH354/HW3.html#part-f",
-    "href": "MATH354/HW3.html#part-f",
-    "title": "Homework 3 – Regression",
-    "section": "1.6 Part f",
-    "text": "1.6 Part f\nUntangle and interpret the \\(x_7*x_8\\) interaction using algebra. Use Table 3 and Table 4 for context.\n\n\n\nCode\nemm.q1f.x7 &lt;- emtrends(mod.q1, var=\"x7\", ~x7|x8, \n                    at = list(x8 = mean(dat.q1$x8) + c(-1, 0 ,1)*sd(dat.q1$x8))) |&gt; \n            data.frame() |&gt;\n            rename(\"Slope\"  = \"x7.trend\",\n                   \"Lower\" = \"lower.CL\",\n                   \"Upper\" = \"upper.CL\") |&gt;\n            dplyr::select(x8, Slope, SE, df, Lower, Upper)\n\n\n\n\n\n\n\n\nTable 3: Estimated marginal trends for the model in Question 1.\n\n\n\n\n\n\nx8\nSlope\nSE\ndf\nLower\nUpper\n\n\n\n\n8.1309\n7.9230\n0.6751\n238\n6.5932\n9.2529\n\n\n10.0582\n9.7129\n0.5015\n238\n8.7250\n10.7008\n\n\n11.9854\n11.5027\n0.7396\n238\n10.0458\n12.9597\n\n\n\n\n\n\n\n\n\n\n\n\nCode\nemm.q1f.x8 &lt;- emtrends(mod.q1, var=\"x8\", ~x8|x7, \n                    at = list(x7 = mean(dat.q1$x7) + c(-1, 0 ,1)*sd(dat.q1$x7))) |&gt; \n            data.frame() |&gt;\n            rename(\"Slope\"  = \"x8.trend\",\n                   \"Lower\" = \"lower.CL\",\n                   \"Upper\" = \"upper.CL\") |&gt;\n            dplyr::select(x7, Slope, SE, df, Lower, Upper)\n\n\n\n\n\n\n\n\nTable 4: Estimated marginal trends for the model in Question 1.\n\n\n\n\n\n\nx7\nSlope\nSE\ndf\nLower\nUpper\n\n\n\n\n8.3824\n6.8569\n0.6069\n238\n5.6613\n8.0525\n\n\n10.2208\n8.5643\n0.4744\n238\n7.6297\n9.4989\n\n\n12.0592\n10.2716\n0.7325\n238\n8.8286\n11.7146\n\n\n\n\n\n\n\n\n\nA Johnson Neyman analysis using the interactions package for R (Long 2024), shows that the slope of \\(x_7\\) is statistically discernible for all observed values of \\(x_8\\) (Figure 5), and vice versa (Figure 6).\n\n\n\nCode\nlibrary(interactions)\njohnson_neyman(mod.q1, pred = x7, modx = x8, control.fdr = T)\n\n\nJOHNSON-NEYMAN INTERVAL\n\nWhen x8 is OUTSIDE the interval [-13.08, 3.35], the slope of x7 is p &lt; .05.\n\nNote: The range of observed values of x8 is [4.69, 15.07]\n\nInterval calculated using false discovery rate adjusted t = 1.97 \n\n\n\n\n\nFigure 5: Johnson Neyman interval for the model in Question 1.\n\n\n\n\n\n\n\n\n\n\n\n\nCode\njohnson_neyman(mod.q1, pred = x8, modx = x7, control.fdr = T)\n\n\nJOHNSON-NEYMAN INTERVAL\n\nWhen x7 is OUTSIDE the interval [-9.96, 4.25], the slope of x8 is p &lt; .05.\n\nNote: The range of observed values of x7 is [4.89, 14.60]\n\nInterval calculated using false discovery rate adjusted t = 1.97 \n\n\n\n\n\nFigure 6: Johnson Neyman interval for the model in Question 1.\n\n\n\n\n\n\n\n\n\n\\[\\begin{align*}\n\\frac{\\partial E(Y)}{\\partial x_7} &= \\beta_7 + \\beta_{11} x_8\\\\\n\\frac{\\partial E(Y)}{\\partial x_8} &= \\beta_8 + \\beta_{11} x_7\n\\end{align*}\\]\nSo the slope of \\(x_7\\) depends on \\(x_8\\), and vice versa. The estimated slopes are \\(0.37 + 0.93x_8\\) for \\(x_7\\) and \\(-0.93 + 0.93x_7\\) for \\(x_8\\).\n\n\\(\\widehat{\\beta}_7 = 0.37\\) and \\(\\widehat{\\beta}_8 = -0.93\\) are the slopes when the other variable equals zero. These are not meaningful, since \\(x_7\\) and \\(x_8\\) are never near zero in the data.\n\\(\\widehat{\\beta}_{11} = 0.93\\): For each one-unit increase in \\(x_8\\), the slope of \\(x_7\\) increases by 0.93 (and vice versa).\n\nTable 3 shows the slope of \\(x_7\\) increases from 7.92 to 9.71 to 11.50 as \\(x_8\\) goes from one SD below its mean, to its mean, to one SD above. Similarly, Table 4 shows the slope of \\(x_8\\) increases from 6.86 to 8.56 to 10.27. All of these confidence intervals exclude zero."
-  },
-  {
-    "objectID": "MATH354/HW3.html#part-g",
-    "href": "MATH354/HW3.html#part-g",
-    "title": "Homework 3 – Regression",
-    "section": "1.7 Part g",
-    "text": "1.7 Part g\nStandardize the continuous data and refit the regression model. Redo part f. What do you notice about the coefficient estimates and why does this make the untangling process easier?\nSolution: First, we fit the regression model using lm().\n\n\n\nCode\n# Standardize Data\ndat.z &lt;- dat.q1 |&gt;\n  mutate(across(c(x1, x5, x7, x8), ~ as.vector(scale(.))))\n# Refit Model\nmod.q1z &lt;- lm(y ~ x1 + x2 + x3*x4 + x5*x6 + x7*x8, data=dat.z)\n\n\n\n\n\n\nCode\nemm.q1g.z7 &lt;- emtrends(mod.q1z, var=\"x7\", ~x7|x8,\n                    at = list(x8 = c(-1, 0 ,1))) |&gt;\n          data.frame() |&gt;\n          rename(\"Slope\"  = \"x7.trend\",\n                 \"Lower\" = \"lower.CL\",\n                 \"Upper\" = \"upper.CL\") |&gt;\n          dplyr::select(x8, Slope, SE, df, Lower, Upper)\n\n\n\n\n\n\n\n\nTable 5: Estimated marginal trends for the model in Question 1 when quantitative variables are standardized.\n\n\n\n\n\n\nx8\nSlope\nSE\ndf\nLower\nUpper\n\n\n\n\n-1\n14.57\n1.24\n238\n12.12\n17.01\n\n\n0\n17.86\n0.92\n238\n16.04\n19.67\n\n\n1\n21.15\n1.36\n238\n18.47\n23.83\n\n\n\n\n\n\n\n\n\n\n\n\nCode\nemm.q1g.z8 &lt;- emtrends(mod.q1z, var=\"x8\", ~x8|x7,\n                      at = list(x7 = c(-1, 0 ,1)))|&gt;\n              data.frame() |&gt;\n              rename(\"Slope\"  = \"x8.trend\",\n                    \"Lower\" = \"lower.CL\",\n                    \"Upper\" = \"upper.CL\") |&gt;\n              dplyr::select(x7, Slope, SE, df, Lower, Upper)\n\n\n\n\n\n\n\n\nTable 6: Estimated marginal trends for the model in Question 1 when quantitative variables are standardized.\n\n\n\n\n\n\nx7\nSlope\nSE\ndf\nLower\nUpper\n\n\n\n\n-1\n13.22\n1.17\n238\n10.91\n15.52\n\n\n0\n16.51\n0.91\n238\n14.70\n18.31\n\n\n1\n19.80\n1.41\n238\n17.01\n22.58\n\n\n\n\n\n\n\n\n\nAfter standardizing, the slopes are\n\\[\\begin{align*}\n\\frac{\\partial E(Y)}{\\partial z_7} &= \\beta_7 + \\beta_{11} z_8\\\\\n\\frac{\\partial E(Y)}{\\partial z_8} &= \\beta_8 + \\beta_{11} z_7\n\\end{align*}\\]\nwhere a one-unit change is now a one-SD change. Since \\(z_8=0\\) corresponds to the mean of \\(x_8\\), \\(\\widehat{\\beta}_7 = 17.86\\) is the slope of \\(x_7\\) (per SD) when \\(x_8\\) is at its mean, and \\(\\widehat{\\beta}_8 = 16.51\\) is the slope of \\(x_8\\) (per SD) when \\(x_7\\) is at its mean. The interaction \\(\\widehat{\\beta}_{11} = 3.29\\) is how much each slope changes for a one-SD increase in the other variable (e.g., \\(17.86 \\pm 3.29\\) gives 14.57 and 21.15 in Table 5).\nCompared to part f, the main effects for \\(x_7\\) and \\(x_8\\) are now large, precisely estimated, and statistically discernible. This is because the original \\(\\widehat{\\beta}_7\\) and \\(\\widehat{\\beta}_8\\) described slopes at \\(x_8=0\\) and \\(x_7=0\\), which are far outside the data. Standardizing does not change the model fit; it moves the reference point to the mean, so the coefficients can be interpreted directly without plugging in values of the other variable."
-  },
-  {
-    "objectID": "MATH354/HW3.html#part-a-1",
-    "href": "MATH354/HW3.html#part-a-1",
-    "title": "Homework 3 – Regression",
-    "section": "2.1 Part a",
-    "text": "2.1 Part a\nCompute the estimates we derived using calculus in lecture 16: \\[\\begin{align*}\n\\widehat{\\beta}_0 &= \\bar{y} - \\widehat{\\beta}_1 \\bar{x}_1 \\\\\n\\widehat{\\beta}_1 &= \\frac{\\sum_{i=1}^n (x_{1i} - \\bar{x}_1)(y_i-\\bar{y})}{\\sum_{i=1}^n (x_{1i}-\\bar{x}_1)^2}.\n\\end{align*}\\]\nSolution:\n\n\n\nCode\nb1.calc &lt;- sum((x - mean(x)) * (y - mean(y))) / sum((x - mean(x))^2)\nb0.calc &lt;- mean(y) - b1.calc * mean(x)\nc(b0.calc, b1.calc)\n\n\n[1] 80.7550  0.3654\n\n\n Using the formulas, \\(\\widehat{\\beta}_0 = 80.755\\) and \\(\\widehat{\\beta}_1 = 0.3654\\)."
-  },
-  {
-    "objectID": "MATH354/HW3.html#part-b-1",
-    "href": "MATH354/HW3.html#part-b-1",
-    "title": "Homework 3 – Regression",
-    "section": "2.2 Part b",
-    "text": "2.2 Part b\nCompute the estimates we derived using linear algebra in lecture 16: \\[\\widehat{\\boldsymbol{\\beta}} = \\left(\\mathbf{X}'\\mathbf{X}\\right)^{-1} \\mathbf{X}'\\mathbf{Y}.\\] Hint: Run ?matrix() in R for a quick reminder about how to create a matrix.\nSolution:\n\n\n\nCode\nX &lt;- matrix(c(rep(1, n), x), ncol = 2)   # design matrix: column of 1s and x\nY &lt;- matrix(y, ncol = 1)\nbeta.mat &lt;- solve(t(X) %*% X) %*% t(X) %*% Y\nbeta.mat\n\n\n        [,1]\n[1,] 80.7550\n[2,]  0.3654\n\n\n Using linear algebra, \\(\\widehat{\\boldsymbol{\\beta}} = (80.755, 0.3654)'\\), matching part a."
-  },
-  {
-    "objectID": "MATH354/HW3.html#part-c-1",
-    "href": "MATH354/HW3.html#part-c-1",
-    "title": "Homework 3 – Regression",
-    "section": "2.3 Part c",
-    "text": "2.3 Part c\nCompute the maximum likelihood estimates using optim() in R as described in lecture 16: \\[\\max_{\\beta_0, \\beta_1, \\sigma} \\mathcal{L}(\\boldsymbol{\\theta}=\\{\\beta_0, \\beta_1, \\sigma\\}).\\] Solution:\n\n\n\nCode\nneg.llik &lt;- function(par, x, y) {\n  b0    &lt;- par[1]\n  b1    &lt;- par[2]\n  sigma &lt;- exp(par[3])                    # optimize log(sigma) so sigma &gt; 0\n  -sum(dnorm(y, mean = b0 + b1 * x, sd = sigma, log = TRUE))\n}\n\nmle &lt;- optim(par = c(mean(y), 0, log(sd(y))),  # starting values\n             fn = neg.llik, x = x, y = y)\n\nc(b0 = mle$par[1], b1 = mle$par[2], sigma = exp(mle$par[3]))\n\n\n        b0         b1      sigma \n80.7533227  0.3653883  6.4900984 \n\n\n The MLEs are \\(\\widehat{\\beta}_0 \\approx 80.753\\), \\(\\widehat{\\beta}_1 \\approx 0.3654\\), and \\(\\widehat{\\sigma} \\approx 6.49\\)."
-  },
-  {
-    "objectID": "MATH354/HW3.html#part-d-1",
-    "href": "MATH354/HW3.html#part-d-1",
-    "title": "Homework 3 – Regression",
-    "section": "2.4 Part d",
-    "text": "2.4 Part d\nFit the model using lm() and plot the resulting model. Compare to the results from parts (a) through (c).\nSolution:\n\n\n\nCode\nmod.q2 &lt;- lm(strength ~ temp, data = dat.q2)\nsummary(mod.q2)\n\n\n\nCall:\nlm(formula = strength ~ temp, data = dat.q2)\n\nResiduals:\n    1     2     3     4     5 \n-7.96  5.01  9.88 -2.95 -3.98 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) 80.75500    5.46239  14.784 0.000671 ***\ntemp         0.36540    0.05299   6.895 0.006250 ** \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 8.379 on 3 degrees of freedom\nMultiple R-squared:  0.9406,    Adjusted R-squared:  0.9209 \nF-statistic: 47.54 on 1 and 3 DF,  p-value: 0.00625\n\n\n\n\n\n\nCode\nggplot(dat.q2, aes(x = temp, y = strength)) +\n  geom_point() +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  theme_bw() +\n  xlab(\"Temperature (°C)\") +\n  ylab(\"Mean Tensile Strength (MPa)\")\n\n\n\n\n\nFigure 7: Mean tensile strength versus temperature with the fitted regression line.\n\n\n\n\n\n\n\n\n\nAll four approaches give really similar estimates: \\(\\widehat{\\beta}_0 = 80.755\\) and \\(\\widehat{\\beta}_1 = 0.3654\\). That is, at \\(0^\\circ\\)C the expected mean tensile strength is 80.76 MPa, and for each \\(1^\\circ\\)C increase in temperature, mean tensile strength is expected to increase by 0.37 MPa. The only difference is the estimate of \\(\\sigma\\): the MLE divides by \\(n\\) (\\(\\widehat{\\sigma} = 6.49\\)), while lm() divides by \\(n-p=3\\) to give the unbiased estimate (\\(s = 8.38\\))."
-  },
-  {
-    "objectID": "MATH354/HW3.html#part-a-2",
-    "href": "MATH354/HW3.html#part-a-2",
-    "title": "Homework 3 – Regression",
-    "section": "3.1 Part a",
-    "text": "3.1 Part a\nFit the model predicting MFAP4 using Fibrosis.Stage. Write out the resulting estimate model and interpret the coefficients.\n\n\n\nCode\nmod.q3a &lt;- lm(MFAP4 ~ Fibrosis.Stage, data = dat.mfap4)\nsummary(mod.q3a)\n\n\n\nCall:\nlm(formula = MFAP4 ~ Fibrosis.Stage, data = dat.mfap4)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-20.318  -5.518  -2.651   2.070  81.816 \n\nCoefficients:\n                      Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)              9.230      1.102   8.378 4.73e-16 ***\nFibrosis.StageStage 1    1.301      1.372   0.948   0.3433    \nFibrosis.StageStage 2    3.154      1.444   2.184   0.0294 *  \nFibrosis.StageStage 3   11.742      1.724   6.812 2.59e-11 ***\nFibrosis.StageStage 4   15.388      1.724   8.928  &lt; 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 10.85 on 537 degrees of freedom\nMultiple R-squared:  0.1965,    Adjusted R-squared:  0.1905 \nF-statistic: 32.84 on 4 and 537 DF,  p-value: &lt; 2.2e-16\n\n\n\nThe estimated model is \\[\\begin{align*}\n\\widehat{\\text{MFAP4}} =\\ & 9.23 + 1.30\\, I(\\text{Stage 1}) + 3.15\\, I(\\text{Stage 2}) \\\\\n& + 11.74\\, I(\\text{Stage 3}) + 15.39\\, I(\\text{Stage 4}).\n\\end{align*}\\]\n\n\\(\\widehat{\\beta}_0 = 9.23\\): The expected MFAP4 level for patients with Stage 0 fibrosis.\n\\(\\widehat{\\beta}_1 = 1.30\\): Patients with Stage 1 fibrosis have an expected MFAP4 level 1.30 higher than Stage 0.\n\\(\\widehat{\\beta}_2 = 3.15\\): Stage 2 is 3.15 higher than Stage 0.\n\\(\\widehat{\\beta}_3 = 11.74\\): Stage 3 is 11.74 higher than Stage 0.\n\\(\\widehat{\\beta}_4 = 15.39\\): Stage 4 is 15.39 higher than Stage 0.\n\nSo expected MFAP4 increases with fibrosis stage, with a large jump from Stage 2 to Stage 3."
-  },
-  {
-    "objectID": "MATH354/HW3.html#part-b-2",
-    "href": "MATH354/HW3.html#part-b-2",
-    "title": "Homework 3 – Regression",
-    "section": "3.2 Part b",
-    "text": "3.2 Part b\nConduct a residual analysis on the model in part a to demonstrate how to identify when you need a log transformation.\n\n\n\nCode\nplotResiduals(mod.q3a)\n\n\n\n\n\nFigure 8: Residual analysis for the model in part a.\n\n\n\n\n\n\n\n\n\nIn Figure 8, the QQ plot curves upward in the right tail, and the histogram has a long right tail compared to the Gaussian curve. The fitted vs. residual plot also shows the spread of the residuals increasing with the fitted values.A log transformation of the response is needed."
-  },
-  {
-    "objectID": "MATH354/HW3.html#part-c-2",
-    "href": "MATH354/HW3.html#part-c-2",
-    "title": "Homework 3 – Regression",
-    "section": "3.3 Part c",
-    "text": "3.3 Part c\nFit the model predicting log(MFAP4) using Fibrosis.Stage. Use the natural log, and not the \\(\\log_2(\\cdot)\\) recorded in the data file. Write out the resulting estimate model and interpret the coefficients.\n\n\n\nCode\nmod.q3c &lt;- lm(log(MFAP4) ~ Fibrosis.Stage, data = dat.mfap4)\nsummary(mod.q3c)\n\n\n\nCall:\nlm(formula = log(MFAP4) ~ Fibrosis.Stage, data = dat.mfap4)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-1.55668 -0.41861 -0.04282  0.35845  2.21571 \n\nCoefficients:\n                      Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)            2.02572    0.06178  32.789  &lt; 2e-16 ***\nFibrosis.StageStage 1  0.13336    0.07694   1.733 0.083637 .  \nFibrosis.StageStage 2  0.30399    0.08099   3.753 0.000193 ***\nFibrosis.StageStage 3  0.77408    0.09666   8.009 7.24e-15 ***\nFibrosis.StageStage 4  0.98957    0.09666  10.238  &lt; 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.6085 on 537 degrees of freedom\nMultiple R-squared:  0.2312,    Adjusted R-squared:  0.2255 \nF-statistic: 40.38 on 4 and 537 DF,  p-value: &lt; 2.2e-16\n\n\nCode\nexp(coef(mod.q3c))\n\n\n          (Intercept) Fibrosis.StageStage 1 Fibrosis.StageStage 2 \n             7.581571              1.142659              1.355252 \nFibrosis.StageStage 3 Fibrosis.StageStage 4 \n             2.168599              2.690090 \n\n\n\nThe estimated model is \\[\\begin{align*}\n\\widehat{\\log(\\text{MFAP4})} =\\ & 2.03 + 0.13\\, I(\\text{Stage 1}) + 0.30\\, I(\\text{Stage 2}) \\\\\n& + 0.77\\, I(\\text{Stage 3}) + 0.99\\, I(\\text{Stage 4}).\n\\end{align*}\\]\n\n\\(e^{\\widehat{\\beta}_0} = e^{2.03} = 7.58\\): The median MFAP4 level for Stage 0 patients is 7.58.\n\\(e^{\\widehat{\\beta}_1} = 1.14\\): The median MFAP4 for Stage 1 is 1.14 times that of Stage 0 (14% higher).\n\\(e^{\\widehat{\\beta}_2} = 1.36\\): Stage 2 is 1.36 times Stage 0 (36% higher).\n\\(e^{\\widehat{\\beta}_3} = 2.17\\): Stage 3 is 2.17 times Stage 0 (117% higher).\n\\(e^{\\widehat{\\beta}_4} = 2.69\\): Stage 4 is 2.69 times Stage 0 (169% higher)."
-  },
-  {
-    "objectID": "MATH354/HW3.html#part-d-2",
-    "href": "MATH354/HW3.html#part-d-2",
-    "title": "Homework 3 – Regression",
-    "section": "3.4 Part d",
-    "text": "3.4 Part d\nConduct a residual analysis on the model in part c to demonstrate that the conditions for using regression are met.\n\n\n\nCode\nplotResiduals(mod.q3c)\n\n\n\n\n\nFigure 9: Residual analysis for the model in part c.\n\n\n\n\n\n\n\n\n\nIn Figure 9, after the log transformation the residuals fall close to the line in the QQ plot, with only slight deviation in the right tail, and the histogram closely matches the Gaussian curve. The fitted vs. residual plot shows bands of similar width centered at zero across all stages. Thus, the conditions for regression appear to be met."
-  },
-  {
-    "objectID": "MATH354/HW3.html#part-e-1",
-    "href": "MATH354/HW3.html#part-e-1",
-    "title": "Homework 3 – Regression",
-    "section": "3.5 Part e",
-    "text": "3.5 Part e\nFit the model predicting log(MFAP4) using Fibrosis.Stage, Age, and Gender. Use the natural log, and not the \\(\\log_2(\\cdot)\\) recorded in the data file. Write out the resulting estimate model and interpret the coefficients.\n\n\n\nCode\nmod.q3e &lt;- lm(log(MFAP4) ~ Fibrosis.Stage + Age + Gender, data = dat.mfap4)\nsummary(mod.q3e)\n\n\n\nCall:\nlm(formula = log(MFAP4) ~ Fibrosis.Stage + Age + Gender, data = dat.mfap4)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-1.55799 -0.40010 -0.03682  0.35968  2.28903 \n\nCoefficients:\n                       Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)            1.518667   0.115808  13.114  &lt; 2e-16 ***\nFibrosis.StageStage 1  0.126858   0.073594   1.724  0.08533 .  \nFibrosis.StageStage 2  0.212539   0.079095   2.687  0.00743 ** \nFibrosis.StageStage 3  0.598866   0.096575   6.201 1.12e-09 ***\nFibrosis.StageStage 4  0.828547   0.097208   8.523  &lt; 2e-16 ***\nAge                    0.013110   0.002123   6.175 1.31e-09 ***\nGendermale            -0.143405   0.050807  -2.823  0.00494 ** \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.5812 on 535 degrees of freedom\nMultiple R-squared:  0.3012,    Adjusted R-squared:  0.2934 \nF-statistic: 38.44 on 6 and 535 DF,  p-value: &lt; 2.2e-16\n\n\nCode\nexp(coef(mod.q3e))\n\n\n          (Intercept) Fibrosis.StageStage 1 Fibrosis.StageStage 2 \n            4.5661359             1.1352559             1.2368149 \nFibrosis.StageStage 3 Fibrosis.StageStage 4                   Age \n            1.8200537             2.2899898             1.0131960 \n           Gendermale \n            0.8664034"
-  },
-  {
-    "objectID": "MATH354/HW3.html#part-a-3",
-    "href": "MATH354/HW3.html#part-a-3",
-    "title": "Homework 3 – Regression",
-    "section": "4.1 Part a",
-    "text": "4.1 Part a\nSimulate data to match regression assumptions in a loop that runs \\(R=1000\\) times. \\[\\begin{align*}\n    x_i &\\sim \\text{Uniform}(a=0,b=10)\\\\\n    \\epsilon_i &\\sim \\text{Gaussian}(\\mu=0, \\sigma=1)\\\\\n    y_i &= 2 + 1.5 x_i + \\epsilon_i\\\\\n    n &= 30\n\\end{align*}\\] In each iteration, fit a regression line to the data and store the coefficient estimates. Plot the resulting estimates. What do you notice?"
-  },
-  {
-    "objectID": "MATH354/HW3.html#part-b-3",
-    "href": "MATH354/HW3.html#part-b-3",
-    "title": "Homework 3 – Regression",
-    "section": "4.2 Part b",
-    "text": "4.2 Part b\nSimulate data to match regression assumptions in a loop that runs \\(R=1000\\) times. \\[\\begin{align*}\n    x_i &\\sim \\text{Uniform}(a=0,b=10)\\\\\n    \\epsilon_i &\\sim \\text{Shifted Exponential}(\\lambda=1, \\mu=0)\\\\\n    y_i &= 2 + 1.5 x_i + \\epsilon_i\\\\\n    n &= 30\n\\end{align*}\\] In each iteration, fit a regression line to the data and store the coefficient estimates. Plot the resulting estimates. What do you notice?\nHint: Use the tolerance::r2exp() function with rate=1 and shift=-1."
-  },
-  {
-    "objectID": "MATH354/HW3.html#part-c-3",
-    "href": "MATH354/HW3.html#part-c-3",
-    "title": "Homework 3 – Regression",
-    "section": "4.3 Part c",
-    "text": "4.3 Part c\nSimulate data to match regression assumptions in a loop that runs \\(R=1000\\) times. \\[\\begin{align*}\n    x_i &\\sim \\text{Uniform}(a=0,b=10)\\\\\n    \\epsilon_i &\\sim \\text{Cauchy}(m=0, s=1)\\\\\n    y_i &= 2 + 1.5 x_i + \\epsilon_i\\\\\n    n &= 30\n\\end{align*}\\] In each iteration, fit a regression line to the data and store the coefficient estimates. Plot the resulting estimates. What do you notice?"
   }
 ]
