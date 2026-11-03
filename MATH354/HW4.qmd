@@ -187,17 +187,327 @@ dat <- dat |>
 summary(dat)
 ```
 
+The raw export had two header rows and 20 empty trailing columns; I kept the variable-name row as headers and dropped the empty columns. Of 842 rows, 696 were completed surveys. I kept only the 592 participants who passed both attention checks. I set the positive frame as the reference level, so the interaction term estimates how the age effect differs under the negative
+frame. I collapsed sparse demographic categories: gender (Female, Male, Other), ethnicity (White, Black, Asian, Other), education (High school or less, Some college, 2 year, 4 year, Graduate), and politics (Democrat, Republican, Independent, Other).
 
 # Exploratory Data Analyses
+
+```{r}
+dat |>
+  group_by(frame1) |>
+  summarize(n = n(), Mean = mean(pick1), SD = sd(pick1)) |>
+  knitr::kable(digits = 3)
+
+dat |>
+  group_by(frame2) |>
+  summarize(n = n(), Mean = mean(pick2), SD = sd(pick2)) |>
+  knitr::kable(digits = 3)
+
+dat |>
+  group_by(frame3) |>
+  summarize(n = n(), Mean = mean(pick3, na.rm = TRUE), SD = sd(pick3, na.rm = TRUE)) |>
+  knitr::kable(digits = 3)
+```
+
+```{r}
+#| fig-width: 10
+#| fig-height: 4
+
+p1 <- ggplot(dat, aes(x = age, y = pick1, color = frame1)) +
+  geom_jitter(width = 0, height = 0.2, alpha = 0.3) +
+  geom_smooth(method = "lm") +
+  theme_bw() +
+  xlab("Age") +
+  ylab("Drug Efficacy (1-6)") +
+  labs(color = "Frame")
+
+p2 <- ggplot(dat, aes(x = age, y = pick2, color = frame2)) +
+  geom_jitter(width = 0, height = 0.2, alpha = 0.3) +
+  geom_smooth(method = "lm") +
+  theme_bw() +
+  xlab("Age") +
+  ylab("Continue Cocoa (1-6)") +
+  labs(color = "Frame")
+
+p3 <- ggplot(dat, aes(x = age, y = pick3, color = frame3)) +
+  geom_jitter(width = 0, height = 0.2, alpha = 0.3) +
+  geom_smooth(method = "lm") +
+  theme_bw() +
+  xlab("Age") +
+  ylab("Risky Choice (1-6)") +
+  labs(color = "Frame")
+
+(p1 + p2 + p3) + plot_layout(guides = "collect")
+```
+
+```{r}
+t.test(age ~ frame1, data = dat)
+t.test(age ~ frame2, data = dat)
+t.test(age ~ frame3, data = dat)
+```
+
+```{r}
+#| fig-width: 10
+#| fig-height: 10
+
+GGally::ggpairs(dat, columns = c("age", "gender", "ethnicity", "education", "politics")) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+I first compared mean responses by frame. The drug was rated as more effective under the positive frame, participants were less willing to continue drinking cocoa under the negative frame, and they preferred the
+risky option more under the negative frame. Plotting responses against age by frame showed that the positive-frame lines were nearly flat, while the negative-frame lines changed with age, so the gap between frames appeared to widen for older adults; this suggests a frame × age interaction driven by the negative frame. Welch t-tests found no age difference between
+frames in any scenario, confirming that random assignment balanced age. Pairwise plots showed no clear associations among the predictors, so
+multicollinearity does not appear to be a concern.
 
 # Regression Analyses
 
 ## Rating Drug Efficacy
 
+```{r}
+source("plotResiduals.R")
+source("plotInfluence.R")
+```
+
+```{r}
+mean.age <- mean(dat$age)
+
+dat <- dat |>
+  mutate(age.c = age - mean.age)
+
+mean.age
+```
+
+```{r}
+mod1 <- lm(pick1 ~ frame1 * age.c + gender + ethnicity + education + politics,
+           data = dat)
+```
+
+```{r}
+#| fig-width: 8
+#| fig-height: 4
+
+plotResiduals(mod1)
+```
+The residuals fall along parallel bands because responses can only be integers from 1 to 6. The Q-Q plot shows that the residuals are close to Gaussian.
+
+```{r}
+#| fig-width: 8
+#| fig-height: 6
+
+plotInfluence(mod1)
+```
+Several observations have high leverage, likely because they belong to small demographic groups. However, all Cook's distances are far below the moderate threshold, so no single observation has a strong influence on the model. 
+
+```{r}
+car::vif(mod1)
+car::vif(lm(pick1 ~ frame1 + age.c + gender + ethnicity + education + politics,
+            data = dat))
+```
+All adjusted GVIF values were between 1.0 and 1.5, so multicollinearity is not a concern.
+
+```{r}
+anova(mod1)
+
+sum.mod1 <- summary(mod1)
+effectsize::F_to_omega2(f = sum.mod1$fstatistic[1],
+                        df = sum.mod1$fstatistic[2],
+                        df_error = sum.mod1$fstatistic[3])
+
+effectsize::omega_squared(anova(mod1))
+```
+The frame had a strong effect on efficacy ratings. The frame × age interaction was also significant, but its effect size was very small. None of the demographic variables were significant. Overall, the model had a large effect size.
+
+```{r}
+sum.mod1$coefficients |>
+  knitr::kable(digits = 3)
+```
+At the average age, participants who saw the negative frame rated the drug 0.65 points lower than those who saw the positive frame. For each additional year of age, this gap grew by about 0.01 points.
+
+```{r}
+emt.mod1 <- emmeans::emtrends(mod1, ~ frame1, var = "age.c")
+emmeans::test(emt.mod1)
+pairs(emt.mod1)
+```
+Under the positive frame, ratings rose slightly with age, while under the negative frame they fell slightly with age. Neither slope was significant on its own, but the difference between them was. So the framing effect grows with age because of small opposing trends in both frames, not because of the negative frame alone.
+
+```{r}
+ages <- c(20, 30, 40, 50, 60, 70)
+
+emm.mod1 <- emmeans::emmeans(mod1, ~ frame1 | age.c,
+                             at = list(age.c = ages - mean.age))
+pairs(emm.mod1)
+```
+The framing effect (positive minus negative) increased steadily with age, from 0.44 points at age 20 to 0.94 points at age 70, and it was significant at every age I tested.
+
+```{r}
+dat <- dat |>
+  mutate(neg1 = as.numeric(frame1 == "neg"))
+
+mod1.jn <- lm(pick1 ~ neg1 * age + gender + ethnicity + education + politics,
+              data = dat)
+
+interactions::johnson_neyman(mod1.jn, pred = "neg1", modx = "age",
+                             control.fdr = TRUE)
+```
+The Johnson-Neyman analysis showed that the framing effect is significant for all ages above 8.94. Since the youngest participant was 18, the framing effect was significant across the entire observed age range.
+
 ## Likelihood to Stop Drinking Cocoa
 
+```{r}
+mod2 <- lm(pick2 ~ frame2 * age.c + gender + ethnicity + education + politics,
+           data = dat)
+```
+
+```{r}
+#| fig-width: 8
+#| fig-height: 4
+
+plotResiduals(mod2)
+```
+The residuals again fall along parallel bands because responses are integers from 1 to 6. Residuals are right-skewed: the Q-Q plot shows a heavier upper tail than expected under a Gaussian distribution.
+
+```{r}
+#| fig-width: 8
+#| fig-height: 6
+
+plotInfluence(mod2)
+```
+Some observations have high leverage, but all Cook's distances are far below the moderate threshold, so no observation is highly influential. 
+
+```{r}
+car::vif(mod2)
+car::vif(lm(pick2 ~ frame2 + age.c + gender + ethnicity + education + politics,
+            data = dat))
+```
+All adjusted GVIF values were between 1.0 and 1.5, so multicollinearity is not a concern.
+
+```{r}
+anova(mod2)
+
+sum.mod2 <- summary(mod2)
+effectsize::F_to_omega2(f = sum.mod2$fstatistic[1],
+                        df = sum.mod2$fstatistic[2],
+                        df_error = sum.mod2$fstatistic[3])
+
+effectsize::omega_squared(anova(mod2))
+```
+The frame had a significant effect on willingness to continue drinking cocoa, though the effect size was small. The frame × age interaction was not significant. None of the demographic variables were significant. The overall model had a small effect size (ω² = 0.04).
+
+```{r}
+sum.mod2$coefficients |>
+  knitr::kable(digits = 3)
+```
+At the average age, participants who saw the negative frame were 0.56 points more likely to say they would stop drinking cocoa than those who saw the positive frame. The interaction coefficient is not significant here.
+
+```{r}
+emt.mod2 <- emmeans::emtrends(mod2, ~ frame2, var = "age.c")
+emmeans::test(emt.mod2)
+pairs(emt.mod2)
+```
+There is not enough evidence that age changes the framing effect in this scenario.
+
+```{r}
+emm.mod2 <- emmeans::emmeans(mod2, ~ frame2 | age.c,
+                             at = list(age.c = ages - mean.age))
+pairs(emm.mod2)
+```
+The estimated framing effect grew from 0.35 points at age 20 to 0.85 points at age 70. It was not significant at age 20 (p = 0.084) but was significant from age 30 onward. Because the interaction was not significant, this pattern mostly reflects larger standard errors at the youngest ages rather than a true change in the framing effect.
+
+```{r}
+dat <- dat |>
+  mutate(neg2 = as.numeric(frame2 == "neg"))
+
+mod2.jn <- lm(pick2 ~ neg2 * age + gender + ethnicity + education + politics,
+              data = dat)
+
+interactions::johnson_neyman(mod2.jn, pred = "neg2", modx = "age",
+                             control.fdr = TRUE)
+```
+The Johnson-Neyman analysis showed that the framing effect is significant for ages above about 22. However, since the frame × age interaction was not significant, it is not so meaningful to interpret this. 
+
 ## Preference for Chance Choice
+
+```{r}
+mod3 <- lm(pick3 ~ frame3 * age.c + gender + ethnicity + education + politics,
+           data = dat)
+```
+
+```{r}
+#| fig-width: 8
+#| fig-height: 4
+
+plotResiduals(mod3)
+```
+The residuals fall along parallel bands because responses are integers from 1 to 6. Q-Q plot shows a fair Gaussian distribution. 
+
+```{r}
+#| fig-width: 8
+#| fig-height: 6
+
+plotInfluence(mod3)
+```
+Some observations have high leverage, but all Cook's distances are far below the moderate threshold, so no observation is  influential.
+
+```{r}
+car::vif(mod3)
+car::vif(lm(pick3 ~ frame3 + age.c + gender + ethnicity + education + politics,
+            data = dat))
+```
+All adjusted GVIF values were between 1.0 and 1.5, so multicollinearity is not a concern.
+
+```{r}
+anova(mod3)
+
+sum.mod3 <- summary(mod3)
+effectsize::F_to_omega2(f = sum.mod3$fstatistic[1],
+                        df = sum.mod3$fstatistic[2],
+                        df_error = sum.mod3$fstatistic[3])
+
+effectsize::omega_squared(anova(mod3))
+```
+The frame had a significant effect on risk preference, though the effect size was small. The frame × age interaction was not significant. Ethnicity and political affiliation were significant, but their effect sizes were very small. The overall model had a small effect size.
+
+```{r}
+sum.mod3$coefficients |>
+  knitr::kable(digits = 3)
+```
+At the average age, participants who saw the negative frame were 0.61 points more likely to choose the risky option than those who saw the positive frame. Independents were 0.50 points more likely to choose the risky option than Democrats. The interaction coefficient suggests the framing effect grows with age, but it was not significant.
+
+```{r}
+emt.mod3 <- emmeans::emtrends(mod3, ~ frame3, var = "age.c")
+emmeans::test(emt.mod3)
+pairs(emt.mod3)
+```
+Under the positive frame, risk preference did not change with age. Under the negative frame, older participants were slightly more likely to choose the risky option, which is just barely significant. However, the two slopes were not significantly different, so there is only weak evidence that the negative frame drives an age-related change in this scenario.
+
+```{r}
+emm.mod3 <- emmeans::emmeans(mod3, ~ frame3 | age.c,
+                             at = list(age.c = ages - mean.age))
+pairs(emm.mod3)
+```
+The framing effect (negative minus positive) grew from 0.32 points at age 20 to 1.03 points at age 70. It was not significant at age 20 but was significant from age 30 onward. 
+
+```{r}
+dat <- dat |>
+  mutate(neg3 = as.numeric(frame3 == "neg"))
+
+mod3.jn <- lm(pick3 ~ neg3 * age + gender + ethnicity + education + politics,
+              data = dat)
+
+interactions::johnson_neyman(mod3.jn, pred = "neg3", modx = "age",
+                             control.fdr = TRUE)
+```
+The Johnson-Neyman analysis showed that the framing effect is significant for ages between 25.3 and 151.1. This means the effect is significant for participants older than about 25. However, since the frame × age interaction was not significant, I do not interpret 25 as a clear onset age.
 
 
 # Discussion
 
+Across all three scenarios, how a choice was worded clearly changed people's responses: the negative frame lowered drug ratings, increased willingness to stop drinking cocoa, and increased preference for the risky option. Whether this framing effect grows with age is less clear. In all three scenarios the interaction pointed in the same direction, with the framing effect larger for older adults, but it was significant only for drug efficacy (p = 0.042). In every scenario, the age slope under the positive frame was essentially zero, while the slope under the negative frame was larger and close to significance (p = 0.099, 0.056, 0.0498). This pattern is consistent with @Xu24's conclusion that any age-related change is driven by the negative frame, though my evidence for it is weaker.
+
+I did not find a clear onset age. For drug efficacy, the framing effect was
+significant across the entire observed age range (18–71). For the other two
+scenarios, the Johnson-Neyman analysis suggested significance after about ag 22–25, but because their interactions were not significant, I do not interpret these as true onset ages. This differs from @Xu24, who reported onset ages of about 32–34 even though only one of their interactions was significant.
+
+My results may differ from the original study because I analyzed a stricter
+sample of 592 participants who passed both attention checks, rather than 696.

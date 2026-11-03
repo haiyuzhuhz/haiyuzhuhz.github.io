@@ -1,0 +1,2315 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Homework 4 – Regression Consult – Academic Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/ColgateC.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1bdbca75b362e6c5a8c09207907ff998.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../MATH354/hw1.qmd">Data Analysis I</a></li><li class="breadcrumb-item"><a href="../MATH354/HW4.html">Homework 4: Regression Consult</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/ColgateSeal.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/ColgateSeal.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><i class="bi bi-house" role="img">
+</i> 
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link"><i class="bi bi-person" role="img">
+</i> 
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Data Analysis I</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../MATH354/hw1.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 1: One Sample Inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../MATH354/HW2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 2: k Sample Inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../MATH354/HW3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 3: Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../MATH354/HW4.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Homework 4: Regression Consult</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#loading-and-cleaning-the-data" id="toc-loading-and-cleaning-the-data" class="nav-link active" data-scroll-target="#loading-and-cleaning-the-data"><span class="header-section-number">1</span> Loading and Cleaning the Data</a></li>
+  <li><a href="#exploratory-data-analyses" id="toc-exploratory-data-analyses" class="nav-link" data-scroll-target="#exploratory-data-analyses"><span class="header-section-number">2</span> Exploratory Data Analyses</a></li>
+  <li><a href="#regression-analyses" id="toc-regression-analyses" class="nav-link" data-scroll-target="#regression-analyses"><span class="header-section-number">3</span> Regression Analyses</a>
+  <ul class="collapse">
+  <li><a href="#rating-drug-efficacy" id="toc-rating-drug-efficacy" class="nav-link" data-scroll-target="#rating-drug-efficacy"><span class="header-section-number">3.1</span> Rating Drug Efficacy</a></li>
+  <li><a href="#likelihood-to-stop-drinking-cocoa" id="toc-likelihood-to-stop-drinking-cocoa" class="nav-link" data-scroll-target="#likelihood-to-stop-drinking-cocoa"><span class="header-section-number">3.2</span> Likelihood to Stop Drinking Cocoa</a></li>
+  <li><a href="#preference-for-chance-choice" id="toc-preference-for-chance-choice" class="nav-link" data-scroll-target="#preference-for-chance-choice"><span class="header-section-number">3.3</span> Preference for Chance Choice</a></li>
+  </ul></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion"><span class="header-section-number">4</span> Discussion</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="HW4.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../MATH354/hw1.qmd">Data Analysis I</a></li><li class="breadcrumb-item"><a href="../MATH354/HW4.html">Homework 4: Regression Consult</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Homework 4 – Regression Consult</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p></p>
+<p></p>
+<p>When people make decisions, their choices are often swayed by how information is presented. This is often described as “the framing effect.” One example of this, is how commercials describe new medications. As an example, Nereus (tradipitant), a new drug for motion-induced vomiting like sea-sickness, is marketed with a <strong>positive frame</strong> as reducing vomiting incidence from 44% to 18% (a reduction of 60%). This marketing makes it seem more effective than a <strong>negative frame</strong> that says just 18% of patients still experienced vomiting, even though both statements are true.</p>
+<p><span class="citation" data-cites="Xu24">Xu (<a href="#ref-Xu24" role="doc-biblioref">2024</a>)</span> aimed to evaluate whether older adults are more or less vulnerable to framing than younger adults. They collected a sample of 696 adults aged 18 to 71 and exposed them to three different scenarios</p>
+<p><strong>Scenario 1:</strong> Rate Drug Efficacy (1 = very bad, 6 = very good)</p>
+<ul>
+<li><strong>Positive Frame:</strong> 70 out of 100 patients felt better</li>
+<li><strong>Negative Frame:</strong> 30 out of 100 patients did not feel better</li>
+</ul>
+<p><strong>Scenario 2:</strong> Likelihood to stop drinking cocoa (1 = surely stop, 6 = surely continue)</p>
+<ul>
+<li><strong>Positive Frame:</strong> Stopping drinking hot cocoa reduces cadmium and cancer risk.</li>
+<li><strong>Negative Frame:</strong> Continuing to drink hot cocoa increases cadmium and cancer risk.</li>
+</ul>
+<p><strong>Scenario 3:</strong> Preference for chance choice (1 = surely safe option, 6 = surely risky)</p>
+<ul>
+<li><strong>Positive Frame:</strong> Choice between 200 saved vs 1/3 chance all 600 are saved.</li>
+<li><strong>Negative Frame:</strong> Choice between 400 die vs 2/3 chance all 600 die.</li>
+</ul>
+<p>In each scenario, participants were randomly assigned a positive or negative frame. They rated their response on a 1-6 scale. The researchers want to build three models, one for each scenario adjusting for simultaneous linear changes in demographic variables (gender, ethnicity, education level, political affiliation).</p>
+<p>They want to evaluate whether, as adults age, the way choices are worded have more influence on their judgments and ultimate choices. If there is a change, are those changes driven by positive or negative framings? At what age does this effect onset?</p>
+<p><strong>Your Goals:</strong></p>
+<ul>
+<li>Determine the correct analysis strategy and conduct the necessary analyses.
+<ul>
+<li>Hint 1: Ensure to assess and communicate results about the model fit.</li>
+<li>Hint 2: Ensure to think about whether or which interactions need to be included.</li>
+<li>Hint 3: You will need run various post hoc procedures (e.g., <code>emmeans</code>, <code>emtrends</code> or <code>johnson_neyman</code>).</li>
+<li>Hint 4: Looking at the paper may be helpful. They do include <code>R</code> code, but I expect you to do a much better job using the techniques we discussed (they do somethings differently)</li>
+</ul></li>
+<li>Write a clear, concise, complete, and correct report conveying an answer to their research question.</li>
+</ul>
+<p>The data are in <code>HW4Data.csv</code> but they will require some manual and <code>tidyverse</code> cleaning.</p>
+<section id="loading-and-cleaning-the-data" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Loading and Cleaning the Data</h1>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a>dat.raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"HW4Data.csv"</span>, <span class="at">name_repair =</span> <span class="st">"unique_quiet"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-label="2"></a>new.names <span class="ot">&lt;-</span> <span class="fu">unlist</span>(dat.raw[<span class="dv">1</span>, ], <span class="at">use.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-label="3"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-label="4"></a>dat <span class="ot">&lt;-</span> dat.raw[<span class="sc">-</span><span class="dv">1</span>, <span class="sc">!</span><span class="fu">is.na</span>(new.names)]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-label="5"></a><span class="fu">names</span>(dat) <span class="ot">&lt;-</span> <span class="fu">str_trim</span>(new.names[<span class="sc">!</span><span class="fu">is.na</span>(new.names)])</span>
+<span id="cb1-6"><a href="#cb1-6" aria-label="6"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">|&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-label="7"></a>  <span class="fu">type_convert</span>()</span>
+<span id="cb1-8"><a href="#cb1-8" aria-label="8"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-label="9"></a><span class="fu">dim</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 842  32</code></pre>
+</div>
+</div>
+<p></p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-label="2"></a>  <span class="fu">filter</span>(finished <span class="sc">==</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-label="3"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-label="4"></a><span class="fu">nrow</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 696</code></pre>
+</div>
+</div>
+<p></p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-label="1"></a><span class="fu">table</span>(dat<span class="sc">$</span>attentioncheck, <span class="at">useNA =</span> <span class="st">"always"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   1    4    6 &lt;NA&gt; 
+ 650    2    1   43 </code></pre>
+</div>
+</div>
+<p></p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-label="1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-label="2"></a>  <span class="fu">mutate</span>(<span class="at">agecheck =</span> stringi<span class="sc">::</span><span class="fu">stri_trans_nfkc</span>(ageattentioncheck),</span>
+<span id="cb7-3"><a href="#cb7-3" aria-label="3"></a>         <span class="at">agecheck.lo =</span> <span class="fu">as.numeric</span>(<span class="fu">str_sub</span>(agecheck, <span class="dv">1</span>, <span class="dv">2</span>)),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-label="4"></a>         <span class="at">agecheck.hi =</span> <span class="fu">as.numeric</span>(<span class="fu">str_sub</span>(agecheck, <span class="dv">4</span>, <span class="dv">5</span>)),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-label="5"></a>         <span class="at">age.ok =</span> age <span class="sc">&gt;=</span> agecheck.lo <span class="sc">&amp;</span> age <span class="sc">&lt;=</span> agecheck.hi)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-label="6"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-label="7"></a><span class="fu">table</span>(dat<span class="sc">$</span>age.ok, <span class="at">useNA =</span> <span class="st">"always"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+FALSE  TRUE  &lt;NA&gt; 
+    5   596    95 </code></pre>
+</div>
+</div>
+<p></p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-label="1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-label="2"></a>  <span class="fu">filter</span>(attentioncheck <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> age.ok <span class="sc">==</span> <span class="cn">TRUE</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-label="3"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-label="4"></a><span class="fu">nrow</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 592</code></pre>
+</div>
+</div>
+<p></p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-label="1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-label="2"></a>  <span class="fu">mutate</span>(<span class="at">frame1 =</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(treatment1 <span class="sc">==</span> <span class="st">"pos1"</span>, <span class="st">"pos"</span>, <span class="st">"neg"</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"pos"</span>, <span class="st">"neg"</span>)),</span>
+<span id="cb11-3"><a href="#cb11-3" aria-label="3"></a>         <span class="at">frame2 =</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(treatment2 <span class="sc">==</span> <span class="st">"pos2"</span>, <span class="st">"pos"</span>, <span class="st">"neg"</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"pos"</span>, <span class="st">"neg"</span>)),</span>
+<span id="cb11-4"><a href="#cb11-4" aria-label="4"></a>         <span class="at">frame3 =</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(treatment3 <span class="sc">==</span> <span class="st">"pos3"</span>, <span class="st">"pos"</span>, <span class="st">"neg"</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"pos"</span>, <span class="st">"neg"</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p></p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-label="1"></a><span class="fu">table</span>(dat<span class="sc">$</span>gender)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+                   Female                      Male Non-binary / third gender 
+                      349                       233                         7 
+        Prefer not to say 
+                        3 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-label="1"></a><span class="fu">table</span>(dat<span class="sc">$</span>ethnicity)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   American Indian or Alaska Native                               Asian 
+                                  2                                  43 
+          Black or African American Native Hawaiian or Pacific Islander 
+                                 46                                   2 
+                              Other                   Prefer not to say 
+                                 16                                   3 
+                              White 
+                                480 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-label="1"></a><span class="fu">table</span>(dat<span class="sc">$</span>education)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+        2 year degree         4 year degree             Doctorate 
+                   65                   233                     9 
+ High school graduate Less than high school   Professional degree 
+                   59                     2                   113 
+         Some college 
+                  111 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-label="1"></a><span class="fu">table</span>(dat<span class="sc">$</span>politics)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+         Democrat       Independent Prefer not to say        Republican 
+              256               168                 6               140 
+   Something else 
+               22 </code></pre>
+</div>
+</div>
+<p></p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-label="1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-label="2"></a>  <span class="fu">mutate</span>(<span class="at">gender =</span> <span class="fu">case_when</span>(gender <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>) <span class="sc">~</span> gender,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-label="3"></a>                            <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Other"</span>),</span>
+<span id="cb20-4"><a href="#cb20-4" aria-label="4"></a>         <span class="at">ethnicity =</span> <span class="fu">case_when</span>(ethnicity <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"White"</span>, <span class="st">"Black or African American"</span>, <span class="st">"Asian"</span>) <span class="sc">~</span> ethnicity,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-label="5"></a>                               <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Other"</span>),</span>
+<span id="cb20-6"><a href="#cb20-6" aria-label="6"></a>         <span class="at">education =</span> <span class="fu">case_when</span>(education <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Less than high school"</span>,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-label="7"></a>                                                <span class="st">"High school graduate"</span>) <span class="sc">~</span> <span class="st">"High school or less"</span>,</span>
+<span id="cb20-8"><a href="#cb20-8" aria-label="8"></a>                               education <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Professional degree"</span>,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-label="9"></a>                                                <span class="st">"Doctorate"</span>) <span class="sc">~</span> <span class="st">"Graduate degree"</span>,</span>
+<span id="cb20-10"><a href="#cb20-10" aria-label="10"></a>                               <span class="cn">TRUE</span> <span class="sc">~</span> education),</span>
+<span id="cb20-11"><a href="#cb20-11" aria-label="11"></a>         <span class="at">politics =</span> <span class="fu">case_when</span>(politics <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Democrat"</span>, <span class="st">"Republican"</span>, <span class="st">"Independent"</span>) <span class="sc">~</span> politics,</span>
+<span id="cb20-12"><a href="#cb20-12" aria-label="12"></a>                              <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Other"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-label="13"></a>  <span class="fu">mutate</span>(<span class="at">gender =</span> <span class="fu">factor</span>(gender, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>, <span class="st">"Other"</span>)),</span>
+<span id="cb20-14"><a href="#cb20-14" aria-label="14"></a>         <span class="at">ethnicity =</span> <span class="fu">factor</span>(ethnicity, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"White"</span>, <span class="st">"Black or African American"</span>,</span>
+<span id="cb20-15"><a href="#cb20-15" aria-label="15"></a>                                                  <span class="st">"Asian"</span>, <span class="st">"Other"</span>)),</span>
+<span id="cb20-16"><a href="#cb20-16" aria-label="16"></a>         <span class="at">education =</span> <span class="fu">factor</span>(education, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"High school or less"</span>, <span class="st">"Some college"</span>,</span>
+<span id="cb20-17"><a href="#cb20-17" aria-label="17"></a>                                                  <span class="st">"2 year degree"</span>, <span class="st">"4 year degree"</span>,</span>
+<span id="cb20-18"><a href="#cb20-18" aria-label="18"></a>                                                  <span class="st">"Graduate degree"</span>)),</span>
+<span id="cb20-19"><a href="#cb20-19" aria-label="19"></a>         <span class="at">politics =</span> <span class="fu">factor</span>(politics, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Democrat"</span>, <span class="st">"Republican"</span>,</span>
+<span id="cb20-20"><a href="#cb20-20" aria-label="20"></a>                                                <span class="st">"Independent"</span>, <span class="st">"Other"</span>)))</span>
+<span id="cb20-21"><a href="#cb20-21" aria-label="21"></a></span>
+<span id="cb20-22"><a href="#cb20-22" aria-label="22"></a><span class="fu">table</span>(dat<span class="sc">$</span>gender)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Female   Male  Other 
+   349    233     10 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-label="1"></a><span class="fu">table</span>(dat<span class="sc">$</span>ethnicity)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+                    White Black or African American                     Asian 
+                      480                        46                        43 
+                    Other 
+                       23 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-label="1"></a><span class="fu">table</span>(dat<span class="sc">$</span>education)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+High school or less        Some college       2 year degree       4 year degree 
+                 61                 111                  65                 233 
+    Graduate degree 
+                122 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-label="1"></a><span class="fu">table</span>(dat<span class="sc">$</span>politics)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   Democrat  Republican Independent       Other 
+        256         140         168          28 </code></pre>
+</div>
+</div>
+<p></p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-label="1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">|&gt;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-label="2"></a>  <span class="fu">select</span>(pick1, pick2, pick3, frame1, frame2, frame3,</span>
+<span id="cb28-3"><a href="#cb28-3" aria-label="3"></a>         age, gender, ethnicity, education, politics)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-label="4"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-label="5"></a><span class="fu">summary</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>     pick1          pick2           pick3       frame1    frame2    frame3   
+ Min.   :2.00   Min.   :1.000   Min.   :1.000   pos:274   pos:295   pos:303  
+ 1st Qu.:4.00   1st Qu.:1.000   1st Qu.:2.000   neg:318   neg:297   neg:289  
+ Median :4.00   Median :2.000   Median :3.000                                
+ Mean   :4.12   Mean   :2.262   Mean   :3.215                                
+ 3rd Qu.:5.00   3rd Qu.:3.000   3rd Qu.:4.000                                
+ Max.   :6.00   Max.   :6.000   Max.   :6.000                                
+                                NA's   :1                                    
+      age          gender                        ethnicity  
+ Min.   :18.0   Female:349   White                    :480  
+ 1st Qu.:31.0   Male  :233   Black or African American: 46  
+ Median :38.0   Other : 10   Asian                    : 43  
+ Mean   :40.8                Other                    : 23  
+ 3rd Qu.:50.0                                               
+ Max.   :71.0                                               
+                                                            
+               education          politics  
+ High school or less: 61   Democrat   :256  
+ Some college       :111   Republican :140  
+ 2 year degree      : 65   Independent:168  
+ 4 year degree      :233   Other      : 28  
+ Graduate degree    :122                    
+                                            
+                                            </code></pre>
+</div>
+</div>
+<p></p>
+<p>The raw export had two header rows and 20 empty trailing columns; I kept the variable-name row as headers and dropped the empty columns. Of 842 rows, 696 were completed surveys. I kept only the 592 participants who passed both attention checks. I set the positive frame as the reference level, so the interaction term estimates how the age effect differs under the negative frame. I collapsed sparse demographic categories: gender (Female, Male, Other), ethnicity (White, Black, Asian, Other), education (High school or less, Some college, 2 year, 4 year, Graduate), and politics (Democrat, Republican, Independent, Other).</p>
+</section>
+<section id="exploratory-data-analyses" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Exploratory Data Analyses</h1>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-label="1"></a>dat <span class="sc">|&gt;</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-label="2"></a>  <span class="fu">group_by</span>(frame1) <span class="sc">|&gt;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-label="3"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">Mean =</span> <span class="fu">mean</span>(pick1), <span class="at">SD =</span> <span class="fu">sd</span>(pick1)) <span class="sc">|&gt;</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-label="4"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">frame1</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">SD</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pos</td>
+<td style="text-align: right;">274</td>
+<td style="text-align: right;">4.467</td>
+<td style="text-align: right;">0.630</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">neg</td>
+<td style="text-align: right;">318</td>
+<td style="text-align: right;">3.821</td>
+<td style="text-align: right;">0.815</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-label="1"></a>dat <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-label="2"></a>  <span class="fu">group_by</span>(frame2) <span class="sc">|&gt;</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-label="3"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">Mean =</span> <span class="fu">mean</span>(pick2), <span class="at">SD =</span> <span class="fu">sd</span>(pick2)) <span class="sc">|&gt;</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-label="4"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">frame2</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">SD</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pos</td>
+<td style="text-align: right;">295</td>
+<td style="text-align: right;">2.549</td>
+<td style="text-align: right;">1.423</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">neg</td>
+<td style="text-align: right;">297</td>
+<td style="text-align: right;">1.976</td>
+<td style="text-align: right;">1.060</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-label="1"></a>dat <span class="sc">|&gt;</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-label="2"></a>  <span class="fu">group_by</span>(frame3) <span class="sc">|&gt;</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-label="3"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">Mean =</span> <span class="fu">mean</span>(pick3, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">SD =</span> <span class="fu">sd</span>(pick3, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-label="4"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">frame3</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">SD</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pos</td>
+<td style="text-align: right;">303</td>
+<td style="text-align: right;">2.888</td>
+<td style="text-align: right;">1.407</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">neg</td>
+<td style="text-align: right;">289</td>
+<td style="text-align: right;">3.559</td>
+<td style="text-align: right;">1.508</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p></p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-label="1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dat, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> pick1, <span class="at">color =</span> frame1)) <span class="sc">+</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-label="2"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="dv">0</span>, <span class="at">height =</span> <span class="fl">0.2</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-label="3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-label="4"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-label="5"></a>  <span class="fu">xlab</span>(<span class="st">"Age"</span>) <span class="sc">+</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-label="6"></a>  <span class="fu">ylab</span>(<span class="st">"Drug Efficacy (1-6)"</span>) <span class="sc">+</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-label="7"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Frame"</span>)</span>
+<span id="cb33-8"><a href="#cb33-8" aria-label="8"></a></span>
+<span id="cb33-9"><a href="#cb33-9" aria-label="9"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dat, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> pick2, <span class="at">color =</span> frame2)) <span class="sc">+</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-label="10"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="dv">0</span>, <span class="at">height =</span> <span class="fl">0.2</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-label="11"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-label="12"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-label="13"></a>  <span class="fu">xlab</span>(<span class="st">"Age"</span>) <span class="sc">+</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-label="14"></a>  <span class="fu">ylab</span>(<span class="st">"Continue Cocoa (1-6)"</span>) <span class="sc">+</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-label="15"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Frame"</span>)</span>
+<span id="cb33-16"><a href="#cb33-16" aria-label="16"></a></span>
+<span id="cb33-17"><a href="#cb33-17" aria-label="17"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dat, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> pick3, <span class="at">color =</span> frame3)) <span class="sc">+</span></span>
+<span id="cb33-18"><a href="#cb33-18" aria-label="18"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="dv">0</span>, <span class="at">height =</span> <span class="fl">0.2</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb33-19"><a href="#cb33-19" aria-label="19"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
+<span id="cb33-20"><a href="#cb33-20" aria-label="20"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb33-21"><a href="#cb33-21" aria-label="21"></a>  <span class="fu">xlab</span>(<span class="st">"Age"</span>) <span class="sc">+</span></span>
+<span id="cb33-22"><a href="#cb33-22" aria-label="22"></a>  <span class="fu">ylab</span>(<span class="st">"Risky Choice (1-6)"</span>) <span class="sc">+</span></span>
+<span id="cb33-23"><a href="#cb33-23" aria-label="23"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Frame"</span>)</span>
+<span id="cb33-24"><a href="#cb33-24" aria-label="24"></a></span>
+<span id="cb33-25"><a href="#cb33-25" aria-label="25"></a>(p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3) <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="HW4_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-label="1"></a><span class="fu">t.test</span>(age <span class="sc">~</span> frame1, <span class="at">data =</span> dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  age by frame1
+t = 0.81247, df = 581.19, p-value = 0.4169
+alternative hypothesis: true difference in means between group pos and group neg is not equal to 0
+95 percent confidence interval:
+ -1.181506  2.848678
+sample estimates:
+mean in group pos mean in group neg 
+         41.25182          40.41824 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-label="1"></a><span class="fu">t.test</span>(age <span class="sc">~</span> frame2, <span class="at">data =</span> dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  age by frame2
+t = 0.16341, df = 589.85, p-value = 0.8703
+alternative hypothesis: true difference in means between group pos and group neg is not equal to 0
+95 percent confidence interval:
+ -1.846719  2.181913
+sample estimates:
+mean in group pos mean in group neg 
+         40.88814          40.72054 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-label="1"></a><span class="fu">t.test</span>(age <span class="sc">~</span> frame3, <span class="at">data =</span> dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  age by frame3
+t = -1.5555, df = 588.13, p-value = 0.1204
+alternative hypothesis: true difference in means between group pos and group neg is not equal to 0
+95 percent confidence interval:
+ -3.6043605  0.4184115
+sample estimates:
+mean in group pos mean in group neg 
+         40.02640          41.61938 </code></pre>
+</div>
+</div>
+<p></p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-label="1"></a>GGally<span class="sc">::</span><span class="fu">ggpairs</span>(dat, <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">"age"</span>, <span class="st">"gender"</span>, <span class="st">"ethnicity"</span>, <span class="st">"education"</span>, <span class="st">"politics"</span>)) <span class="sc">+</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-label="2"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-label="3"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="HW4_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p>
+<p>I first compared mean responses by frame. The drug was rated as more effective under the positive frame, participants were less willing to continue drinking cocoa under the negative frame, and they preferred the risky option more under the negative frame. Plotting responses against age by frame showed that the positive-frame lines were nearly flat, while the negative-frame lines changed with age, so the gap between frames appeared to widen for older adults; this suggests a frame × age interaction driven by the negative frame. Welch t-tests found no age difference between frames in any scenario, confirming that random assignment balanced age. Pairwise plots showed no clear associations among the predictors, so multicollinearity does not appear to be a concern.</p>
+</section>
+<section id="regression-analyses" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Regression Analyses</h1>
+<section id="rating-drug-efficacy" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="rating-drug-efficacy"><span class="header-section-number">3.1</span> Rating Drug Efficacy</h2>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-label="1"></a><span class="fu">source</span>(<span class="st">"plotResiduals.R"</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-label="2"></a><span class="fu">source</span>(<span class="st">"plotInfluence.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p></p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-label="1"></a>mean.age <span class="ot">&lt;-</span> <span class="fu">mean</span>(dat<span class="sc">$</span>age)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-label="2"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-label="3"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">|&gt;</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-label="4"></a>  <span class="fu">mutate</span>(<span class="at">age.c =</span> age <span class="sc">-</span> mean.age)</span>
+<span id="cb42-5"><a href="#cb42-5" aria-label="5"></a></span>
+<span id="cb42-6"><a href="#cb42-6" aria-label="6"></a>mean.age</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 40.80405</code></pre>
+</div>
+</div>
+<p></p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-label="1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(pick1 <span class="sc">~</span> frame1 <span class="sc">*</span> age.c <span class="sc">+</span> gender <span class="sc">+</span> ethnicity <span class="sc">+</span> education <span class="sc">+</span> politics,</span>
+<span id="cb44-2"><a href="#cb44-2" aria-label="2"></a>           <span class="at">data =</span> dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p></p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-label="1"></a><span class="fu">plotResiduals</span>(mod1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="HW4_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p> The residuals fall along parallel bands because responses can only be integers from 1 to 6. The Q-Q plot shows that the residuals are close to Gaussian.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-label="1"></a><span class="fu">plotInfluence</span>(mod1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="HW4_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p> Several observations have high leverage, likely because they belong to small demographic groups. However, all Cook’s distances are far below the moderate threshold, so no single observation has a strong influence on the model.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-label="1"></a>car<span class="sc">::</span><span class="fu">vif</span>(mod1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 GVIF Df GVIF^(1/(2*Df))
+frame1       1.017894  1        1.008907
+age.c        2.339811  1        1.529644
+gender       1.075843  2        1.018444
+ethnicity    1.143267  3        1.022566
+education    1.133688  4        1.015808
+politics     1.185533  3        1.028772
+frame1:age.c 2.264757  1        1.504911</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-label="1"></a>car<span class="sc">::</span><span class="fu">vif</span>(<span class="fu">lm</span>(pick1 <span class="sc">~</span> frame1 <span class="sc">+</span> age.c <span class="sc">+</span> gender <span class="sc">+</span> ethnicity <span class="sc">+</span> education <span class="sc">+</span> politics,</span>
+<span id="cb49-2"><a href="#cb49-2" aria-label="2"></a>            <span class="at">data =</span> dat))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>              GVIF Df GVIF^(1/(2*Df))
+frame1    1.017889  1        1.008905
+age.c     1.055095  1        1.027178
+gender    1.073616  2        1.017917
+ethnicity 1.137853  3        1.021757
+education 1.130613  4        1.015463
+politics  1.178447  3        1.027744</code></pre>
+</div>
+</div>
+<p> All adjusted GVIF values were between 1.0 and 1.5, so multicollinearity is not a concern.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-label="1"></a><span class="fu">anova</span>(mod1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: pick1
+              Df  Sum Sq Mean Sq  F value  Pr(&gt;F)    
+frame1         1  61.497  61.497 114.7912 &lt; 2e-16 ***
+age.c          1   0.367   0.367   0.6841 0.40851    
+gender         2   0.735   0.367   0.6858 0.50410    
+ethnicity      3   3.262   1.087   2.0298 0.10860    
+education      4   2.095   0.524   0.9778 0.41906    
+politics       3   1.714   0.571   1.0666 0.36273    
+frame1:age.c   1   2.232   2.232   4.1668 0.04168 *  
+Residuals    576 308.582   0.536                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-label="1"></a>sum.mod1 <span class="ot">&lt;-</span> <span class="fu">summary</span>(mod1)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-label="2"></a>effectsize<span class="sc">::</span><span class="fu">F_to_omega2</span>(<span class="at">f =</span> sum.mod1<span class="sc">$</span>fstatistic[<span class="dv">1</span>],</span>
+<span id="cb53-3"><a href="#cb53-3" aria-label="3"></a>                        <span class="at">df =</span> sum.mod1<span class="sc">$</span>fstatistic[<span class="dv">2</span>],</span>
+<span id="cb53-4"><a href="#cb53-4" aria-label="4"></a>                        <span class="at">df_error =</span> sum.mod1<span class="sc">$</span>fstatistic[<span class="dv">3</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Omega2 (partial) |       95% CI
+-------------------------------
+0.17             | [0.11, 1.00]
+
+- One-sided CIs: upper bound fixed at [1.00].</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-label="1"></a>effectsize<span class="sc">::</span><span class="fu">omega_squared</span>(<span class="fu">anova</span>(mod1))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># Effect Size for ANOVA (Type I)
+
+Parameter    | Omega2 (partial) |       95% CI
+----------------------------------------------
+frame1       |             0.16 | [0.12, 1.00]
+age.c        |             0.00 | [0.00, 1.00]
+gender       |             0.00 | [0.00, 1.00]
+ethnicity    |         5.19e-03 | [0.00, 1.00]
+education    |             0.00 | [0.00, 1.00]
+politics     |         3.37e-04 | [0.00, 1.00]
+frame1:age.c |         5.32e-03 | [0.00, 1.00]
+
+- One-sided CIs: upper bound fixed at [1.00].</code></pre>
+</div>
+</div>
+<p> The frame had a strong effect on efficacy ratings. The frame × age interaction was also significant, but its effect size was very small. None of the demographic variables were significant. Overall, the model had a large effect size.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-label="1"></a>sum.mod1<span class="sc">$</span>coefficients <span class="sc">|&gt;</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-label="2"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 42%">
+<col style="width: 10%">
+<col style="width: 13%">
+<col style="width: 9%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">Std. Error</th>
+<th style="text-align: right;">t value</th>
+<th style="text-align: right;">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">4.374</td>
+<td style="text-align: right;">0.115</td>
+<td style="text-align: right;">38.178</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">frame1neg</td>
+<td style="text-align: right;">-0.648</td>
+<td style="text-align: right;">0.061</td>
+<td style="text-align: right;">-10.649</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">age.c</td>
+<td style="text-align: right;">0.005</td>
+<td style="text-align: right;">0.004</td>
+<td style="text-align: right;">1.235</td>
+<td style="text-align: right;">0.217</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">genderMale</td>
+<td style="text-align: right;">-0.020</td>
+<td style="text-align: right;">0.063</td>
+<td style="text-align: right;">-0.313</td>
+<td style="text-align: right;">0.755</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">genderOther</td>
+<td style="text-align: right;">0.269</td>
+<td style="text-align: right;">0.240</td>
+<td style="text-align: right;">1.123</td>
+<td style="text-align: right;">0.262</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ethnicityBlack or African American</td>
+<td style="text-align: right;">0.181</td>
+<td style="text-align: right;">0.116</td>
+<td style="text-align: right;">1.564</td>
+<td style="text-align: right;">0.118</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ethnicityAsian</td>
+<td style="text-align: right;">-0.051</td>
+<td style="text-align: right;">0.119</td>
+<td style="text-align: right;">-0.426</td>
+<td style="text-align: right;">0.670</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ethnicityOther</td>
+<td style="text-align: right;">-0.256</td>
+<td style="text-align: right;">0.159</td>
+<td style="text-align: right;">-1.609</td>
+<td style="text-align: right;">0.108</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">educationSome college</td>
+<td style="text-align: right;">0.133</td>
+<td style="text-align: right;">0.118</td>
+<td style="text-align: right;">1.136</td>
+<td style="text-align: right;">0.257</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">education2 year degree</td>
+<td style="text-align: right;">0.185</td>
+<td style="text-align: right;">0.131</td>
+<td style="text-align: right;">1.405</td>
+<td style="text-align: right;">0.161</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">education4 year degree</td>
+<td style="text-align: right;">0.120</td>
+<td style="text-align: right;">0.108</td>
+<td style="text-align: right;">1.117</td>
+<td style="text-align: right;">0.264</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">educationGraduate degree</td>
+<td style="text-align: right;">0.015</td>
+<td style="text-align: right;">0.117</td>
+<td style="text-align: right;">0.128</td>
+<td style="text-align: right;">0.898</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">politicsRepublican</td>
+<td style="text-align: right;">-0.079</td>
+<td style="text-align: right;">0.080</td>
+<td style="text-align: right;">-0.987</td>
+<td style="text-align: right;">0.324</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">politicsIndependent</td>
+<td style="text-align: right;">0.075</td>
+<td style="text-align: right;">0.074</td>
+<td style="text-align: right;">1.018</td>
+<td style="text-align: right;">0.309</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">politicsOther</td>
+<td style="text-align: right;">-0.072</td>
+<td style="text-align: right;">0.149</td>
+<td style="text-align: right;">-0.480</td>
+<td style="text-align: right;">0.631</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">frame1neg:age.c</td>
+<td style="text-align: right;">-0.010</td>
+<td style="text-align: right;">0.005</td>
+<td style="text-align: right;">-2.041</td>
+<td style="text-align: right;">0.042</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> At the average age, participants who saw the negative frame rated the drug 0.65 points lower than those who saw the positive frame. For each additional year of age, this gap grew by about 0.01 points.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-label="1"></a>emt.mod1 <span class="ot">&lt;-</span> emmeans<span class="sc">::</span><span class="fu">emtrends</span>(mod1, <span class="sc">~</span> frame1, <span class="at">var =</span> <span class="st">"age.c"</span>)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-label="2"></a>emmeans<span class="sc">::</span><span class="fu">test</span>(emt.mod1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> frame1 age.c.trend      SE  df t.ratio p.value
+ pos        0.00456 0.00369 576   1.235  0.2173
+ neg       -0.00544 0.00329 576  -1.653  0.0988
+
+Results are averaged over the levels of: gender, ethnicity, education, politics </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-label="1"></a><span class="fu">pairs</span>(emt.mod1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> contrast  estimate     SE  df t.ratio p.value
+ pos - neg     0.01 0.0049 576   2.041  0.0417
+
+Results are averaged over the levels of: gender, ethnicity, education, politics </code></pre>
+</div>
+</div>
+<p> Under the positive frame, ratings rose slightly with age, while under the negative frame they fell slightly with age. Neither slope was significant on its own, but the difference between them was. So the framing effect grows with age because of small opposing trends in both frames, not because of the negative frame alone.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-label="1"></a>ages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>)</span>
+<span id="cb62-2"><a href="#cb62-2" aria-label="2"></a></span>
+<span id="cb62-3"><a href="#cb62-3" aria-label="3"></a>emm.mod1 <span class="ot">&lt;-</span> emmeans<span class="sc">::</span><span class="fu">emmeans</span>(mod1, <span class="sc">~</span> frame1 <span class="sc">|</span> age.c,</span>
+<span id="cb62-4"><a href="#cb62-4" aria-label="4"></a>                             <span class="at">at =</span> <span class="fu">list</span>(<span class="at">age.c =</span> ages <span class="sc">-</span> mean.age))</span>
+<span id="cb62-5"><a href="#cb62-5" aria-label="5"></a><span class="fu">pairs</span>(emm.mod1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>age.c = -20.804:
+ contrast  estimate     SE  df t.ratio p.value
+ pos - neg     0.44 0.1190 576   3.703  0.0002
+
+age.c = -10.804:
+ contrast  estimate     SE  df t.ratio p.value
+ pos - neg     0.54 0.0808 576   6.688 &lt;0.0001
+
+age.c =  -0.804:
+ contrast  estimate     SE  df t.ratio p.value
+ pos - neg     0.64 0.0610 576  10.494 &lt;0.0001
+
+age.c =   9.196:
+ contrast  estimate     SE  df t.ratio p.value
+ pos - neg     0.74 0.0757 576   9.784 &lt;0.0001
+
+age.c =  19.196:
+ contrast  estimate     SE  df t.ratio p.value
+ pos - neg     0.84 0.1120 576   7.506 &lt;0.0001
+
+age.c =  29.196:
+ contrast  estimate     SE  df t.ratio p.value
+ pos - neg     0.94 0.1550 576   6.052 &lt;0.0001
+
+Results are averaged over the levels of: gender, ethnicity, education, politics </code></pre>
+</div>
+</div>
+<p> The framing effect (positive minus negative) increased steadily with age, from 0.44 points at age 20 to 0.94 points at age 70, and it was significant at every age I tested.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-label="1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">|&gt;</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-label="2"></a>  <span class="fu">mutate</span>(<span class="at">neg1 =</span> <span class="fu">as.numeric</span>(frame1 <span class="sc">==</span> <span class="st">"neg"</span>))</span>
+<span id="cb64-3"><a href="#cb64-3" aria-label="3"></a></span>
+<span id="cb64-4"><a href="#cb64-4" aria-label="4"></a>mod1.jn <span class="ot">&lt;-</span> <span class="fu">lm</span>(pick1 <span class="sc">~</span> neg1 <span class="sc">*</span> age <span class="sc">+</span> gender <span class="sc">+</span> ethnicity <span class="sc">+</span> education <span class="sc">+</span> politics,</span>
+<span id="cb64-5"><a href="#cb64-5" aria-label="5"></a>              <span class="at">data =</span> dat)</span>
+<span id="cb64-6"><a href="#cb64-6" aria-label="6"></a></span>
+<span id="cb64-7"><a href="#cb64-7" aria-label="7"></a>interactions<span class="sc">::</span><span class="fu">johnson_neyman</span>(mod1.jn, <span class="at">pred =</span> <span class="st">"neg1"</span>, <span class="at">modx =</span> <span class="st">"age"</span>,</span>
+<span id="cb64-8"><a href="#cb64-8" aria-label="8"></a>                             <span class="at">control.fdr =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>JOHNSON-NEYMAN INTERVAL
+
+When age is OUTSIDE the interval [-1674.92, 8.94], the slope of neg1 is p &lt;
+.05.
+
+Note: The range of observed values of age is [18.00, 71.00]
+
+Interval calculated using false discovery rate adjusted t = 1.96 </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="HW4_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p> The Johnson-Neyman analysis showed that the framing effect is significant for all ages above 8.94. Since the youngest participant was 18, the framing effect was significant across the entire observed age range.</p>
+</section>
+<section id="likelihood-to-stop-drinking-cocoa" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="likelihood-to-stop-drinking-cocoa"><span class="header-section-number">3.2</span> Likelihood to Stop Drinking Cocoa</h2>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-label="1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(pick2 <span class="sc">~</span> frame2 <span class="sc">*</span> age.c <span class="sc">+</span> gender <span class="sc">+</span> ethnicity <span class="sc">+</span> education <span class="sc">+</span> politics,</span>
+<span id="cb66-2"><a href="#cb66-2" aria-label="2"></a>           <span class="at">data =</span> dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p></p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-label="1"></a><span class="fu">plotResiduals</span>(mod2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="HW4_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p> The residuals again fall along parallel bands because responses are integers from 1 to 6. Residuals are right-skewed: the Q-Q plot shows a heavier upper tail than expected under a Gaussian distribution.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-label="1"></a><span class="fu">plotInfluence</span>(mod2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="HW4_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p> Some observations have high leverage, but all Cook’s distances are far below the moderate threshold, so no observation is highly influential.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-label="1"></a>car<span class="sc">::</span><span class="fu">vif</span>(mod2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 GVIF Df GVIF^(1/(2*Df))
+frame2       1.033200  1        1.016464
+age.c        2.168475  1        1.472574
+gender       1.076946  2        1.018705
+ethnicity    1.145603  3        1.022914
+education    1.163222  4        1.019079
+politics     1.176610  3        1.027477
+frame2:age.c 2.101072  1        1.449508</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-label="1"></a>car<span class="sc">::</span><span class="fu">vif</span>(<span class="fu">lm</span>(pick2 <span class="sc">~</span> frame2 <span class="sc">+</span> age.c <span class="sc">+</span> gender <span class="sc">+</span> ethnicity <span class="sc">+</span> education <span class="sc">+</span> politics,</span>
+<span id="cb71-2"><a href="#cb71-2" aria-label="2"></a>            <span class="at">data =</span> dat))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>              GVIF Df GVIF^(1/(2*Df))
+frame2    1.033190  1        1.016459
+age.c     1.055060  1        1.027161
+gender    1.075166  2        1.018284
+ethnicity 1.137667  3        1.021729
+education 1.148770  4        1.017488
+politics  1.176079  3        1.027400</code></pre>
+</div>
+</div>
+<p> All adjusted GVIF values were between 1.0 and 1.5, so multicollinearity is not a concern.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-label="1"></a><span class="fu">anova</span>(mod2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: pick2
+              Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+frame2         1  48.54  48.545 30.6451 4.712e-08 ***
+age.c          1   3.39   3.387  2.1383    0.1442    
+gender         2   0.82   0.411  0.2592    0.7717    
+ethnicity      3   2.71   0.902  0.5695    0.6353    
+education      4   5.74   1.435  0.9056    0.4603    
+politics       3   0.54   0.181  0.1145    0.9516    
+frame2:age.c   1   2.23   2.232  1.4092    0.2357    
+Residuals    576 912.44   1.584                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-label="1"></a>sum.mod2 <span class="ot">&lt;-</span> <span class="fu">summary</span>(mod2)</span>
+<span id="cb75-2"><a href="#cb75-2" aria-label="2"></a>effectsize<span class="sc">::</span><span class="fu">F_to_omega2</span>(<span class="at">f =</span> sum.mod2<span class="sc">$</span>fstatistic[<span class="dv">1</span>],</span>
+<span id="cb75-3"><a href="#cb75-3" aria-label="3"></a>                        <span class="at">df =</span> sum.mod2<span class="sc">$</span>fstatistic[<span class="dv">2</span>],</span>
+<span id="cb75-4"><a href="#cb75-4" aria-label="4"></a>                        <span class="at">df_error =</span> sum.mod2<span class="sc">$</span>fstatistic[<span class="dv">3</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Omega2 (partial) |       95% CI
+-------------------------------
+0.04             | [0.00, 1.00]
+
+- One-sided CIs: upper bound fixed at [1.00].</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-label="1"></a>effectsize<span class="sc">::</span><span class="fu">omega_squared</span>(<span class="fu">anova</span>(mod2))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># Effect Size for ANOVA (Type I)
+
+Parameter    | Omega2 (partial) |       95% CI
+----------------------------------------------
+frame2       |             0.05 | [0.02, 1.00]
+age.c        |         1.92e-03 | [0.00, 1.00]
+gender       |             0.00 | [0.00, 1.00]
+ethnicity    |             0.00 | [0.00, 1.00]
+education    |             0.00 | [0.00, 1.00]
+politics     |             0.00 | [0.00, 1.00]
+frame2:age.c |         6.91e-04 | [0.00, 1.00]
+
+- One-sided CIs: upper bound fixed at [1.00].</code></pre>
+</div>
+</div>
+<p> The frame had a significant effect on willingness to continue drinking cocoa, though the effect size was small. The frame × age interaction was not significant. None of the demographic variables were significant. The overall model had a small effect size (ω² = 0.04).</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-label="1"></a>sum.mod2<span class="sc">$</span>coefficients <span class="sc">|&gt;</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-label="2"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 42%">
+<col style="width: 10%">
+<col style="width: 13%">
+<col style="width: 9%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">Std. Error</th>
+<th style="text-align: right;">t value</th>
+<th style="text-align: right;">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">2.357</td>
+<td style="text-align: right;">0.190</td>
+<td style="text-align: right;">12.392</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">frame2neg</td>
+<td style="text-align: right;">-0.561</td>
+<td style="text-align: right;">0.105</td>
+<td style="text-align: right;">-5.332</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">age.c</td>
+<td style="text-align: right;">-0.001</td>
+<td style="text-align: right;">0.006</td>
+<td style="text-align: right;">-0.207</td>
+<td style="text-align: right;">0.836</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">genderMale</td>
+<td style="text-align: right;">0.035</td>
+<td style="text-align: right;">0.108</td>
+<td style="text-align: right;">0.321</td>
+<td style="text-align: right;">0.748</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">genderOther</td>
+<td style="text-align: right;">0.235</td>
+<td style="text-align: right;">0.413</td>
+<td style="text-align: right;">0.570</td>
+<td style="text-align: right;">0.569</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ethnicityBlack or African American</td>
+<td style="text-align: right;">-0.233</td>
+<td style="text-align: right;">0.200</td>
+<td style="text-align: right;">-1.169</td>
+<td style="text-align: right;">0.243</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ethnicityAsian</td>
+<td style="text-align: right;">-0.082</td>
+<td style="text-align: right;">0.205</td>
+<td style="text-align: right;">-0.400</td>
+<td style="text-align: right;">0.689</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ethnicityOther</td>
+<td style="text-align: right;">-0.052</td>
+<td style="text-align: right;">0.274</td>
+<td style="text-align: right;">-0.190</td>
+<td style="text-align: right;">0.850</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">educationSome college</td>
+<td style="text-align: right;">0.266</td>
+<td style="text-align: right;">0.201</td>
+<td style="text-align: right;">1.322</td>
+<td style="text-align: right;">0.187</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">education2 year degree</td>
+<td style="text-align: right;">0.118</td>
+<td style="text-align: right;">0.227</td>
+<td style="text-align: right;">0.517</td>
+<td style="text-align: right;">0.606</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">education4 year degree</td>
+<td style="text-align: right;">0.275</td>
+<td style="text-align: right;">0.185</td>
+<td style="text-align: right;">1.487</td>
+<td style="text-align: right;">0.138</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">educationGraduate degree</td>
+<td style="text-align: right;">0.130</td>
+<td style="text-align: right;">0.201</td>
+<td style="text-align: right;">0.646</td>
+<td style="text-align: right;">0.518</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">politicsRepublican</td>
+<td style="text-align: right;">-0.018</td>
+<td style="text-align: right;">0.138</td>
+<td style="text-align: right;">-0.127</td>
+<td style="text-align: right;">0.899</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">politicsIndependent</td>
+<td style="text-align: right;">-0.020</td>
+<td style="text-align: right;">0.127</td>
+<td style="text-align: right;">-0.159</td>
+<td style="text-align: right;">0.874</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">politicsOther</td>
+<td style="text-align: right;">0.127</td>
+<td style="text-align: right;">0.256</td>
+<td style="text-align: right;">0.496</td>
+<td style="text-align: right;">0.620</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">frame2neg:age.c</td>
+<td style="text-align: right;">-0.010</td>
+<td style="text-align: right;">0.008</td>
+<td style="text-align: right;">-1.187</td>
+<td style="text-align: right;">0.236</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> At the average age, participants who saw the negative frame were 0.56 points more likely to say they would stop drinking cocoa than those who saw the positive frame. The interaction coefficient is not significant here.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-label="1"></a>emt.mod2 <span class="ot">&lt;-</span> emmeans<span class="sc">::</span><span class="fu">emtrends</span>(mod2, <span class="sc">~</span> frame2, <span class="at">var =</span> <span class="st">"age.c"</span>)</span>
+<span id="cb80-2"><a href="#cb80-2" aria-label="2"></a>emmeans<span class="sc">::</span><span class="fu">test</span>(emt.mod2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> frame2 age.c.trend      SE  df t.ratio p.value
+ pos       -0.00127 0.00611 576  -0.207  0.8357
+ neg       -0.01124 0.00586 576  -1.918  0.0556
+
+Results are averaged over the levels of: gender, ethnicity, education, politics </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb82"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-label="1"></a><span class="fu">pairs</span>(emt.mod2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> contrast  estimate     SE  df t.ratio p.value
+ pos - neg  0.00998 0.0084 576   1.187  0.2357
+
+Results are averaged over the levels of: gender, ethnicity, education, politics </code></pre>
+</div>
+</div>
+<p> There is not enough evidence that age changes the framing effect in this scenario.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-label="1"></a>emm.mod2 <span class="ot">&lt;-</span> emmeans<span class="sc">::</span><span class="fu">emmeans</span>(mod2, <span class="sc">~</span> frame2 <span class="sc">|</span> age.c,</span>
+<span id="cb84-2"><a href="#cb84-2" aria-label="2"></a>                             <span class="at">at =</span> <span class="fu">list</span>(<span class="at">age.c =</span> ages <span class="sc">-</span> mean.age))</span>
+<span id="cb84-3"><a href="#cb84-3" aria-label="3"></a><span class="fu">pairs</span>(emm.mod2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>age.c = -20.804:
+ contrast  estimate    SE  df t.ratio p.value
+ pos - neg    0.353 0.204 576   1.734  0.0835
+
+age.c = -10.804:
+ contrast  estimate    SE  df t.ratio p.value
+ pos - neg    0.453 0.139 576   3.265  0.0012
+
+age.c =  -0.804:
+ contrast  estimate    SE  df t.ratio p.value
+ pos - neg    0.553 0.105 576   5.246 &lt;0.0001
+
+age.c =   9.196:
+ contrast  estimate    SE  df t.ratio p.value
+ pos - neg    0.652 0.131 576   4.992 &lt;0.0001
+
+age.c =  19.196:
+ contrast  estimate    SE  df t.ratio p.value
+ pos - neg    0.752 0.193 576   3.901  0.0001
+
+age.c =  29.196:
+ contrast  estimate    SE  df t.ratio p.value
+ pos - neg    0.852 0.267 576   3.188  0.0015
+
+Results are averaged over the levels of: gender, ethnicity, education, politics </code></pre>
+</div>
+</div>
+<p> The estimated framing effect grew from 0.35 points at age 20 to 0.85 points at age 70. It was not significant at age 20 (p = 0.084) but was significant from age 30 onward. Because the interaction was not significant, this pattern mostly reflects larger standard errors at the youngest ages rather than a true change in the framing effect.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb86"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-label="1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">|&gt;</span></span>
+<span id="cb86-2"><a href="#cb86-2" aria-label="2"></a>  <span class="fu">mutate</span>(<span class="at">neg2 =</span> <span class="fu">as.numeric</span>(frame2 <span class="sc">==</span> <span class="st">"neg"</span>))</span>
+<span id="cb86-3"><a href="#cb86-3" aria-label="3"></a></span>
+<span id="cb86-4"><a href="#cb86-4" aria-label="4"></a>mod2.jn <span class="ot">&lt;-</span> <span class="fu">lm</span>(pick2 <span class="sc">~</span> neg2 <span class="sc">*</span> age <span class="sc">+</span> gender <span class="sc">+</span> ethnicity <span class="sc">+</span> education <span class="sc">+</span> politics,</span>
+<span id="cb86-5"><a href="#cb86-5" aria-label="5"></a>              <span class="at">data =</span> dat)</span>
+<span id="cb86-6"><a href="#cb86-6" aria-label="6"></a></span>
+<span id="cb86-7"><a href="#cb86-7" aria-label="7"></a>interactions<span class="sc">::</span><span class="fu">johnson_neyman</span>(mod2.jn, <span class="at">pred =</span> <span class="st">"neg2"</span>, <span class="at">modx =</span> <span class="st">"age"</span>,</span>
+<span id="cb86-8"><a href="#cb86-8" aria-label="8"></a>                             <span class="at">control.fdr =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>JOHNSON-NEYMAN INTERVAL
+
+When age is INSIDE the interval [22.25, 120.37], the slope of neg2 is p &lt;
+.05.
+
+Note: The range of observed values of age is [18.00, 71.00]
+
+Interval calculated using false discovery rate adjusted t = 2.00 </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="HW4_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p> The Johnson-Neyman analysis showed that the framing effect is significant for ages above about 22. However, since the frame × age interaction was not significant, it is not so meaningful to interpret this.</p>
+</section>
+<section id="preference-for-chance-choice" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="preference-for-chance-choice"><span class="header-section-number">3.3</span> Preference for Chance Choice</h2>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb88"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-label="1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(pick3 <span class="sc">~</span> frame3 <span class="sc">*</span> age.c <span class="sc">+</span> gender <span class="sc">+</span> ethnicity <span class="sc">+</span> education <span class="sc">+</span> politics,</span>
+<span id="cb88-2"><a href="#cb88-2" aria-label="2"></a>           <span class="at">data =</span> dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p></p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-label="1"></a><span class="fu">plotResiduals</span>(mod3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="HW4_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p> The residuals fall along parallel bands because responses are integers from 1 to 6. Q-Q plot shows a fair Gaussian distribution.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb90"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-label="1"></a><span class="fu">plotInfluence</span>(mod3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="HW4_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p> Some observations have high leverage, but all Cook’s distances are far below the moderate threshold, so no observation is influential.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-label="1"></a>car<span class="sc">::</span><span class="fu">vif</span>(mod3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 GVIF Df GVIF^(1/(2*Df))
+frame3       1.033290  1        1.016509
+age.c        2.088709  1        1.445237
+gender       1.084603  2        1.020511
+ethnicity    1.150019  3        1.023570
+education    1.127959  4        1.015165
+politics     1.203553  3        1.031361
+frame3:age.c 2.027682  1        1.423967</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-label="1"></a>car<span class="sc">::</span><span class="fu">vif</span>(<span class="fu">lm</span>(pick3 <span class="sc">~</span> frame3 <span class="sc">+</span> age.c <span class="sc">+</span> gender <span class="sc">+</span> ethnicity <span class="sc">+</span> education <span class="sc">+</span> politics,</span>
+<span id="cb93-2"><a href="#cb93-2" aria-label="2"></a>            <span class="at">data =</span> dat))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>              GVIF Df GVIF^(1/(2*Df))
+frame3    1.033230  1        1.016479
+age.c     1.061355  1        1.030221
+gender    1.076443  2        1.018586
+ethnicity 1.136971  3        1.021625
+education 1.123259  4        1.014635
+politics  1.195032  3        1.030141</code></pre>
+</div>
+</div>
+<p> All adjusted GVIF values were between 1.0 and 1.5, so multicollinearity is not a concern.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb95"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-label="1"></a><span class="fu">anova</span>(mod3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: pick3
+              Df  Sum Sq Mean Sq F value   Pr(&gt;F)    
+frame3         1   66.53  66.528 31.9199 2.53e-08 ***
+age.c          1    2.00   2.001  0.9599  0.32762    
+gender         2    0.78   0.392  0.1882  0.82854    
+ethnicity      3   18.23   6.075  2.9148  0.03377 *  
+education      4    3.64   0.909  0.4361  0.78258    
+politics       3   23.64   7.878  3.7801  0.01050 *  
+frame3:age.c   1    4.48   4.481  2.1501  0.14311    
+Residuals    575 1198.42   2.084                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb97"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-label="1"></a>sum.mod3 <span class="ot">&lt;-</span> <span class="fu">summary</span>(mod3)</span>
+<span id="cb97-2"><a href="#cb97-2" aria-label="2"></a>effectsize<span class="sc">::</span><span class="fu">F_to_omega2</span>(<span class="at">f =</span> sum.mod3<span class="sc">$</span>fstatistic[<span class="dv">1</span>],</span>
+<span id="cb97-3"><a href="#cb97-3" aria-label="3"></a>                        <span class="at">df =</span> sum.mod3<span class="sc">$</span>fstatistic[<span class="dv">2</span>],</span>
+<span id="cb97-4"><a href="#cb97-4" aria-label="4"></a>                        <span class="at">df_error =</span> sum.mod3<span class="sc">$</span>fstatistic[<span class="dv">3</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Omega2 (partial) |       95% CI
+-------------------------------
+0.07             | [0.02, 1.00]
+
+- One-sided CIs: upper bound fixed at [1.00].</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb99"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-label="1"></a>effectsize<span class="sc">::</span><span class="fu">omega_squared</span>(<span class="fu">anova</span>(mod3))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># Effect Size for ANOVA (Type I)
+
+Parameter    | Omega2 (partial) |       95% CI
+----------------------------------------------
+frame3       |             0.05 | [0.02, 1.00]
+age.c        |             0.00 | [0.00, 1.00]
+gender       |             0.00 | [0.00, 1.00]
+ethnicity    |         9.63e-03 | [0.00, 1.00]
+education    |             0.00 | [0.00, 1.00]
+politics     |             0.01 | [0.00, 1.00]
+frame3:age.c |         1.94e-03 | [0.00, 1.00]
+
+- One-sided CIs: upper bound fixed at [1.00].</code></pre>
+</div>
+</div>
+<p> The frame had a significant effect on risk preference, though the effect size was small. The frame × age interaction was not significant. Ethnicity and political affiliation were significant, but their effect sizes were very small. The overall model had a small effect size.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb101"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-label="1"></a>sum.mod3<span class="sc">$</span>coefficients <span class="sc">|&gt;</span></span>
+<span id="cb101-2"><a href="#cb101-2" aria-label="2"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 42%">
+<col style="width: 10%">
+<col style="width: 13%">
+<col style="width: 9%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">Std. Error</th>
+<th style="text-align: right;">t value</th>
+<th style="text-align: right;">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">2.487</td>
+<td style="text-align: right;">0.220</td>
+<td style="text-align: right;">11.296</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">frame3neg</td>
+<td style="text-align: right;">0.611</td>
+<td style="text-align: right;">0.121</td>
+<td style="text-align: right;">5.061</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">age.c</td>
+<td style="text-align: right;">-0.001</td>
+<td style="text-align: right;">0.007</td>
+<td style="text-align: right;">-0.091</td>
+<td style="text-align: right;">0.928</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">genderMale</td>
+<td style="text-align: right;">0.049</td>
+<td style="text-align: right;">0.124</td>
+<td style="text-align: right;">0.394</td>
+<td style="text-align: right;">0.693</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">genderOther</td>
+<td style="text-align: right;">0.047</td>
+<td style="text-align: right;">0.475</td>
+<td style="text-align: right;">0.099</td>
+<td style="text-align: right;">0.921</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ethnicityBlack or African American</td>
+<td style="text-align: right;">0.361</td>
+<td style="text-align: right;">0.229</td>
+<td style="text-align: right;">1.580</td>
+<td style="text-align: right;">0.115</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ethnicityAsian</td>
+<td style="text-align: right;">0.411</td>
+<td style="text-align: right;">0.236</td>
+<td style="text-align: right;">1.737</td>
+<td style="text-align: right;">0.083</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ethnicityOther</td>
+<td style="text-align: right;">-0.417</td>
+<td style="text-align: right;">0.314</td>
+<td style="text-align: right;">-1.329</td>
+<td style="text-align: right;">0.184</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">educationSome college</td>
+<td style="text-align: right;">0.170</td>
+<td style="text-align: right;">0.231</td>
+<td style="text-align: right;">0.737</td>
+<td style="text-align: right;">0.461</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">education2 year degree</td>
+<td style="text-align: right;">0.019</td>
+<td style="text-align: right;">0.259</td>
+<td style="text-align: right;">0.073</td>
+<td style="text-align: right;">0.942</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">education4 year degree</td>
+<td style="text-align: right;">0.244</td>
+<td style="text-align: right;">0.212</td>
+<td style="text-align: right;">1.155</td>
+<td style="text-align: right;">0.248</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">educationGraduate degree</td>
+<td style="text-align: right;">0.068</td>
+<td style="text-align: right;">0.231</td>
+<td style="text-align: right;">0.292</td>
+<td style="text-align: right;">0.770</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">politicsRepublican</td>
+<td style="text-align: right;">0.280</td>
+<td style="text-align: right;">0.158</td>
+<td style="text-align: right;">1.768</td>
+<td style="text-align: right;">0.078</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">politicsIndependent</td>
+<td style="text-align: right;">0.499</td>
+<td style="text-align: right;">0.147</td>
+<td style="text-align: right;">3.386</td>
+<td style="text-align: right;">0.001</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">politicsOther</td>
+<td style="text-align: right;">0.239</td>
+<td style="text-align: right;">0.295</td>
+<td style="text-align: right;">0.811</td>
+<td style="text-align: right;">0.418</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">frame3neg:age.c</td>
+<td style="text-align: right;">0.014</td>
+<td style="text-align: right;">0.010</td>
+<td style="text-align: right;">1.466</td>
+<td style="text-align: right;">0.143</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> At the average age, participants who saw the negative frame were 0.61 points more likely to choose the risky option than those who saw the positive frame. Independents were 0.50 points more likely to choose the risky option than Democrats. The interaction coefficient suggests the framing effect grows with age, but it was not significant.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb102"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-label="1"></a>emt.mod3 <span class="ot">&lt;-</span> emmeans<span class="sc">::</span><span class="fu">emtrends</span>(mod3, <span class="sc">~</span> frame3, <span class="at">var =</span> <span class="st">"age.c"</span>)</span>
+<span id="cb102-2"><a href="#cb102-2" aria-label="2"></a>emmeans<span class="sc">::</span><span class="fu">test</span>(emt.mod3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> frame3 age.c.trend      SE  df t.ratio p.value
+ pos      -0.000626 0.00689 575  -0.091  0.9276
+ neg       0.013565 0.00690 575   1.966  0.0498
+
+Results are averaged over the levels of: gender, ethnicity, education, politics </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb104"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-label="1"></a><span class="fu">pairs</span>(emt.mod3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> contrast  estimate      SE  df t.ratio p.value
+ pos - neg  -0.0142 0.00968 575  -1.466  0.1431
+
+Results are averaged over the levels of: gender, ethnicity, education, politics </code></pre>
+</div>
+</div>
+<p> Under the positive frame, risk preference did not change with age. Under the negative frame, older participants were slightly more likely to choose the risky option, which is just barely significant. However, the two slopes were not significantly different, so there is only weak evidence that the negative frame drives an age-related change in this scenario.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb106"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-label="1"></a>emm.mod3 <span class="ot">&lt;-</span> emmeans<span class="sc">::</span><span class="fu">emmeans</span>(mod3, <span class="sc">~</span> frame3 <span class="sc">|</span> age.c,</span>
+<span id="cb106-2"><a href="#cb106-2" aria-label="2"></a>                             <span class="at">at =</span> <span class="fu">list</span>(<span class="at">age.c =</span> ages <span class="sc">-</span> mean.age))</span>
+<span id="cb106-3"><a href="#cb106-3" aria-label="3"></a><span class="fu">pairs</span>(emm.mod3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>age.c = -20.804:
+ contrast  estimate    SE  df t.ratio p.value
+ pos - neg   -0.316 0.236 575  -1.341  0.1804
+
+age.c = -10.804:
+ contrast  estimate    SE  df t.ratio p.value
+ pos - neg   -0.458 0.160 575  -2.856  0.0045
+
+age.c =  -0.804:
+ contrast  estimate    SE  df t.ratio p.value
+ pos - neg   -0.600 0.121 575  -4.954 &lt;0.0001
+
+age.c =   9.196:
+ contrast  estimate    SE  df t.ratio p.value
+ pos - neg   -0.742 0.149 575  -4.962 &lt;0.0001
+
+age.c =  19.196:
+ contrast  estimate    SE  df t.ratio p.value
+ pos - neg   -0.884 0.221 575  -4.002 &lt;0.0001
+
+age.c =  29.196:
+ contrast  estimate    SE  df t.ratio p.value
+ pos - neg   -1.025 0.306 575  -3.347  0.0009
+
+Results are averaged over the levels of: gender, ethnicity, education, politics </code></pre>
+</div>
+</div>
+<p> The framing effect (negative minus positive) grew from 0.32 points at age 20 to 1.03 points at age 70. It was not significant at age 20 but was significant from age 30 onward.</p>
+<p></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb108"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-label="1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">|&gt;</span></span>
+<span id="cb108-2"><a href="#cb108-2" aria-label="2"></a>  <span class="fu">mutate</span>(<span class="at">neg3 =</span> <span class="fu">as.numeric</span>(frame3 <span class="sc">==</span> <span class="st">"neg"</span>))</span>
+<span id="cb108-3"><a href="#cb108-3" aria-label="3"></a></span>
+<span id="cb108-4"><a href="#cb108-4" aria-label="4"></a>mod3.jn <span class="ot">&lt;-</span> <span class="fu">lm</span>(pick3 <span class="sc">~</span> neg3 <span class="sc">*</span> age <span class="sc">+</span> gender <span class="sc">+</span> ethnicity <span class="sc">+</span> education <span class="sc">+</span> politics,</span>
+<span id="cb108-5"><a href="#cb108-5" aria-label="5"></a>              <span class="at">data =</span> dat)</span>
+<span id="cb108-6"><a href="#cb108-6" aria-label="6"></a></span>
+<span id="cb108-7"><a href="#cb108-7" aria-label="7"></a>interactions<span class="sc">::</span><span class="fu">johnson_neyman</span>(mod3.jn, <span class="at">pred =</span> <span class="st">"neg3"</span>, <span class="at">modx =</span> <span class="st">"age"</span>,</span>
+<span id="cb108-8"><a href="#cb108-8" aria-label="8"></a>                             <span class="at">control.fdr =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>JOHNSON-NEYMAN INTERVAL
+
+When age is INSIDE the interval [25.33, 151.11], the slope of neg3 is p &lt;
+.05.
+
+Note: The range of observed values of age is [18.00, 71.00]
+
+Interval calculated using false discovery rate adjusted t = 2.03 </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="HW4_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p> The Johnson-Neyman analysis showed that the framing effect is significant for ages between 25.3 and 151.1. This means the effect is significant for participants older than about 25. However, since the frame × age interaction was not significant, I do not interpret 25 as a clear onset age.</p>
+</section>
+</section>
+<section id="discussion" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Discussion</h1>
+<p>Across all three scenarios, how a choice was worded clearly changed people’s responses: the negative frame lowered drug ratings, increased willingness to stop drinking cocoa, and increased preference for the risky option. Whether this framing effect grows with age is less clear. In all three scenarios the interaction pointed in the same direction, with the framing effect larger for older adults, but it was significant only for drug efficacy (p = 0.042). In every scenario, the age slope under the positive frame was essentially zero, while the slope under the negative frame was larger and close to significance (p = 0.099, 0.056, 0.0498). This pattern is consistent with <span class="citation" data-cites="Xu24">Xu (<a href="#ref-Xu24" role="doc-biblioref">2024</a>)</span>’s conclusion that any age-related change is driven by the negative frame, though my evidence for it is weaker.</p>
+<p>I did not find a clear onset age. For drug efficacy, the framing effect was significant across the entire observed age range (18–71). For the other two scenarios, the Johnson-Neyman analysis suggested significance after about ag 22–25, but because their interactions were not significant, I do not interpret these as true onset ages. This differs from <span class="citation" data-cites="Xu24">Xu (<a href="#ref-Xu24" role="doc-biblioref">2024</a>)</span>, who reported onset ages of about 32–34 even though only one of their interactions was significant.</p>
+<p>My results may differ from the original study because I analyzed a stricter sample of 592 participants who passed both attention checks, rather than 696.</p>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-Xu24" class="csl-entry" role="listitem">
+Xu, Lance. 2024. <span>“Advanced Age Predicts Increased Susceptibility to Attribute, Goal, and Risky-Choice Framing in Negative Frame Valences.”</span> <em>Humanities and Social Sciences Communications</em> 11 (1): 217.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
