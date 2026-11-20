@@ -30,9 +30,11 @@ website:
             href: MATH354/HW4/HW4.qmd
           - text: "Homework 5: Regression"
             href: MATH354/HW5/HW5.qmd
-page-footer:
-  left: "© 2026 Colgate University Student Portfolio"
-  right: "[GitHub Source](https://github.com/haiyuzhuhz)"
+website:
+  sidebar:
+  page-footer:
+    left: "© 2026 Colgate University Student Portfolio"
+    right: "[GitHub Source](https://github.com/haiyuzhuhz)"
 
 format:
   html:
