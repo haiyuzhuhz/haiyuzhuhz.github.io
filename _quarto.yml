@@ -21,15 +21,15 @@ website:
       - section: "Data Analysis I"
         contents:
           - text: "Homework 1: One Sample Inference"
-            href: MATH354/hw1.qmd
+            href: MATH354/HW1/HW1.qmd
           - text: "Homework 2: k Sample Inference"   
-            href: MATH354/HW2.qmd 
+            href: MATH354/HW2/HW2.qmd 
           - text: "Homework 3: Regression"
-            href: MATH354/HW3.qmd
+            href: MATH354/HW3/HW3.qmd
           - text: "Homework 4: Regression Consult"
-            href: MATH354/HW4.qmd
+            href: MATH354/HW4/HW4.qmd
           - text: "Homework 5: Regression"
-            href: MATH354/HW5.qmd
+            href: MATH354/HW5/HW5.qmd
 page-footer:
   left: "© 2026 Colgate University Student Portfolio"
   right: "[GitHub Source](https://github.com/haiyuzhuhz)"
